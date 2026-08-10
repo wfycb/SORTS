@@ -1,0 +1,39 @@
+{
+ "ts": 1786365589.1792266,
+ "S1": [
+  "therm:acpitz:27800",
+  "therm:pch_cannonlake:61000",
+  "therm:x86_pkg_temp:65000",
+  "freq:3199891",
+  "load:0.07 0.66 0.53 3/1581 90939"
+ ],
+ "S2": [
+  "therm:acpitz:27800",
+  "therm:pch_cannonlake:69000",
+  "therm:x86_pkg_temp:61000",
+  "freq:3199935",
+  "load:0.74 1.74 1.08 1/1266 122482"
+ ],
+ "S3": [
+  "therm:acpitz:27800",
+  "therm:pch_cannonlake:70000",
+  "therm:x86_pkg_temp:62000",
+  "freq:3200040",
+  "load:0.34 1.26 4.91 1/1316 205335"
+ ],
+ "envoy": [
+  "therm:acpitz:27800",
+  "therm:acpitz:29800",
+  "therm:x86_pkg_temp:60000",
+  "freq:3691427",
+  "load:0.08 0.17 0.23 1/776 953017"
+ ],
+ "loadgen": [
+  "therm:INT3400 Thermal:20000",
+  "therm:TCPU:56050",
+  "therm:TCPU_PCI:58000",
+  "therm:x86_pkg_temp:58000",
+  "freq:4098483",
+  "load:0.05 0.12 0.18 1/638 399576"
+ ]
+}

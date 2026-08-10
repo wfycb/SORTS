@@ -1,0 +1,42 @@
+{
+ "batch_id": "demo-20260805",
+ "manifest": "manifest_demo.json",
+ "outdir": "runs/demo-20260805",
+ "n_runs": 6,
+ "started_ts": 1785861928.3292298,
+ "current": null,
+ "runs": {
+  "D1_sorts_none": {
+   "status": "DONE",
+   "start_ts": 1785861928.3294182,
+   "end_ts": 1785862375.819945
+  },
+  "D2_sorts_radio": {
+   "status": "DONE",
+   "start_ts": 1785862438.1357527,
+   "end_ts": 1785862885.564165
+  },
+  "D3_s3_radio": {
+   "status": "DONE",
+   "start_ts": 1785862947.8767943,
+   "end_ts": 1785863389.5713706
+  },
+  "D4_rr_radio": {
+   "status": "DONE",
+   "start_ts": 1785863451.876915,
+   "end_ts": 1785863893.5852244
+  },
+  "D5_lr_radio": {
+   "status": "DONE",
+   "start_ts": 1785863955.8770003,
+   "end_ts": 1785864397.6034315
+  },
+  "D6_sorts_ramp": {
+   "status": "DONE",
+   "start_ts": 1785864459.8898492,
+   "end_ts": 1785864907.2629695
+  }
+ },
+ "heartbeat_ts": 1785864909.5187118,
+ "finished_ts": 1785864909.5187113
+}

@@ -1,0 +1,27 @@
+{
+ "batch_id": "taskB3-s0c-ceff-low2",
+ "manifest": "manifest_taskB3_s0c.json",
+ "outdir": "runs/taskB3-20260810/s0",
+ "n_runs": 3,
+ "started_ts": 1786374859.4946356,
+ "current": null,
+ "runs": {
+  "s0_b1600_r250": {
+   "status": "DONE",
+   "start_ts": 1786374859.494865,
+   "end_ts": 1786375096.3128884
+  },
+  "s0_b1600_r200": {
+   "status": "DONE",
+   "start_ts": 1786375128.6002522,
+   "end_ts": 1786375365.1571083
+  },
+  "s0_b1600_r160": {
+   "status": "DONE",
+   "start_ts": 1786375397.4299672,
+   "end_ts": 1786375633.8168387
+  }
+ },
+ "heartbeat_ts": 1786375636.0899496,
+ "finished_ts": 1786375636.089949
+}

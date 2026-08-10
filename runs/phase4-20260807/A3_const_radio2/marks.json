@@ -1,0 +1,35 @@
+{
+ "run_id": "A3_const_radio2",
+ "disturb": "radio",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.08007335662841797,
+  "d12_probe_rtt_s": 0.1602158546447754,
+  "d43_s": 0.1989455223083496,
+  "d43_probe_rtt_s": 0.44699597358703613,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786118072.821436,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "radio_on",
+   "phase": "start",
+   "spec": "rate 2300kbit",
+   "t_issue": 1786118192.8613017,
+   "t_done": 1786118193.7179654,
+   "t43_done": 1786118193.916911,
+   "apply_lat_s": 0.857
+  },
+  {
+   "what": "radio_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786118312.8378687,
+   "t_done": 1786118313.3055058,
+   "t43_done": 1786118313.5044513,
+   "apply_lat_s": 0.468
+  }
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "run_id": "T9_fartier_both_radio",
+ "policy": "sorts_reactive",
+ "disturb": "radio",
+ "t_start": 1786259563.863785,
+ "t_meas": 1786259623.863785,
+ "warmup": 60,
+ "duration": 360,
+ "connections": 16,
+ "rps_per_connection": 25,
+ "total_rps": 800,
+ "mix": "reserve=1:/reservation?inDate=2015-04-09&outDate=2015-04-10&hotelId=1&customerName=dexp&username=Cornell_30&password=0000000000&number=1,search=1.5:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112,recommend=2:/recommendations?require=dis&lat=37.7867&lon=-122.4112",
+ "cohort_map": {
+  "1": {
+   "iface": "uesimtun0",
+   "addr": "10.46.0.6"
+  },
+  "2": {
+   "iface": "uesimtun1",
+   "addr": "10.46.0.7"
+  }
+ },
+ "marks": [
+  {
+   "what": "radio_on",
+   "phase": "start",
+   "spec": "rate 2300kbit",
+   "t_issue": 1786259743.9215715,
+   "t_done": 1786259744.7769036,
+   "t43_done": 1786259744.9723883,
+   "apply_lat_s": 0.855
+  },
+  {
+   "what": "radio_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786259863.9003725,
+   "t_done": 1786259864.3623617,
+   "t43_done": 1786259864.5578463,
+   "apply_lat_s": 0.462
+  }
+ ],
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.0760798454284668,
+  "d12_probe_rtt_s": 0.15910053253173828,
+  "d43_s": 0.19548463821411133,
+  "d43_probe_rtt_s": 0.4461853504180908,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "envoy_log_bytes": [
+  4586639321,
+  4660117526
+ ],
+ "sections_abs_12": {
+  "pre": [
+   1786259623.863785,
+   1786259741.9976513
+  ],
+  "during": [
+   1786259746.8529835,
+   1786259861.9764524
+  ],
+  "post": [
+   1786259866.4384415,
+   1786259983.863785
+  ]
+ },
+ "sections_rel_s": {
+  "pre": [
+   0.0,
+   118.134
+  ],
+  "during": [
+   122.989,
+   238.113
+  ],
+  "post": [
+   242.575,
+   360.0
+  ]
+ },
+ "cut_basis": "end_ts (완료 벽시계, .12) vs marks.json ±GUARD",
+ "host_clocks": "NTP synced (timedatectl NTPSynchronized=yes on all nodes)",
+ "arm": {
+  "requested": {
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier"
+  },
+  "effective": {
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier"
+  },
+  "sorts_yaml_md5": "71af6ae335524c3350b03d63c16e0b60"
+ },
+ "standing_band_kbit": null,
+ "band_margin_warn": false,
+ "postcheck": {
+  "ok": true,
+  "reasons": []
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "batch_id": "it-20260805",
+ "manifest": "manifest_it.json",
+ "outdir": "runs/it-20260805",
+ "n_runs": 1,
+ "started_ts": 1785861764.790074,
+ "current": null,
+ "runs": {
+  "IT_sorts_radio": {
+   "status": "DONE",
+   "start_ts": 1785861764.7902486,
+   "end_ts": 1785861894.9404588
+  }
+ },
+ "heartbeat_ts": 1785861897.1926765,
+ "finished_ts": 1785861897.192676
+}

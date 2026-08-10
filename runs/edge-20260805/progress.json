@@ -1,0 +1,17 @@
+{
+ "batch_id": "edge-20260805",
+ "manifest": "manifest_edge_b.json",
+ "outdir": "runs/edge-20260805",
+ "n_runs": 1,
+ "started_ts": 1785900990.5000181,
+ "current": null,
+ "runs": {
+  "E2_sorts_near": {
+   "status": "DONE",
+   "start_ts": 1785900990.500242,
+   "end_ts": 1785901306.1383083
+  }
+ },
+ "heartbeat_ts": 1785901308.3936837,
+ "finished_ts": 1785901308.3936832
+}

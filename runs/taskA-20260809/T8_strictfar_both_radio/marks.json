@@ -1,0 +1,35 @@
+{
+ "run_id": "T8_strictfar_both_radio",
+ "disturb": "radio",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.07773518562316895,
+  "d12_probe_rtt_s": 0.16013264656066895,
+  "d43_s": 0.19714903831481934,
+  "d43_probe_rtt_s": 0.4484260082244873,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786259104.191972,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "radio_on",
+   "phase": "start",
+   "spec": "rate 2300kbit",
+   "t_issue": 1786259224.2644894,
+   "t_done": 1786259225.1243052,
+   "t43_done": 1786259225.3214543,
+   "apply_lat_s": 0.86
+  },
+  {
+   "what": "radio_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786259344.241324,
+   "t_done": 1786259344.7007005,
+   "t43_done": 1786259344.8978496,
+   "apply_lat_s": 0.459
+  }
+ ]
+}

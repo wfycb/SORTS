@@ -1,0 +1,32 @@
+{
+ "batch_id": "smoke-20260803",
+ "manifest": "/home/user/exp/manifest_smoke.json",
+ "outdir": "/home/user/exp/runs/smoke-20260803",
+ "n_runs": 4,
+ "started_ts": 1785728800.3820457,
+ "current": null,
+ "runs": {
+  "S_none_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785728800.3822384,
+   "end_ts": 1785728893.5338075
+  },
+  "S_none_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785728924.5856764,
+   "end_ts": 1785729104.5035267
+  },
+  "S_radio_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785729135.565537,
+   "end_ts": 1785729245.3155396
+  },
+  "S_radio_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785729276.3755462,
+   "end_ts": 1785729458.9155686
+  }
+ },
+ "heartbeat_ts": 1785729459.94534,
+ "finished_ts": 1785729459.9453394
+}

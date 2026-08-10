@@ -1,0 +1,22 @@
+{
+ "batch_id": "taskC1-20260810",
+ "manifest": "manifest_taskC1.json",
+ "outdir": "runs/taskC1-20260810",
+ "n_runs": 2,
+ "started_ts": 1786297315.9463465,
+ "current": null,
+ "runs": {
+  "C1a_fartier_edge": {
+   "status": "DONE",
+   "start_ts": 1786297315.946525,
+   "end_ts": 1786297773.2947268
+  },
+  "C1b_strictfar_edge": {
+   "status": "DONE",
+   "start_ts": 1786297835.6134756,
+   "end_ts": 1786298293.0279906
+  }
+ },
+ "heartbeat_ts": 1786298295.29886,
+ "finished_ts": 1786298295.2988594
+}

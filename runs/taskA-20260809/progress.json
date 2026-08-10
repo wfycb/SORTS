@@ -1,0 +1,67 @@
+{
+ "batch_id": null,
+ "manifest": "manifest_taskA.json",
+ "outdir": "runs/taskA-20260809",
+ "n_runs": 11,
+ "started_ts": 1786255386.094203,
+ "current": null,
+ "runs": {
+  "T1_strictfar_const_server": {
+   "status": "DONE",
+   "start_ts": 1786255386.0943804,
+   "end_ts": 1786255844.5431042
+  },
+  "T2_strictfar_both_server": {
+   "status": "DONE",
+   "start_ts": 1786255906.8515942,
+   "end_ts": 1786256365.2350905
+  },
+  "T3_fartier_both_server": {
+   "status": "DONE",
+   "start_ts": 1786256427.5477753,
+   "end_ts": 1786256889.0065184
+  },
+  "T4_fartier_both_server2": {
+   "status": "DONE",
+   "start_ts": 1786256951.3005004,
+   "end_ts": 1786257409.6936212
+  },
+  "T5_rr_server": {
+   "status": "DONE",
+   "start_ts": 1786257472.0162723,
+   "end_ts": 1786257923.8829606
+  },
+  "T6_lr_server": {
+   "status": "DONE",
+   "start_ts": 1786257986.1497211,
+   "end_ts": 1786258440.2675328
+  },
+  "T7_allfeas_both_server": {
+   "status": "DONE",
+   "start_ts": 1786258502.5761044,
+   "end_ts": 1786258961.0399032
+  },
+  "T8_strictfar_both_radio": {
+   "status": "DONE",
+   "start_ts": 1786259023.3455312,
+   "end_ts": 1786259480.6919413
+  },
+  "T9_fartier_both_radio": {
+   "status": "DONE",
+   "start_ts": 1786259543.0064757,
+   "end_ts": 1786260000.4303463
+  },
+  "T10_fartier_both_edge": {
+   "status": "DONE",
+   "start_ts": 1786260062.7487023,
+   "end_ts": 1786260520.1786292
+  },
+  "T11_strictfar_both_edge": {
+   "status": "DONE",
+   "start_ts": 1786260582.4820383,
+   "end_ts": 1786261039.8887632
+  }
+ },
+ "heartbeat_ts": 1786261042.1439009,
+ "finished_ts": 1786261042.1439004
+}

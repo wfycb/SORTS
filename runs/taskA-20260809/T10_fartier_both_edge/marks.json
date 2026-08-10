@@ -1,0 +1,44 @@
+{
+ "run_id": "T10_fartier_both_edge",
+ "disturb": "seq_extreme",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.0744476318359375,
+  "d12_probe_rtt_s": 0.15778326988220215,
+  "d43_s": 0.19567060470581055,
+  "d43_probe_rtt_s": 0.44799375534057617,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786260143.611313,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "c1_extreme",
+   "phase": "start",
+   "spec": "rate 1600kbit",
+   "t_issue": 1786260263.7001355,
+   "t_done": 1786260264.554956,
+   "t43_done": 1786260264.7506266,
+   "apply_lat_s": 0.855
+  },
+  {
+   "what": "c2_extreme",
+   "phase": "other",
+   "spec": "rate 1600kbit x2",
+   "t_issue": 1786260323.6161451,
+   "t_done": 1786260324.8752174,
+   "t43_done": 1786260325.070888,
+   "apply_lat_s": 1.259
+  },
+  {
+   "what": "clear_all",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786260383.5386078,
+   "t_done": 1786260383.9987497,
+   "t43_done": 1786260384.1944203,
+   "apply_lat_s": 0.46
+  }
+ ]
+}

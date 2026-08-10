@@ -1,0 +1,62 @@
+{
+ "batch_id": "night-t3-discrim",
+ "manifest": "manifest_night_t3.json",
+ "outdir": "runs/night-20260810/t3",
+ "n_runs": 10,
+ "started_ts": 1786307811.8730433,
+ "current": null,
+ "runs": {
+  "t3_D1_far": {
+   "status": "DONE",
+   "start_ts": 1786307811.8732324,
+   "end_ts": 1786308276.2299821
+  },
+  "t3_D1_strict": {
+   "status": "DONE",
+   "start_ts": 1786308338.7562346,
+   "end_ts": 1786308802.3908908
+  },
+  "t3_D2_strict": {
+   "status": "DONE",
+   "start_ts": 1786308864.9024827,
+   "end_ts": 1786309322.3009498
+  },
+  "t3_D2_far": {
+   "status": "DONE",
+   "start_ts": 1786309384.578385,
+   "end_ts": 1786309842.0109913
+  },
+  "t3_D3_far": {
+   "status": "DONE",
+   "start_ts": 1786309904.3228722,
+   "end_ts": 1786310359.9042404
+  },
+  "t3_D3_strict": {
+   "status": "DONE",
+   "start_ts": 1786310422.2306397,
+   "end_ts": 1786310877.628069
+  },
+  "t3_D4_strict": {
+   "status": "DONE",
+   "start_ts": 1786310939.887001,
+   "end_ts": 1786311403.4306617
+  },
+  "t3_D4_far": {
+   "status": "DONE",
+   "start_ts": 1786311465.9755049,
+   "end_ts": 1786311928.4621885
+  },
+  "t3_D5_far": {
+   "status": "DONE",
+   "start_ts": 1786311991.0227067,
+   "end_ts": 1786312446.581774
+  },
+  "t3_D5_strict": {
+   "status": "DONE",
+   "start_ts": 1786312508.9089758,
+   "end_ts": 1786312963.3071835
+  }
+ },
+ "heartbeat_ts": 1786312965.5568295,
+ "finished_ts": 1786312965.556829
+}

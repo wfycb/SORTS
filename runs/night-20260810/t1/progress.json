@@ -1,0 +1,37 @@
+{
+ "batch_id": "night-t1b-capacity",
+ "manifest": "manifest_night_t1b.json",
+ "outdir": "runs/night-20260810/t1",
+ "n_runs": 5,
+ "started_ts": 1786306454.3732533,
+ "current": null,
+ "runs": {
+  "t1b_s1srch_r260": {
+   "status": "DONE",
+   "start_ts": 1786306454.3735085,
+   "end_ts": 1786306688.7895737
+  },
+  "t1b_s1srch_r280": {
+   "status": "DONE",
+   "start_ts": 1786306721.0760236,
+   "end_ts": 1786306955.7024605
+  },
+  "t1b_s1srch_r300": {
+   "status": "DONE",
+   "start_ts": 1786306987.9838707,
+   "end_ts": 1786307229.1251087
+  },
+  "t1b_s1mix_r500": {
+   "status": "DONE",
+   "start_ts": 1786307261.4031506,
+   "end_ts": 1786307497.0538495
+  },
+  "t1b_s1mix_r600": {
+   "status": "DONE",
+   "start_ts": 1786307529.3281605,
+   "end_ts": 1786307767.7326117
+  }
+ },
+ "heartbeat_ts": 1786307769.969873,
+ "finished_ts": 1786307769.9698722
+}

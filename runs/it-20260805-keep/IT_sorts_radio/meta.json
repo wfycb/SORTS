@@ -1,0 +1,85 @@
+{
+ "run_id": "IT_sorts_radio",
+ "policy": "sorts_reactive",
+ "disturb": "radio",
+ "t_start": 1785861778.832594,
+ "t_meas": 1785861798.832594,
+ "warmup": 20,
+ "duration": 90,
+ "connections": 4,
+ "rps_per_connection": 25,
+ "total_rps": 200,
+ "mix": "reserve=1:/reservation?inDate=2015-04-09&outDate=2015-04-10&hotelId=1&customerName=dexp&username=Cornell_30&password=0000000000&number=1,search=1.5:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112,recommend=2:/recommendations?require=dis&lat=37.7867&lon=-122.4112",
+ "cohort_map": {
+  "1": {
+   "iface": "uesimtun0",
+   "addr": "10.46.0.6"
+  },
+  "2": {
+   "iface": "uesimtun1",
+   "addr": "10.46.0.7"
+  }
+ },
+ "marks": [
+  {
+   "what": "radio_on",
+   "phase": "start",
+   "spec": "rate 2300kbit",
+   "t_issue": 1785861828.9286668,
+   "t_done": 1785861829.7746024,
+   "t43_done": 1785861829.9715505,
+   "apply_lat_s": 0.846
+  },
+  {
+   "what": "radio_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1785861858.8045332,
+   "t_done": 1785861859.2643468,
+   "t43_done": 1785861859.461295,
+   "apply_lat_s": 0.46
+  }
+ ],
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.08506631851196289,
+  "d12_probe_rtt_s": 0.15882515907287598,
+  "d43_s": 0.19694805145263672,
+  "d43_probe_rtt_s": 0.4470548629760742,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "envoy_log_bytes": [
+  2376264608,
+  2381091542
+ ],
+ "sections_abs_12": {
+  "pre": [
+   1785861798.832594,
+   1785861827.0137331
+  ],
+  "during": [
+   1785861831.8596687,
+   1785861856.8895996
+  ],
+  "post": [
+   1785861861.3494132,
+   1785861888.832594
+  ]
+ },
+ "sections_rel_s": {
+  "pre": [
+   0.0,
+   28.181
+  ],
+  "during": [
+   33.027,
+   58.057
+  ],
+  "post": [
+   62.517,
+   90.0
+  ]
+ },
+ "cut_basis": "end_ts (완료 벽시계, .12) vs marks.json ±GUARD",
+ "host_clocks": "NTP synced (timedatectl NTPSynchronized=yes on all nodes)"
+}

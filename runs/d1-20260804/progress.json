@@ -1,0 +1,92 @@
+{
+ "batch_id": "d1-20260804",
+ "manifest": "/home/user/exp/manifest.json",
+ "outdir": "/home/user/exp/runs/d1-20260804",
+ "n_runs": 16,
+ "started_ts": 1785777208.4971576,
+ "current": null,
+ "runs": {
+  "A_none_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785777208.497345,
+   "end_ts": 1785777648.80821
+  },
+  "A_none_bl_rr": {
+   "status": "DONE",
+   "start_ts": 1785777710.1815147,
+   "end_ts": 1785778150.908499
+  },
+  "A_none_bl_lr": {
+   "status": "DONE",
+   "start_ts": 1785778212.2873254,
+   "end_ts": 1785778652.682473
+  },
+  "A_none_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785778714.0835595,
+   "end_ts": 1785779264.2435746
+  },
+  "A_radio_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785779325.6069481,
+   "end_ts": 1785779765.7784028
+  },
+  "A_radio_bl_rr": {
+   "status": "DONE",
+   "start_ts": 1785779827.1715305,
+   "end_ts": 1785780267.4873116
+  },
+  "A_radio_bl_lr": {
+   "status": "DONE",
+   "start_ts": 1785780328.876001,
+   "end_ts": 1785780769.151875
+  },
+  "A_radio_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785780830.523245,
+   "end_ts": 1785781379.5338628
+  },
+  "A_server_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785781440.91848,
+   "end_ts": 1785781880.8547704
+  },
+  "A_server_bl_rr": {
+   "status": "DONE",
+   "start_ts": 1785781942.2198765,
+   "end_ts": 1785782382.17838
+  },
+  "A_server_bl_lr": {
+   "status": "DONE",
+   "start_ts": 1785782443.5366662,
+   "end_ts": 1785782883.482388
+  },
+  "A_server_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785782944.843505,
+   "end_ts": 1785783493.371201
+  },
+  "B_ramp_site_s3": {
+   "status": "DONE",
+   "start_ts": 1785783554.719156,
+   "end_ts": 1785783995.008185
+  },
+  "B_ramp_bl_rr": {
+   "status": "DONE",
+   "start_ts": 1785784056.3957372,
+   "end_ts": 1785784496.8015456
+  },
+  "B_ramp_bl_lr": {
+   "status": "DONE",
+   "start_ts": 1785784558.190667,
+   "end_ts": 1785784998.9144697
+  },
+  "B_ramp_bl_loc": {
+   "status": "DONE",
+   "start_ts": 1785785060.3065631,
+   "end_ts": 1785785611.265893
+  }
+ },
+ "heartbeat_ts": 1785785612.598339,
+ "finished_ts": 1785785612.5983384
+}

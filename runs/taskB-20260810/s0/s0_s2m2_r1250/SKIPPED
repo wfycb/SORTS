@@ -1,0 +1,9 @@
+{
+ "run_id": "s0_s2m2_r1250",
+ "status": "SKIPPED",
+ "reasons": [
+  "sorts_ctl.py 배포 불일치 .40=587fac1e .43=b5b68d56 -> scp /home/user/exp/sorts_ctl.py 192.168.0.43:~/sorts_ctl.py",
+  "obs.py 배포 불일치 .40=b9fac68d .43=22b58bf0 -> scp /home/user/exp/obs.py 192.168.0.43:~/obs.py"
+ ],
+ "ts": 1786347057.7706091
+}

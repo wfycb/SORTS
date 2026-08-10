@@ -1,0 +1,43 @@
+{
+ "run_id": "S_none_site_s3",
+ "policy": "site_s3",
+ "disturb": "none",
+ "t_start": 1785772184.395869,
+ "t_meas": 1785772204.395869,
+ "warmup": 20,
+ "duration": 60,
+ "connections": 28,
+ "rps_per_connection": 25,
+ "total_rps": 1400,
+ "mix": "reserve=1:/reservation?inDate=2015-04-09&outDate=2015-04-10&hotelId=1&customerName=dexp&username=Cornell_30&password=0000000000&number=1,search=1.5:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112,recommend=2:/recommendations?require=dis&lat=37.7867&lon=-122.4112",
+ "cohort_map": {
+  "1": {
+   "iface": "uesimtun0",
+   "addr": "10.46.0.6"
+  },
+  "2": {
+   "iface": "uesimtun1",
+   "addr": "10.46.0.7"
+  }
+ },
+ "marks": [],
+ "envoy_log_bytes": [
+  495324490,
+  519902402
+ ],
+ "sections_rel_s": {
+  "pre": [
+   0.0,
+   20.0
+  ],
+  "during": [
+   20.0,
+   50.0
+  ],
+  "post": [
+   50.0,
+   60.0
+  ]
+ },
+ "host_clocks": "NTP synced (timedatectl NTPSynchronized=yes on all nodes)"
+}

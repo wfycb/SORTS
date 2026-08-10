@@ -1,0 +1,78 @@
+{
+ "batch_id": "phase4-20260807",
+ "manifest": "manifest_phase4.json",
+ "outdir": "runs/phase4-20260807",
+ "n_runs": 14,
+ "started_ts": 1786116407.2891355,
+ "current": null,
+ "runs": {
+  "R1_rr_radio": {
+   "status": "SKIPPED_RESUME"
+  },
+  "R2_lr_radio": {
+   "status": "SKIPPED_RESUME"
+  },
+  "B0_const_none": {
+   "status": "DONE",
+   "start_ts": 1786116407.2962546,
+   "end_ts": 1786116863.8726234
+  },
+  "A1_const_radio": {
+   "status": "DONE",
+   "start_ts": 1786116926.1302137,
+   "end_ts": 1786117382.6061442
+  },
+  "A2_both_radio": {
+   "status": "DONE",
+   "start_ts": 1786117444.9215689,
+   "end_ts": 1786117901.4003334
+  },
+  "A3_const_radio2": {
+   "status": "DONE",
+   "start_ts": 1786117963.7305012,
+   "end_ts": 1786118449.302166
+  },
+  "A4_both_radio2": {
+   "status": "DONE",
+   "start_ts": 1786118511.6281688,
+   "end_ts": 1786118968.082691
+  },
+  "S1_const_server": {
+   "status": "DONE",
+   "start_ts": 1786119030.3802676,
+   "end_ts": 1786119489.0386975
+  },
+  "S2_both_server": {
+   "status": "DONE",
+   "start_ts": 1786119551.3537052,
+   "end_ts": 1786120008.7476652
+  },
+  "S3_const_server2": {
+   "status": "DONE",
+   "start_ts": 1786120071.0421052,
+   "end_ts": 1786120533.5193615
+  },
+  "S4_both_server2": {
+   "status": "DONE",
+   "start_ts": 1786120595.8428879,
+   "end_ts": 1786121053.2470858
+  },
+  "S5_rr_server": {
+   "status": "DONE",
+   "start_ts": 1786121115.5836546,
+   "end_ts": 1786121566.5727866
+  },
+  "S6_lr_server": {
+   "status": "DONE",
+   "start_ts": 1786121628.8870997,
+   "end_ts": 1786122079.8621798
+  },
+  "W1_both_server_w40": {
+   "status": "DONE",
+   "start_ts": 1786122142.1680984,
+   "end_ts": 1786122599.6727266
+  }
+ },
+ "heartbeat_ts": 1786122601.925754,
+ "finished_ts": 1786122601.9257536
+}

@@ -1,0 +1,42 @@
+{
+ "batch_id": "taskB2-s0b-s3comp",
+ "manifest": "manifest_taskB2_s0b.json",
+ "outdir": "runs/taskB2-20260810/s0b",
+ "n_runs": 6,
+ "started_ts": 1786362936.3931813,
+ "current": null,
+ "runs": {
+  "s0b_s3m0_r2100": {
+   "status": "DONE",
+   "start_ts": 1786362936.39335,
+   "end_ts": 1786363214.0399518
+  },
+  "s0b_s3m1_r900": {
+   "status": "DONE",
+   "start_ts": 1786363246.3189728,
+   "end_ts": 1786363484.9908996
+  },
+  "s0b_s3m2_r2400": {
+   "status": "DONE",
+   "start_ts": 1786363517.2652974,
+   "end_ts": 1786363763.4948995
+  },
+  "s0b_s3m0_r2500": {
+   "status": "DONE",
+   "start_ts": 1786363795.8659368,
+   "end_ts": 1786364082.7758253
+  },
+  "s0b_s3m1_r1450": {
+   "status": "DONE",
+   "start_ts": 1786364115.152925,
+   "end_ts": 1786364388.9186728
+  },
+  "s0b_s3m2_r3300": {
+   "status": "DONE",
+   "start_ts": 1786364421.1914976,
+   "end_ts": 1786364713.151565
+  }
+ },
+ "heartbeat_ts": 1786364715.6548796,
+ "finished_ts": 1786364715.6548786
+}

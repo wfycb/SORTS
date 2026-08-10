@@ -1,0 +1,44 @@
+{
+ "run_id": "S2_both_server",
+ "disturb": "server",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.08364653587341309,
+  "d12_probe_rtt_s": 0.16114020347595215,
+  "d43_s": 0.20675873756408691,
+  "d43_probe_rtt_s": 0.4483640193939209,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786119632.234482,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "standing_band",
+   "phase": "other",
+   "spec": "rate 6000kbit c1",
+   "t_issue": 1786119569.6355016,
+   "t_done": 1786119570.4737659,
+   "apply_lat_s": 0.838,
+   "t43_done": 1786119570.6805246
+  },
+  {
+   "what": "stress_on",
+   "phase": "start",
+   "spec": "tb-stress.sh start",
+   "t_issue": 1786119752.2864788,
+   "t_done": 1786119752.8850007,
+   "t43_done": 1786119753.0917594,
+   "apply_lat_s": 0.599
+  },
+  {
+   "what": "stress_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786119872.2153175,
+   "t_done": 1786119872.308486,
+   "t43_done": 1786119872.5152447,
+   "apply_lat_s": 0.093
+  }
+ ]
+}

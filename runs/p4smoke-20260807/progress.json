@@ -1,0 +1,17 @@
+{
+ "batch_id": "p4smoke-20260807",
+ "manifest": "manifest_p4smoke.json",
+ "outdir": "runs/p4smoke-20260807",
+ "n_runs": 1,
+ "started_ts": 1786114631.3102503,
+ "current": null,
+ "runs": {
+  "SMK_both_server": {
+   "status": "DONE",
+   "start_ts": 1786114631.3104343,
+   "end_ts": 1786114774.0416512
+  }
+ },
+ "heartbeat_ts": 1786114776.295642,
+ "finished_ts": 1786114776.2956412
+}

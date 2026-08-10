@@ -1,0 +1,113 @@
+{
+ "run_id": "W1_both_server_w40",
+ "policy": "sorts_reactive",
+ "disturb": "server",
+ "t_start": 1786122163.069139,
+ "t_meas": 1786122223.069139,
+ "warmup": 60,
+ "duration": 360,
+ "connections": 16,
+ "rps_per_connection": 25,
+ "total_rps": 800,
+ "mix": "reserve=1:/reservation?inDate=2015-04-09&outDate=2015-04-10&hotelId=1&customerName=dexp&username=Cornell_30&password=0000000000&number=1,search=1.5:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112,recommend=2:/recommendations?require=dis&lat=37.7867&lon=-122.4112",
+ "cohort_map": {
+  "1": {
+   "iface": "uesimtun0",
+   "addr": "10.46.0.6"
+  },
+  "2": {
+   "iface": "uesimtun1",
+   "addr": "10.46.0.7"
+  }
+ },
+ "marks": [
+  {
+   "what": "standing_band",
+   "phase": "other",
+   "spec": "rate 6000kbit c1",
+   "t_issue": 1786122160.4956467,
+   "t_done": 1786122161.331845,
+   "apply_lat_s": 0.836,
+   "t43_done": 1786122161.5242038
+  },
+  {
+   "what": "stress_on",
+   "phase": "start",
+   "spec": "tb-stress.sh start",
+   "t_issue": 1786122343.1370783,
+   "t_done": 1786122343.7365777,
+   "t43_done": 1786122343.9289365,
+   "apply_lat_s": 0.599
+  },
+  {
+   "what": "stress_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786122463.0570745,
+   "t_done": 1786122463.1506739,
+   "t43_done": 1786122463.3430326,
+   "apply_lat_s": 0.094
+  }
+ ],
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.07836294174194336,
+  "d12_probe_rtt_s": 0.16003918647766113,
+  "d43_s": 0.19235873222351074,
+  "d43_probe_rtt_s": 0.44707298278808594,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "envoy_log_bytes": [
+  3926082259,
+  3999802673
+ ],
+ "sections_abs_12": {
+  "pre": [
+   1786122223.069139,
+   1786122341.2154412
+  ],
+  "during": [
+   1786122345.8149407,
+   1786122461.1354375
+  ],
+  "post": [
+   1786122465.2290368,
+   1786122583.069139
+  ]
+ },
+ "sections_rel_s": {
+  "pre": [
+   0.0,
+   118.146
+  ],
+  "during": [
+   122.746,
+   238.066
+  ],
+  "post": [
+   242.16,
+   360.0
+  ]
+ },
+ "cut_basis": "end_ts (완료 벽시계, .12) vs marks.json ±GUARD",
+ "host_clocks": "NTP synced (timedatectl NTPSynchronized=yes on all nodes)",
+ "arm": {
+  "requested": {
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 4.0
+  },
+  "effective": {
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 4.0
+  },
+  "sorts_yaml_md5": "cb8327280aede53249bdd84d37d0c385"
+ },
+ "standing_band_kbit": 6000,
+ "band_margin_warn": false,
+ "postcheck": {
+  "ok": true,
+  "reasons": []
+ }
+}

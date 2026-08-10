@@ -1,0 +1,57 @@
+{
+ "batch_id": "taskBprep-A-composition",
+ "manifest": "manifest_taskBprep_A.json",
+ "outdir": "runs/taskB-prep-20260810/A",
+ "n_runs": 9,
+ "started_ts": 1786336974.7577257,
+ "current": null,
+ "runs": {
+  "a_m1_r250": {
+   "status": "DONE",
+   "start_ts": 1786336974.7579072,
+   "end_ts": 1786337209.737541
+  },
+  "a_m1_r280": {
+   "status": "DONE",
+   "start_ts": 1786337242.01435,
+   "end_ts": 1786337479.77711
+  },
+  "a_m1_r310": {
+   "status": "DONE",
+   "start_ts": 1786337512.0621214,
+   "end_ts": 1786337746.7751362
+  },
+  "a_m2_r550": {
+   "status": "DONE",
+   "start_ts": 1786337779.0396464,
+   "end_ts": 1786338015.333306
+  },
+  "a_m2_r700": {
+   "status": "DONE",
+   "start_ts": 1786338047.6106868,
+   "end_ts": 1786338285.0633264
+  },
+  "a_m2_r850": {
+   "status": "DONE",
+   "start_ts": 1786338317.3147721,
+   "end_ts": 1786338554.8199239
+  },
+  "a_m3_r550": {
+   "status": "DONE",
+   "start_ts": 1786338587.1049423,
+   "end_ts": 1786338823.4056365
+  },
+  "a_m3_r700": {
+   "status": "DONE",
+   "start_ts": 1786338855.6714997,
+   "end_ts": 1786339092.2574012
+  },
+  "a_m3_r850": {
+   "status": "DONE",
+   "start_ts": 1786339124.5274386,
+   "end_ts": 1786339363.5816603
+  }
+ },
+ "heartbeat_ts": 1786339365.8463387,
+ "finished_ts": 1786339365.8463383
+}

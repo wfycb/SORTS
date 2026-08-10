@@ -1,0 +1,35 @@
+{
+ "run_id": "R2_lr_radio",
+ "disturb": "radio",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.07440304756164551,
+  "d12_probe_rtt_s": 0.15950274467468262,
+  "d43_s": 0.18561601638793945,
+  "d43_probe_rtt_s": 0.44728779792785645,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786115484.489113,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "radio_on",
+   "phase": "start",
+   "spec": "rate 2300kbit",
+   "t_issue": 1786115604.459947,
+   "t_done": 1786115605.5068052,
+   "t43_done": 1786115605.6924212,
+   "apply_lat_s": 1.047
+  },
+  {
+   "what": "radio_off",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786115724.4281657,
+   "t_done": 1786115725.0625086,
+   "t43_done": 1786115725.2481246,
+   "apply_lat_s": 0.634
+  }
+ ]
+}

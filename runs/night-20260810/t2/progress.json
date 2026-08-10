@@ -1,0 +1,22 @@
+{
+ "batch_id": "night-t2c-extra",
+ "manifest": "manifest_night_t2c.json",
+ "outdir": "runs/night-20260810/t2",
+ "n_runs": 2,
+ "started_ts": 1786313001.664117,
+ "current": null,
+ "runs": {
+  "t2_strict_4": {
+   "status": "DONE",
+   "start_ts": 1786313001.6643674,
+   "end_ts": 1786313459.1194277
+  },
+  "t2_far_4": {
+   "status": "DONE",
+   "start_ts": 1786313521.4288955,
+   "end_ts": 1786313978.8522513
+  }
+ },
+ "heartbeat_ts": 1786313981.1068113,
+ "finished_ts": 1786313981.1068108
+}

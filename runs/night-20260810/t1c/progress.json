@@ -1,0 +1,57 @@
+{
+ "batch_id": "night-t1c-capacity23",
+ "manifest": "manifest_night_t1c.json",
+ "outdir": "runs/night-20260810/t1c",
+ "n_runs": 9,
+ "started_ts": 1786314005.1561718,
+ "current": null,
+ "runs": {
+  "t1c_s2mix_r200": {
+   "status": "DONE",
+   "start_ts": 1786314005.1563551,
+   "end_ts": 1786314239.3340902
+  },
+  "t1c_s2mix_r400": {
+   "status": "DONE",
+   "start_ts": 1786314271.5950322,
+   "end_ts": 1786314506.86992
+  },
+  "t1c_s2mix_r600": {
+   "status": "DONE",
+   "start_ts": 1786314539.1528707,
+   "end_ts": 1786314775.3822546
+  },
+  "t1c_s2mix_r800": {
+   "status": "DONE",
+   "start_ts": 1786314807.6397557,
+   "end_ts": 1786315044.851597
+  },
+  "t1c_s2mix_r1000": {
+   "status": "DONE",
+   "start_ts": 1786315077.1529236,
+   "end_ts": 1786315315.9772618
+  },
+  "t1c_s3mix_r400": {
+   "status": "DONE",
+   "start_ts": 1786315348.2515018,
+   "end_ts": 1786315583.4252632
+  },
+  "t1c_s3mix_r800": {
+   "status": "DONE",
+   "start_ts": 1786315615.7040524,
+   "end_ts": 1786315871.329448
+  },
+  "t1c_s3mix_r1200": {
+   "status": "DONE",
+   "start_ts": 1786315903.6168709,
+   "end_ts": 1786316142.734894
+  },
+  "t1c_s3mix_r1600": {
+   "status": "DONE",
+   "start_ts": 1786316175.0107522,
+   "end_ts": 1786316416.153633
+  }
+ },
+ "heartbeat_ts": 1786316418.408823,
+ "finished_ts": 1786316418.4088223
+}

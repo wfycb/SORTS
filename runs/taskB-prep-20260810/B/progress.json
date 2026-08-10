@@ -1,0 +1,37 @@
+{
+ "batch_id": "taskBprep-B2-extra",
+ "manifest": "manifest_taskBprep_B2.json",
+ "outdir": "runs/taskB-prep-20260810/B",
+ "n_runs": 5,
+ "started_ts": 1786342685.6062136,
+ "current": null,
+ "runs": {
+  "b_strict_4": {
+   "status": "DONE",
+   "start_ts": 1786342685.6064613,
+   "end_ts": 1786343149.900537
+  },
+  "b_far_4": {
+   "status": "DONE",
+   "start_ts": 1786343212.4465454,
+   "end_ts": 1786343676.470001
+  },
+  "b_strict_5": {
+   "status": "DONE",
+   "start_ts": 1786343739.0314977,
+   "end_ts": 1786344202.1507633
+  },
+  "b_strict_6": {
+   "status": "DONE",
+   "start_ts": 1786344264.7208993,
+   "end_ts": 1786344727.433166
+  },
+  "b_strict_7": {
+   "status": "DONE",
+   "start_ts": 1786344789.9554994,
+   "end_ts": 1786345252.4359107
+  }
+ },
+ "heartbeat_ts": 1786345254.9357424,
+ "finished_ts": 1786345254.9357417
+}

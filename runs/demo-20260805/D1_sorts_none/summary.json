@@ -1,0 +1,476 @@
+{
+ "run_id": "D1_sorts_none",
+ "policy": "sorts_reactive",
+ "disturb": "none",
+ "target_total_rps": 800,
+ "slo_ms": {
+  "reserve": 35.0,
+  "search": 45.0,
+  "recommend": 35.0
+ },
+ "clock_offset_est_ms": {
+  "n": 289,
+  "p50": -9.885,
+  "p05": -10.634,
+  "p95": -8.962
+ },
+ "join_rate": 1.0,
+ "sections": {
+  "pre": {
+   "window_abs_12": [
+    1785862002.302,
+    1785862122.302
+   ],
+   "window_rel_s": [
+    0.0,
+    120.0
+   ],
+   "n": 96000,
+   "n_valid": 96000,
+   "byte_deviation_rate": 0.0,
+   "achieved_rps": 800.0,
+   "by_endpoint": {
+    "recommend": {
+     "n": 42666,
+     "n_valid": 42666,
+     "corrected_p50": 26.105,
+     "corrected_p95": 26.744,
+     "corrected_p99": 27.43,
+     "service_p50": 26.032,
+     "service_p95": 26.665,
+     "service_p99": 27.317,
+     "slo_violation_rate": 0.000563
+    },
+    "reserve": {
+     "n": 21336,
+     "n_valid": 21336,
+     "corrected_p50": 26.41,
+     "corrected_p95": 26.984,
+     "corrected_p99": 27.684,
+     "service_p50": 26.335,
+     "service_p95": 26.908,
+     "service_p99": 27.609,
+     "slo_violation_rate": 0.000281
+    },
+    "search": {
+     "n": 31998,
+     "n_valid": 31998,
+     "corrected_p50": 28.764,
+     "corrected_p95": 29.897,
+     "corrected_p99": 31.406,
+     "service_p50": 28.689,
+     "service_p95": 29.824,
+     "service_p99": 31.309,
+     "slo_violation_rate": 0.000375
+    }
+   },
+   "by_cohort": {
+    "1": {
+     "n": 48000,
+     "slo_violation_rate": 0.000417,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21333,
+       "corrected_p50": 26.127,
+       "corrected_p95": 26.771,
+       "corrected_p99": 27.387,
+       "service_p50": 26.052,
+       "service_p95": 26.69,
+       "slo_violation_rate": 0.000563
+      },
+      "reserve": {
+       "n": 10668,
+       "corrected_p50": 26.382,
+       "corrected_p95": 26.93,
+       "corrected_p99": 27.682,
+       "service_p50": 26.307,
+       "service_p95": 26.858,
+       "slo_violation_rate": 0.000187
+      },
+      "search": {
+       "n": 15999,
+       "corrected_p50": 28.831,
+       "corrected_p95": 29.909,
+       "corrected_p99": 31.503,
+       "service_p50": 28.755,
+       "service_p95": 29.829,
+       "slo_violation_rate": 0.000375
+      }
+     }
+    },
+    "2": {
+     "n": 48000,
+     "slo_violation_rate": 0.000458,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21333,
+       "corrected_p50": 26.092,
+       "corrected_p95": 26.706,
+       "corrected_p99": 27.483,
+       "service_p50": 26.021,
+       "service_p95": 26.633,
+       "slo_violation_rate": 0.000563
+      },
+      "reserve": {
+       "n": 10668,
+       "corrected_p50": 26.453,
+       "corrected_p95": 27.026,
+       "corrected_p99": 27.684,
+       "service_p50": 26.378,
+       "service_p95": 26.949,
+       "slo_violation_rate": 0.000375
+      },
+      "search": {
+       "n": 15999,
+       "corrected_p50": 28.676,
+       "corrected_p95": 29.891,
+       "corrected_p99": 31.288,
+       "service_p50": 28.602,
+       "service_p95": 29.818,
+       "slo_violation_rate": 0.000375
+      }
+     }
+    }
+   },
+   "site_distribution": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 96000,
+    "unjoined": 0
+   },
+   "site_share": {
+    "S1": 0.0,
+    "S2": 0.0,
+    "S3": 1.0
+   },
+   "s1_share": 0.0,
+   "fc_ms": {
+    "S3": {
+     "search": {
+      "n": 31998,
+      "p50": 3.25,
+      "p95": 4.399
+     },
+     "recommend": {
+      "n": 42666,
+      "p50": 0.62,
+      "p95": 1.242
+     },
+     "reserve": {
+      "n": 21336,
+      "p50": 0.93,
+      "p95": 1.507
+     }
+    }
+   },
+   "s1_completed_rps": 0.0,
+   "s1_share_rps": 0.0,
+   "s1_knee_rps": 400.0,
+   "s1_knee_ratio": 0.0
+  },
+  "during": {
+   "window_abs_12": [
+    1785862122.302,
+    1785862242.302
+   ],
+   "window_rel_s": [
+    120.0,
+    240.0
+   ],
+   "n": 96001,
+   "n_valid": 96001,
+   "byte_deviation_rate": 0.0,
+   "achieved_rps": 800.01,
+   "by_endpoint": {
+    "recommend": {
+     "n": 42666,
+     "n_valid": 42666,
+     "corrected_p50": 26.104,
+     "corrected_p95": 26.709,
+     "corrected_p99": 27.364,
+     "service_p50": 26.03,
+     "service_p95": 26.631,
+     "service_p99": 27.267,
+     "slo_violation_rate": 0.000164
+    },
+    "reserve": {
+     "n": 21332,
+     "n_valid": 21332,
+     "corrected_p50": 26.406,
+     "corrected_p95": 26.953,
+     "corrected_p99": 27.624,
+     "service_p50": 26.33,
+     "service_p95": 26.877,
+     "service_p99": 27.545,
+     "slo_violation_rate": 0.000516
+    },
+    "search": {
+     "n": 32003,
+     "n_valid": 32003,
+     "corrected_p50": 28.75,
+     "corrected_p95": 29.855,
+     "corrected_p99": 30.948,
+     "service_p50": 28.675,
+     "service_p95": 29.779,
+     "service_p99": 30.881,
+     "slo_violation_rate": 0.000281
+    }
+   },
+   "by_cohort": {
+    "1": {
+     "n": 48001,
+     "slo_violation_rate": 0.000333,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21333,
+       "corrected_p50": 26.116,
+       "corrected_p95": 26.743,
+       "corrected_p99": 27.376,
+       "service_p50": 26.042,
+       "service_p95": 26.659,
+       "slo_violation_rate": 0.000234
+      },
+      "reserve": {
+       "n": 10666,
+       "corrected_p50": 26.375,
+       "corrected_p95": 26.878,
+       "corrected_p99": 27.556,
+       "service_p50": 26.3,
+       "service_p95": 26.795,
+       "slo_violation_rate": 0.000469
+      },
+      "search": {
+       "n": 16002,
+       "corrected_p50": 28.814,
+       "corrected_p95": 29.861,
+       "corrected_p99": 31.086,
+       "service_p50": 28.741,
+       "service_p95": 29.79,
+       "slo_violation_rate": 0.000375
+      }
+     }
+    },
+    "2": {
+     "n": 48000,
+     "slo_violation_rate": 0.000229,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21333,
+       "corrected_p50": 26.097,
+       "corrected_p95": 26.675,
+       "corrected_p99": 27.354,
+       "service_p50": 26.022,
+       "service_p95": 26.598,
+       "slo_violation_rate": 9.4e-05
+      },
+      "reserve": {
+       "n": 10666,
+       "corrected_p50": 26.456,
+       "corrected_p95": 27.015,
+       "corrected_p99": 27.682,
+       "service_p50": 26.377,
+       "service_p95": 26.939,
+       "slo_violation_rate": 0.000563
+      },
+      "search": {
+       "n": 16001,
+       "corrected_p50": 28.673,
+       "corrected_p95": 29.844,
+       "corrected_p99": 30.852,
+       "service_p50": 28.595,
+       "service_p95": 29.764,
+       "slo_violation_rate": 0.000187
+      }
+     }
+    }
+   },
+   "site_distribution": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 96001,
+    "unjoined": 0
+   },
+   "site_share": {
+    "S1": 0.0,
+    "S2": 0.0,
+    "S3": 1.0
+   },
+   "s1_share": 0.0,
+   "fc_ms": {
+    "S3": {
+     "search": {
+      "n": 32003,
+      "p50": 3.23,
+      "p95": 4.352
+     },
+     "recommend": {
+      "n": 42666,
+      "p50": 0.615,
+      "p95": 1.208
+     },
+     "reserve": {
+      "n": 21332,
+      "p50": 0.922,
+      "p95": 1.472
+     }
+    }
+   },
+   "s1_completed_rps": 0.0,
+   "s1_share_rps": 0.0,
+   "s1_knee_rps": 400.0,
+   "s1_knee_ratio": 0.0
+  },
+  "post": {
+   "window_abs_12": [
+    1785862242.302,
+    1785862362.302
+   ],
+   "window_rel_s": [
+    240.0,
+    360.0
+   ],
+   "n": 95999,
+   "n_valid": 95999,
+   "byte_deviation_rate": 0.0,
+   "achieved_rps": 799.99,
+   "by_endpoint": {
+    "recommend": {
+     "n": 42668,
+     "n_valid": 42668,
+     "corrected_p50": 26.098,
+     "corrected_p95": 26.698,
+     "corrected_p99": 27.312,
+     "service_p50": 26.023,
+     "service_p95": 26.621,
+     "service_p99": 27.221,
+     "slo_violation_rate": 0.000469
+    },
+    "reserve": {
+     "n": 21332,
+     "n_valid": 21332,
+     "corrected_p50": 26.4,
+     "corrected_p95": 26.93,
+     "corrected_p99": 27.571,
+     "service_p50": 26.324,
+     "service_p95": 26.846,
+     "service_p99": 27.488,
+     "slo_violation_rate": 0.000563
+    },
+    "search": {
+     "n": 31999,
+     "n_valid": 31999,
+     "corrected_p50": 28.735,
+     "corrected_p95": 29.804,
+     "corrected_p99": 30.843,
+     "service_p50": 28.66,
+     "service_p95": 29.73,
+     "service_p99": 30.74,
+     "slo_violation_rate": 0.000375
+    }
+   },
+   "by_cohort": {
+    "1": {
+     "n": 47999,
+     "slo_violation_rate": 0.000479,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21334,
+       "corrected_p50": 26.112,
+       "corrected_p95": 26.739,
+       "corrected_p99": 27.352,
+       "service_p50": 26.037,
+       "service_p95": 26.66,
+       "slo_violation_rate": 0.000469
+      },
+      "reserve": {
+       "n": 10666,
+       "corrected_p50": 26.37,
+       "corrected_p95": 26.825,
+       "corrected_p99": 27.407,
+       "service_p50": 26.295,
+       "service_p95": 26.753,
+       "slo_violation_rate": 0.000656
+      },
+      "search": {
+       "n": 15999,
+       "corrected_p50": 28.803,
+       "corrected_p95": 29.833,
+       "corrected_p99": 30.866,
+       "service_p50": 28.73,
+       "service_p95": 29.753,
+       "slo_violation_rate": 0.000375
+      }
+     }
+    },
+    "2": {
+     "n": 48000,
+     "slo_violation_rate": 0.000438,
+     "by_endpoint": {
+      "recommend": {
+       "n": 21334,
+       "corrected_p50": 26.089,
+       "corrected_p95": 26.662,
+       "corrected_p99": 27.259,
+       "service_p50": 26.016,
+       "service_p95": 26.587,
+       "slo_violation_rate": 0.000469
+      },
+      "reserve": {
+       "n": 10666,
+       "corrected_p50": 26.447,
+       "corrected_p95": 27.002,
+       "corrected_p99": 27.625,
+       "service_p50": 26.371,
+       "service_p95": 26.927,
+       "slo_violation_rate": 0.000469
+      },
+      "search": {
+       "n": 16000,
+       "corrected_p50": 28.648,
+       "corrected_p95": 29.778,
+       "corrected_p99": 30.796,
+       "service_p50": 28.571,
+       "service_p95": 29.699,
+       "slo_violation_rate": 0.000375
+      }
+     }
+    }
+   },
+   "site_distribution": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 95999,
+    "unjoined": 0
+   },
+   "site_share": {
+    "S1": 0.0,
+    "S2": 0.0,
+    "S3": 1.0
+   },
+   "s1_share": 0.0,
+   "fc_ms": {
+    "S3": {
+     "recommend": {
+      "n": 42668,
+      "p50": 0.61,
+      "p95": 1.195
+     },
+     "reserve": {
+      "n": 21332,
+      "p50": 0.917,
+      "p95": 1.437
+     },
+     "search": {
+      "n": 31999,
+      "p50": 3.209,
+      "p95": 4.293
+     }
+    }
+   },
+   "s1_completed_rps": 0.0,
+   "s1_share_rps": 0.0,
+   "s1_knee_rps": 400.0,
+   "s1_knee_ratio": 0.0
+  }
+ }
+}

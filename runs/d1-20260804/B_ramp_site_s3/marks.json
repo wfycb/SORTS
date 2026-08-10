@@ -1,0 +1,143 @@
+{
+ "run_id": "B_ramp_site_s3",
+ "disturb": "ramp",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.07665586471557617,
+  "d12_probe_rtt_s": 0.15902948379516602,
+  "d43_s": 0.1839914321899414,
+  "d43_probe_rtt_s": 0.4479196071624756,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1785783624.96508,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "ramp_base",
+   "phase": "other",
+   "spec": "rate 20000kbit",
+   "t_issue": 1785783624.9971046,
+   "t_done": 1785783626.064662,
+   "t43_done": 1785783626.2486534,
+   "apply_lat_s": 1.068
+  },
+  {
+   "what": "ramp_0",
+   "phase": "start",
+   "spec": "rate 20000kbit",
+   "t_issue": 1785783684.921863,
+   "t_done": 1785783685.9472725,
+   "t43_done": 1785783686.131264,
+   "apply_lat_s": 1.025
+  },
+  {
+   "what": "ramp_1",
+   "phase": "other",
+   "spec": "rate 18327kbit",
+   "t_issue": 1785783694.9556735,
+   "t_done": 1785783695.814605,
+   "t43_done": 1785783695.9985964,
+   "apply_lat_s": 0.859
+  },
+  {
+   "what": "ramp_2",
+   "phase": "other",
+   "spec": "rate 16655kbit",
+   "t_issue": 1785783705.0238585,
+   "t_done": 1785783705.8746505,
+   "t43_done": 1785783706.058642,
+   "apply_lat_s": 0.851
+  },
+  {
+   "what": "ramp_3",
+   "phase": "other",
+   "spec": "rate 14982kbit",
+   "t_issue": 1785783715.0829544,
+   "t_done": 1785783715.9441793,
+   "t43_done": 1785783716.1281707,
+   "apply_lat_s": 0.861
+  },
+  {
+   "what": "ramp_4",
+   "phase": "other",
+   "spec": "rate 13309kbit",
+   "t_issue": 1785783724.9534333,
+   "t_done": 1785783725.8055747,
+   "t43_done": 1785783725.989566,
+   "apply_lat_s": 0.852
+  },
+  {
+   "what": "ramp_5",
+   "phase": "other",
+   "spec": "rate 11636kbit",
+   "t_issue": 1785783735.0148122,
+   "t_done": 1785783735.8710628,
+   "t43_done": 1785783736.0550542,
+   "apply_lat_s": 0.856
+  },
+  {
+   "what": "ramp_6",
+   "phase": "other",
+   "spec": "rate 9964kbit",
+   "t_issue": 1785783745.0804212,
+   "t_done": 1785783745.9355614,
+   "t43_done": 1785783746.1195529,
+   "apply_lat_s": 0.855
+  },
+  {
+   "what": "ramp_7",
+   "phase": "other",
+   "spec": "rate 8291kbit",
+   "t_issue": 1785783754.944254,
+   "t_done": 1785783755.7960274,
+   "t43_done": 1785783755.9800189,
+   "apply_lat_s": 0.852
+  },
+  {
+   "what": "ramp_8",
+   "phase": "other",
+   "spec": "rate 6618kbit",
+   "t_issue": 1785783765.004897,
+   "t_done": 1785783765.860041,
+   "t43_done": 1785783766.0440323,
+   "apply_lat_s": 0.855
+  },
+  {
+   "what": "ramp_9",
+   "phase": "other",
+   "spec": "rate 4945kbit",
+   "t_issue": 1785783775.0687876,
+   "t_done": 1785783775.9263413,
+   "t43_done": 1785783776.1103327,
+   "apply_lat_s": 0.858
+  },
+  {
+   "what": "ramp_10",
+   "phase": "other",
+   "spec": "rate 3273kbit",
+   "t_issue": 1785783784.9349732,
+   "t_done": 1785783785.7902477,
+   "t43_done": 1785783785.974239,
+   "apply_lat_s": 0.855
+  },
+  {
+   "what": "ramp_11",
+   "phase": "other",
+   "spec": "rate 1600kbit",
+   "t_issue": 1785783794.9993663,
+   "t_done": 1785783795.852783,
+   "t43_done": 1785783796.0367744,
+   "apply_lat_s": 0.853
+  },
+  {
+   "what": "ramp_clear",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1785783924.975891,
+   "t_done": 1785783925.606832,
+   "t43_done": 1785783925.7908235,
+   "apply_lat_s": 0.631
+  }
+ ]
+}

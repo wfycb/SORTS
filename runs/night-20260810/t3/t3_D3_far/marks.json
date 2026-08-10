@@ -1,0 +1,44 @@
+{
+ "run_id": "t3_D3_far",
+ "disturb": "seq_extreme",
+ "guard_s": 2.0,
+ "clock": {
+  "runner_host": "192.168.0.40",
+  "d12_s": 0.05688357353210449,
+  "d12_probe_rtt_s": 0.15889358520507812,
+  "d43_s": 0.18267464637756348,
+  "d43_probe_rtt_s": 0.44802117347717285,
+  "note": "d* = 해당 호스트 시계 − 러너(.40) 시계. t_meas/end_ts 는 .12, t43_done 은 .43 시계."
+ },
+ "t_meas_12": 1786309985.334982,
+ "duration": 360,
+ "marks": [
+  {
+   "what": "c1_extreme",
+   "phase": "start",
+   "spec": "rate 1600kbit",
+   "t_issue": 1786310105.3219473,
+   "t_done": 1786310106.1827683,
+   "t43_done": 1786310106.365443,
+   "apply_lat_s": 0.861
+  },
+  {
+   "what": "c2_extreme",
+   "phase": "other",
+   "spec": "rate 1600kbit x2",
+   "t_issue": 1786310165.3202524,
+   "t_done": 1786310166.5695772,
+   "t43_done": 1786310166.7522519,
+   "apply_lat_s": 1.249
+  },
+  {
+   "what": "clear_all",
+   "phase": "end",
+   "spec": null,
+   "t_issue": 1786310225.3001497,
+   "t_done": 1786310225.7614727,
+   "t43_done": 1786310225.9441473,
+   "apply_lat_s": 0.461
+  }
+ ]
+}
