@@ -1,0 +1,12 @@
+{
+ "comment": "작업B 착수 전 과제B: D1 pre 반복 — 클린 무선(교란 0), 1400rps, 커넥션 32/코호트(야간 D1 설정 재현), far_tier/strict_far 각 n=3 교대(F,S,S,F,F,S). disturb=none 이므로 during=본측정 전체(0~360s). 밴드 미적용이라 probe_buckets 는 정의상 비적용(버킷 자체가 없음) — 포트 고정은 러너 기본으로 적용됨.",
+ "batch_id": "taskBprep-B-d1repeat",
+ "runs": [
+  {"run_id": "b_far_1",    "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier",   "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_1", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_2", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_far_2",    "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier",   "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_far_3",    "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier",   "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_3", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900}
+ ]
+}

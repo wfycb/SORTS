@@ -1,0 +1,9 @@
+{
+ "comment": "작업B3 단계0 2차 보강 (1600k 전용): 280(1.20%)에서도 >1% — 최종 하향 확장 200/250 + 보험 160. 이후에도 브래킷 미포착이면 §6 정지점 (1600k 위반 플로어 >1% = C_eff 정의 불능으로 보고).",
+ "batch_id": "taskB3-s0c-ceff-low2",
+ "runs": [
+  {"run_id": "s0_b1600_r250", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 7.8125, "total_rps": 250, "drain_budget": 600},
+  {"run_id": "s0_b1600_r200", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 6.25, "total_rps": 200, "drain_budget": 600},
+  {"run_id": "s0_b1600_r160", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 5.0, "total_rps": 160, "drain_budget": 600}
+ ]
+}

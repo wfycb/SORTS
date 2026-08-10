@@ -1,0 +1,11 @@
+{
+ "comment": "과제B 증설(§5 여유 규칙): strict 쌍봉(락인 1/3) 발견으로 진입 확률 추정에 n 필요. strict 가중 편성(strict n 3→7, far n 3→4), 교대 배치 유지. 조건 동일(클린, 1400rps, 32conn).",
+ "batch_id": "taskBprep-B2-extra",
+ "runs": [
+  {"run_id": "b_strict_4", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_far_4",    "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier",   "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_5", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_6", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "b_strict_7", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900}
+ ]
+}

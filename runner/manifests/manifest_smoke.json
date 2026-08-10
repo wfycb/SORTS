@@ -1,0 +1,76 @@
+{
+ "batch_id": "smoke3-20260804",
+ "note": "지시서 v5 §5.1 축소판",
+ "runs": [
+  {
+   "run_id": "S_none_site_s3",
+   "type": "smoke",
+   "policy": "site_s3",
+   "disturb": "none",
+   "warmup": 20,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 50,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  },
+  {
+   "run_id": "S_none_bl_loc",
+   "type": "smoke",
+   "policy": "bl_loc",
+   "disturb": "none",
+   "warmup": 20,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 50,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  },
+  {
+   "run_id": "S_radio_site_s3",
+   "type": "smoke",
+   "policy": "site_s3",
+   "disturb": "radio",
+   "warmup": 20,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 50,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  },
+  {
+   "run_id": "S_radio_bl_loc",
+   "type": "smoke",
+   "policy": "bl_loc",
+   "disturb": "radio",
+   "warmup": 20,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 50,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  },
+  {
+   "run_id": "S_server_site_s3",
+   "type": "smoke",
+   "policy": "site_s3",
+   "disturb": "server",
+   "warmup": 20,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 50,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}

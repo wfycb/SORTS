@@ -1,0 +1,10 @@
+{
+ "batch_id": "p4smoke-20260807",
+ "note": "Phase 4 dry-run: both arm + server 교란 + 상시밴드 6000 축소판. 신규 경로 전체 통과 확인용 — 수치는 쓰지 않는다.",
+ "runs": [
+  {"run_id": "SMK_both_server", "type": "P4S", "policy": "sorts_reactive", "disturb": "server",
+   "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "standing_band_kbit": 6000,
+   "warmup": 20, "duration": 90, "disturb_start": 30, "disturb_end": 60,
+   "rest": 0, "connections": 16, "rps_per_connection": 25, "total_rps": 800}
+ ]
+}

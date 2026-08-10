@@ -1,0 +1,8 @@
+{
+ "comment": "작업B 검증② 트리거 캘리브레이션: strict+off + 부하 스파이크(c1 +400rps 4s @ t+30). 락인이 결정적으로 유발되는지 2런 확인. 유발 실패 시 주입 조정(기록 의무).",
+ "batch_id": "taskB-v2cal",
+ "runs": [
+  {"run_id": "v2cal_soff_1", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "spike_at": 30, "spike_rps": 400, "spike_dur": 4, "spike_conns": 16, "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "capacity_check": false, "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900},
+  {"run_id": "v2cal_soff_2", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "spike_at": 30, "spike_rps": 400, "spike_dur": 4, "spike_conns": 16, "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "capacity_check": false, "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400, "drain_budget": 900}
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "batch_id": "it-20260805",
+ "note": "러너 통합 시험 1런",
+ "runs": [
+  {
+   "run_id": "IT_sorts_radio",
+   "type": "D",
+   "policy": "sorts_reactive",
+   "disturb": "radio",
+   "warmup": 20,
+   "duration": 90,
+   "disturb_start": 30,
+   "disturb_end": 60,
+   "rest": 5,
+   "connections": 4,
+   "rps_per_connection": 25,
+   "total_rps": 200
+  }
+ ]
+}

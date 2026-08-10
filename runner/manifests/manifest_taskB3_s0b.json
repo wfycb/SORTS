@@ -1,0 +1,11 @@
+{
+ "comment": "작업B3 단계0 보강: 1% 교차가 스윕 하한 아래 — 하향 확장 (등록 정의 §A 불변). 1600k: 280/340/370, 2300k: 320/380. 확장 후에도 브래킷 미포착이면 정지·보고.",
+ "batch_id": "taskB3-s0b-ceff-low",
+ "runs": [
+  {"run_id": "s0_b1600_r280", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 8.75, "total_rps": 280, "drain_budget": 600},
+  {"run_id": "s0_b2300_r320", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 10.0, "total_rps": 320, "drain_budget": 600},
+  {"run_id": "s0_b1600_r340", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 10.625, "total_rps": 340, "drain_budget": 600},
+  {"run_id": "s0_b2300_r380", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 11.875, "total_rps": 380, "drain_budget": 600},
+  {"run_id": "s0_b1600_r370", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 11.5625, "total_rps": 370, "drain_budget": 600}
+ ]
+}

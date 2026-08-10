@@ -1,0 +1,15 @@
+{
+ "comment": "야간배치 여유분: 과제1.3 — S2/S3 혼합 (a) 스윕. S2 는 커넥션 32/코호트(무릎 800 근처 생성기 결합 회피), S3 는 48/코호트(d_net 25ms 로 커넥션당 처리율 상한이 낮음). 우선순위 S2 > S3.",
+ "batch_id": "night-t1c-capacity23",
+ "runs": [
+  {"run_id": "t1c_s2mix_r200",  "type": "K", "policy": "site_s2", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 32, "rps_per_connection": 3.125,  "total_rps": 200,  "drain_budget": 600},
+  {"run_id": "t1c_s2mix_r400",  "type": "K", "policy": "site_s2", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 32, "rps_per_connection": 6.25,   "total_rps": 400,  "drain_budget": 600},
+  {"run_id": "t1c_s2mix_r600",  "type": "K", "policy": "site_s2", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 32, "rps_per_connection": 9.375,  "total_rps": 600,  "drain_budget": 600},
+  {"run_id": "t1c_s2mix_r800",  "type": "K", "policy": "site_s2", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 32, "rps_per_connection": 12.5,   "total_rps": 800,  "drain_budget": 900},
+  {"run_id": "t1c_s2mix_r1000", "type": "K", "policy": "site_s2", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 32, "rps_per_connection": 15.625, "total_rps": 1000, "drain_budget": 900},
+  {"run_id": "t1c_s3mix_r400",  "type": "K", "policy": "site_s3", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 48, "rps_per_connection": 4.16667, "total_rps": 400,  "drain_budget": 600},
+  {"run_id": "t1c_s3mix_r800",  "type": "K", "policy": "site_s3", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 48, "rps_per_connection": 8.33333, "total_rps": 800,  "drain_budget": 600},
+  {"run_id": "t1c_s3mix_r1200", "type": "K", "policy": "site_s3", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 48, "rps_per_connection": 12.5,    "total_rps": 1200, "drain_budget": 900},
+  {"run_id": "t1c_s3mix_r1600", "type": "K", "policy": "site_s3", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 48, "rps_per_connection": 16.66667, "total_rps": 1600, "drain_budget": 900}
+ ]
+}

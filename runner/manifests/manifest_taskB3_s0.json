@@ -1,0 +1,16 @@
+{
+ "comment": "작업B3 단계0: C_eff(S1, band) 측정 — S1 고정(site_s1), M0 조성, 16conn/코호트(검증 조건 동일), 양 코호트 상시 밴드(standing_band_both). 무제한 2점(야간 t1 혼합 250~500 재사용 보강: 430/470), 2300k 4점(420/470/520/570), 1600k 4점(400/440/470/500 — B2 추정 210~220 eq 근방 촘촘). 정의·판정: PROGRESS.md §A. 밴드 오름차순 아닌 교대 배치.",
+ "batch_id": "taskB3-s0-ceff",
+ "runs": [
+  {"run_id": "s0_unl_r430",   "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 13.4375, "total_rps": 430, "drain_budget": 600},
+  {"run_id": "s0_b1600_r400", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 12.5, "total_rps": 400, "drain_budget": 900},
+  {"run_id": "s0_b2300_r420", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 13.125, "total_rps": 420, "drain_budget": 900},
+  {"run_id": "s0_b1600_r440", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 13.75, "total_rps": 440, "drain_budget": 900},
+  {"run_id": "s0_unl_r470",   "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 14.6875, "total_rps": 470, "drain_budget": 600},
+  {"run_id": "s0_b2300_r470", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 14.6875, "total_rps": 470, "drain_budget": 900},
+  {"run_id": "s0_b1600_r470", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 14.6875, "total_rps": 470, "drain_budget": 900},
+  {"run_id": "s0_b2300_r520", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 16.25, "total_rps": 520, "drain_budget": 900},
+  {"run_id": "s0_b1600_r500", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 1600, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 15.625, "total_rps": 500, "drain_budget": 900},
+  {"run_id": "s0_b2300_r570", "type": "K", "policy": "site_s1", "disturb": "none", "standing_band_kbit": 2300, "standing_band_both": true, "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 17.8125, "total_rps": 570, "drain_budget": 900}
+ ]
+}

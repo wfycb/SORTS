@@ -1,0 +1,17 @@
+{
+ "comment": "야간배치 과제1 (2026-08-10): S1 용량 무릎. 무선 무제한(교란 없음), 정책 site_s1 고정(컨트롤러 없음). (a) 혼합 mix 그대로 총 100~400rps, (b) search 단독 80~240rps. 각 지점 warmup 30s + 본측정 180s. 지표 f_c = Envoy 필드18 − d_net(S1). disturb=none 이므로 during = 본측정 전체(0~180s).",
+ "batch_id": "night-t1-capacity",
+ "runs": [
+  {"run_id": "t1_s1mix_r100", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 3.125, "total_rps": 100, "drain_budget": 600},
+  {"run_id": "t1_s1mix_r150", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 4.6875, "total_rps": 150, "drain_budget": 600},
+  {"run_id": "t1_s1mix_r200", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 6.25, "total_rps": 200, "drain_budget": 600},
+  {"run_id": "t1_s1mix_r250", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 7.8125, "total_rps": 250, "drain_budget": 600},
+  {"run_id": "t1_s1mix_r300", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 9.375, "total_rps": 300, "drain_budget": 600},
+  {"run_id": "t1_s1mix_r400", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 12.5, "total_rps": 400, "drain_budget": 900},
+  {"run_id": "t1_s1srch_r080", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 2.5, "total_rps": 80, "drain_budget": 600},
+  {"run_id": "t1_s1srch_r120", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 3.75, "total_rps": 120, "drain_budget": 600},
+  {"run_id": "t1_s1srch_r160", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 5.0, "total_rps": 160, "drain_budget": 600},
+  {"run_id": "t1_s1srch_r200", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 6.25, "total_rps": 200, "drain_budget": 900},
+  {"run_id": "t1_s1srch_r240", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 7.5, "total_rps": 240, "drain_budget": 900}
+ ]
+}

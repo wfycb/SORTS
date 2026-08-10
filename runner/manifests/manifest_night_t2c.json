@@ -1,0 +1,8 @@
+{
+ "comment": "야간배치 여유분: 과제2 반복 추가 (n=3→4). 순서 strict→far 로 기존 F,S,S,F,F,S 에 이어붙여 완전 ABBA×2 균형(F,S,S,F,F,S,S,F).",
+ "batch_id": "night-t2c-extra",
+ "runs": [
+  {"run_id": "t2_strict_4", "type": "TC", "policy": "sorts_reactive", "disturb": "seq_extreme", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 120, "c1_start": 120, "c2_start": 180, "disturb_end": 240, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800},
+  {"run_id": "t2_far_4",    "type": "TC", "policy": "sorts_reactive", "disturb": "seq_extreme", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier",   "warmup": 60, "duration": 360, "disturb_start": 120, "c1_start": 120, "c2_start": 180, "disturb_end": 240, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800}
+ ]
+}

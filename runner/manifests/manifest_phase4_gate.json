@@ -1,0 +1,34 @@
+{
+ "batch_id": "phase4-20260807",
+ "note": "재현성 게이트 (R1/R2만). 통과 후 본 manifest 를 --resume 으로 잇는다.",
+ "runs": [
+  {
+   "run_id": "R1_rr_radio",
+   "type": "P4",
+   "policy": "bl_rr",
+   "disturb": "radio",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  },
+  {
+   "run_id": "R2_lr_radio",
+   "type": "P4",
+   "policy": "bl_lr",
+   "disturb": "radio",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}

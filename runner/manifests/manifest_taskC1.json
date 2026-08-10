@@ -1,0 +1,8 @@
+{
+ "comment": "작업 C1 판정 배치 (2026-08-10). 소스 포트 고정(--port-base) 적용 후 T10/T11 재현. 목적: (a) c1 단독 극단 창이 조용해지는지 = 극단 밴드 창이 교란으로서 유효한지, (b) 양 코호트 창의 32커넥션 전량 붕괴가 충돌과 무관하게 남는지 = 작업 B 근거 유지 여부. 매 교란 창 중앙에서 버킷 실측(probe_buckets) + ogstun/호스트 진단 수집.",
+ "batch_id": "taskC1-20260810",
+ "runs": [
+  {"run_id": "C1a_fartier_edge", "type": "TC", "policy": "sorts_reactive", "disturb": "seq_extreme", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier", "warmup": 60, "duration": 360, "disturb_start": 120, "c1_start": 120, "c2_start": 180, "disturb_end": 240, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800},
+  {"run_id": "C1b_strictfar_edge", "type": "TC", "policy": "sorts_reactive", "disturb": "seq_extreme", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "strict_far", "warmup": 60, "duration": 360, "disturb_start": 120, "c1_start": 120, "c2_start": 180, "disturb_end": 240, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800}
+ ]
+}

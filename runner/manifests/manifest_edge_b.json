@@ -1,0 +1,22 @@
+{
+ "batch_id": "edge-20260805",
+ "note": "v12 STEP B: near-first(E2), sorts.yaml site_order 반전 상태",
+ "runs": [
+  {
+   "run_id": "E2_sorts_near",
+   "type": "E",
+   "policy": "sorts_reactive",
+   "disturb": "seq_extreme",
+   "warmup": 40,
+   "duration": 180,
+   "c1_start": 20,
+   "c2_start": 110,
+   "disturb_end": 170,
+   "disturb_start": 20,
+   "rest": 30,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}

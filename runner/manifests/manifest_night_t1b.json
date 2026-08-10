@@ -1,0 +1,11 @@
+{
+ "comment": "야간배치 과제1 보충: S1 SLO 무릎 괄호치기. search 단독 260/280/300 (240에서 p95 25<38 미도달), 혼합 500/600 (400에서 14<38 미도달).",
+ "batch_id": "night-t1b-capacity",
+ "runs": [
+  {"run_id": "t1b_s1srch_r260", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 8.125, "total_rps": 260, "drain_budget": 900},
+  {"run_id": "t1b_s1srch_r280", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 8.75, "total_rps": 280, "drain_budget": 900},
+  {"run_id": "t1b_s1srch_r300", "type": "K", "policy": "site_s1", "disturb": "none", "mix": "search=1:/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7867&lon=-122.4112", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 9.375, "total_rps": 300, "drain_budget": 900},
+  {"run_id": "t1b_s1mix_r500", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 15.625, "total_rps": 500, "drain_budget": 900},
+  {"run_id": "t1b_s1mix_r600", "type": "K", "policy": "site_s1", "disturb": "none", "warmup": 30, "duration": 180, "disturb_start": 0, "disturb_end": 180, "rest": 30, "connections": 16, "rps_per_connection": 18.75, "total_rps": 600, "drain_budget": 900}
+ ]
+}
