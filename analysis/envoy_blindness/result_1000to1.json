@@ -1,0 +1,23 @@
+{
+ "정상 20Mbps": {
+  "n": 1800,
+  "e2e_p50": 6.98,
+  "envoy_us_p50": 4.456
+ },
+ "극단 1.6Mbps": {
+  "n": 1800,
+  "e2e_p50": 29.543,
+  "envoy_us_p50": 4.478
+ },
+ "delta": {
+  "e2e": 22.563,
+  "envoy": 0.022,
+  "radio_segment": 22.541,
+  "ratio": 1024.6,
+  "claim": {
+   "radio": 22.541,
+   "envoy": 0.022
+  },
+  "reproduced": true
+ }
+}
