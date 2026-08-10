@@ -1,0 +1,163 @@
+[
+ {
+  "run_id": "nf_1",
+  "s3_incl_pre_mean": 1.0,
+  "detect_rel_s": null,
+  "detect_lag_after_block": null,
+  "reentry_ticks_in_block": null,
+  "reentry_times": [],
+  "stale_transitions": [
+   {
+    "class": "reserve",
+    "t_rel": 121.3,
+    "value_ms": 1.348,
+    "prior_ms": 1.348,
+    "last_obs_ms": 1.199
+   },
+   {
+    "class": "search",
+    "t_rel": 121.3,
+    "value_ms": 4.019,
+    "prior_ms": 4.019,
+    "last_obs_ms": 3.79
+   }
+  ],
+  "windows": {
+   "pre": {
+    "n": 96000,
+    "viol": 27,
+    "bad": 0,
+    "viol_pct": 0.028,
+    "bad_pct": 0.0
+   },
+   "block": {
+    "n": 59220,
+    "viol": 58833,
+    "bad": 43049,
+    "viol_pct": 99.347,
+    "bad_pct": 72.693
+   },
+   "post": {
+    "n": 132780,
+    "viol": 89827,
+    "bad": 308,
+    "viol_pct": 67.651,
+    "bad_pct": 0.232
+   }
+  },
+  "soft_ticks_by_min": {
+   "0-60": 0,
+   "60-120": 0,
+   "120-180": 0,
+   "180-240": 0,
+   "240-300": 0,
+   "300-360": 0
+  },
+  "s3_first_traffic_after_unblock": 240
+ },
+ {
+  "run_id": "nf_2",
+  "s3_incl_pre_mean": 1.0,
+  "detect_rel_s": null,
+  "detect_lag_after_block": null,
+  "reentry_ticks_in_block": null,
+  "reentry_times": [],
+  "stale_transitions": [
+   {
+    "class": "reserve",
+    "t_rel": 121.3,
+    "value_ms": 1.348,
+    "prior_ms": 1.348,
+    "last_obs_ms": 0.95
+   }
+  ],
+  "windows": {
+   "pre": {
+    "n": 96000,
+    "viol": 47,
+    "bad": 0,
+    "viol_pct": 0.049,
+    "bad_pct": 0.0
+   },
+   "block": {
+    "n": 55562,
+    "viol": 55065,
+    "bad": 40326,
+    "viol_pct": 99.106,
+    "bad_pct": 72.578
+   },
+   "post": {
+    "n": 136437,
+    "viol": 98923,
+    "bad": 208,
+    "viol_pct": 72.505,
+    "bad_pct": 0.152
+   }
+  },
+  "soft_ticks_by_min": {
+   "0-60": 0,
+   "60-120": 0,
+   "120-180": 0,
+   "180-240": 0,
+   "240-300": 0,
+   "300-360": 0
+  },
+  "s3_first_traffic_after_unblock": 240
+ },
+ {
+  "run_id": "nf_3",
+  "s3_incl_pre_mean": 1.0,
+  "detect_rel_s": null,
+  "detect_lag_after_block": null,
+  "reentry_ticks_in_block": null,
+  "reentry_times": [],
+  "stale_transitions": [
+   {
+    "class": "reserve",
+    "t_rel": 121.3,
+    "value_ms": 1.348,
+    "prior_ms": 1.348,
+    "last_obs_ms": 1.259
+   },
+   {
+    "class": "search",
+    "t_rel": 121.3,
+    "value_ms": 4.019,
+    "prior_ms": 4.019,
+    "last_obs_ms": 4.012
+   }
+  ],
+  "windows": {
+   "pre": {
+    "n": 95999,
+    "viol": 33,
+    "bad": 0,
+    "viol_pct": 0.034,
+    "bad_pct": 0.0
+   },
+   "block": {
+    "n": 53634,
+    "viol": 53316,
+    "bad": 39055,
+    "viol_pct": 99.407,
+    "bad_pct": 72.818
+   },
+   "post": {
+    "n": 138367,
+    "viol": 103610,
+    "bad": 310,
+    "viol_pct": 74.881,
+    "bad_pct": 0.224
+   }
+  },
+  "soft_ticks_by_min": {
+   "0-60": 0,
+   "60-120": 0,
+   "120-180": 0,
+   "180-240": 0,
+   "240-300": 0,
+   "300-360": 0
+  },
+  "s3_first_traffic_after_unblock": 240
+ }
+]

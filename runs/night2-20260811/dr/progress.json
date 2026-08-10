@@ -1,0 +1,37 @@
+{
+ "batch_id": "night2-drift",
+ "manifest": "manifest_night2_drift.json",
+ "outdir": "runs/night2-20260811/dr",
+ "n_runs": 5,
+ "started_ts": 1786384829.7200992,
+ "current": null,
+ "runs": {
+  "dr_on_1": {
+   "status": "DONE",
+   "start_ts": 1786384829.7202692,
+   "end_ts": 1786385288.0480666
+  },
+  "dr_off_1": {
+   "status": "DONE",
+   "start_ts": 1786385350.347485,
+   "end_ts": 1786385808.677516
+  },
+  "dr_on_2": {
+   "status": "DONE",
+   "start_ts": 1786385870.9950492,
+   "end_ts": 1786386329.295235
+  },
+  "dr_off_2": {
+   "status": "DONE",
+   "start_ts": 1786386391.5953467,
+   "end_ts": 1786386849.9767504
+  },
+  "dr_on_3": {
+   "status": "DONE",
+   "start_ts": 1786386912.2594306,
+   "end_ts": 1786387370.6381278
+  }
+ },
+ "heartbeat_ts": 1786387372.8908098,
+ "finished_ts": 1786387372.8908093
+}

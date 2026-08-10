@@ -1,0 +1,27 @@
+{
+ "batch_id": "night2-nodefail",
+ "manifest": "manifest_night2_nodefail.json",
+ "outdir": "runs/night2-20260811/nf",
+ "n_runs": 3,
+ "started_ts": 1786383216.3882284,
+ "current": null,
+ "runs": {
+  "nf_1": {
+   "status": "DONE",
+   "start_ts": 1786383216.388403,
+   "end_ts": 1786383674.770362
+  },
+  "nf_2": {
+   "status": "DONE",
+   "start_ts": 1786383737.0940235,
+   "end_ts": 1786384195.5339148
+  },
+  "nf_3": {
+   "status": "DONE",
+   "start_ts": 1786384257.850837,
+   "end_ts": 1786384716.2801352
+  }
+ },
+ "heartbeat_ts": 1786384718.5368702,
+ "finished_ts": 1786384718.5368695
+}

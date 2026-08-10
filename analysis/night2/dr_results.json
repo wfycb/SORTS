@@ -1,0 +1,69 @@
+{
+ "runs_in_order": [
+  [
+   "dr_off_1",
+   "off",
+   31.092,
+   false
+  ],
+  [
+   "dr_off_2",
+   "off",
+   37.099,
+   false
+  ],
+  [
+   "dr_on_1",
+   "on",
+   5.686,
+   false
+  ],
+  [
+   "dr_on_2",
+   "on",
+   5.911,
+   false
+  ],
+  [
+   "dr_on_3",
+   "on",
+   6.044,
+   false
+  ]
+ ],
+ "thermal_S1_pkg": {
+  "dr_off_1": "therm:x86_pkg_temp:64000",
+  "dr_off_2": "therm:x86_pkg_temp:63000",
+  "dr_on_1": "therm:x86_pkg_temp:62000",
+  "dr_on_2": "therm:x86_pkg_temp:63000",
+  "dr_on_3": "therm:x86_pkg_temp:64000"
+ },
+ "off": {
+  "night_runs": [
+   31.092,
+   37.099
+  ],
+  "night_mean": 34.096,
+  "night_half_range": 3.003,
+  "day_mean": 30.59,
+  "day_half_range": 2.85,
+  "diff_pp": 3.506,
+  "threshold_pp": 5.853,
+  "verdict": "드리프트 없음"
+ },
+ "on": {
+  "night_runs": [
+   5.686,
+   5.911,
+   6.044
+  ],
+  "night_mean": 5.88,
+  "night_half_range": 0.179,
+  "day_mean": 6.5,
+  "day_half_range": 0.85,
+  "diff_pp": -0.62,
+  "threshold_pp": 1.029,
+  "verdict": "드리프트 없음"
+ },
+ "overall": "드리프트 없음"
+}
