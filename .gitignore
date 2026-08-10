@@ -1,0 +1,26 @@
+# 대용량 원시 데이터
+*.log
+*.log.gz
+front_access*.log
+runs/**/access*.csv
+runs/**/load_c*.csv
+runs/**/*.raw
+
+# 자격증명·개인 파일
+*.pem
+*.key
+id_rsa*
+.ssh/
+.bash_history
+.env
+
+# 캐시·임시
+__pycache__/
+*.pyc
+.venv/
+tmp/
+analysis/cache/
+analysis/obs_replay/
+
+# 편집 백업 (제외 사유는 README §제외 목록)
+*.bak
