@@ -1,0 +1,92 @@
+{
+ "rec_only": {
+  "none": {
+   "n": 21018,
+   "done_per_s": 700.6,
+   "p50": {
+    "-": 25.816
+   },
+   "per_conn_kbit_s": 40.0
+  },
+  "poor": {
+   "n": 21019,
+   "done_per_s": 700.6,
+   "p50": {
+    "-": 27.371
+   },
+   "per_conn_kbit_s": 40.0,
+   "d_acc": {
+    "-": 1.555
+   },
+   "ratio_vs_ref": {},
+   "rho": 0.017
+  },
+  "extreme": {
+   "n": 21019,
+   "done_per_s": 700.6,
+   "p50": {
+    "-": 28.034
+   },
+   "per_conn_kbit_s": 40.0,
+   "d_acc": {
+    "-": 2.218
+   },
+   "ratio_vs_ref": {},
+   "rho": 0.025
+  }
+ },
+ "mix": {
+  "none": {
+   "n": 21019,
+   "done_per_s": 700.6,
+   "p50": {
+    "recommend": 25.968,
+    "reserve": 26.275,
+    "search": 29.635
+   },
+   "per_conn_kbit_s": 318.0
+  },
+  "poor": {
+   "n": 21033,
+   "done_per_s": 701.1,
+   "p50": {
+    "recommend": 27.628,
+    "reserve": 27.44,
+    "search": 47.235
+   },
+   "per_conn_kbit_s": 318.3,
+   "d_acc": {
+    "recommend": 1.66,
+    "reserve": 1.165,
+    "search": 17.6
+   },
+   "ratio_vs_ref": {
+    "recommend": 1.044,
+    "reserve": 1.266,
+    "search": 1.032
+   },
+   "rho": 0.138
+  },
+  "extreme": {
+   "n": 21234,
+   "done_per_s": 707.8,
+   "p50": {
+    "recommend": 28.409,
+    "reserve": 28.186,
+    "search": 55.337
+   },
+   "per_conn_kbit_s": 321.3,
+   "d_acc": {
+    "recommend": 2.441,
+    "reserve": 1.911,
+    "search": 25.702
+   },
+   "ratio_vs_ref": {
+    "recommend": 1.071,
+    "reserve": 1.309,
+    "search": 1.046
+   },
+   "rho": 0.199
+  }
+ }
+}

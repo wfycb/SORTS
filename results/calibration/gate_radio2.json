@@ -1,0 +1,197 @@
+{
+ "windows": {
+  "none_a": {
+   "spec": "none",
+   "c1": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 30.798,
+     "reserve": 17.831,
+     "recommend": 13.613
+    }
+   },
+   "c2": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 30.702,
+     "reserve": 18.231,
+     "recommend": 13.604
+    }
+   }
+  },
+  "extreme": {
+   "spec": "rate 1600kbit",
+   "c1": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 58.26,
+     "reserve": 21.444,
+     "recommend": 19.901
+    }
+   },
+   "c2": {
+    "mbps": 8.895,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 30.373,
+     "reserve": 17.192,
+     "recommend": 13.225
+    }
+   }
+  },
+  "none_b": {
+   "spec": "none",
+   "c1": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 31.392,
+     "reserve": 18.905,
+     "recommend": 14.046
+    }
+   },
+   "c2": {
+    "mbps": 8.895,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 31.201,
+     "reserve": 18.777,
+     "recommend": 13.878
+    }
+   }
+  },
+  "poor": {
+   "spec": "rate 2300kbit",
+   "c1": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 50.051,
+     "reserve": 21.155,
+     "recommend": 18.398
+    }
+   },
+   "c2": {
+    "mbps": 8.895,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 31.044,
+     "reserve": 18.229,
+     "recommend": 13.491
+    }
+   }
+  },
+  "none_c": {
+   "spec": "none",
+   "c1": {
+    "mbps": 8.893,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 30.919,
+     "reserve": 18.361,
+     "recommend": 13.623
+    }
+   },
+   "c2": {
+    "mbps": 8.894,
+    "done_per_s": 700.0,
+    "p50": {
+     "search": 30.807,
+     "reserve": 17.83,
+     "recommend": 13.526
+    }
+   }
+  }
+ },
+ "cv": {
+  "extreme": {
+   "n_conn": 28,
+   "mean": 60.227,
+   "cv": 0.0832
+  },
+  "poor": {
+   "n_conn": 28,
+   "mean": 50.529,
+   "cv": 0.0471
+  }
+ },
+ "verdict": {
+  "1 코호트1 처리량 유지": true,
+  "2 search d_acc 배수 1.0~1.5": true,
+  "3 코호트2 무영향": true,
+  "4 커넥션간 CV <= 0.2": true
+ },
+ "detail": {
+  "1 코호트1 처리량 유지": {
+   "extreme": [
+    8.894,
+    700.0
+   ],
+   "poor": [
+    8.894,
+    700.0
+   ]
+  },
+  "2 search d_acc 배수 1.0~1.5": {
+   "extreme": {
+    "search": {
+     "delta_ms": 27.462,
+     "ref": 24.57,
+     "ratio": 1.118
+    },
+    "reserve": {
+     "delta_ms": 3.613,
+     "ref": 1.46,
+     "ratio": 2.475
+    },
+    "recommend": {
+     "delta_ms": 6.288,
+     "ref": 2.28,
+     "ratio": 2.758
+    }
+   },
+   "poor": {
+    "search": {
+     "delta_ms": 18.659,
+     "ref": 17.06,
+     "ratio": 1.094
+    },
+    "reserve": {
+     "delta_ms": 2.25,
+     "ref": 0.92,
+     "ratio": 2.446
+    },
+    "recommend": {
+     "delta_ms": 4.352,
+     "ref": 1.59,
+     "ratio": 2.737
+    }
+   }
+  },
+  "3 코호트2 무영향": {
+   "c2_search_p50": {
+    "none_a": 30.702,
+    "extreme": 30.373,
+    "none_b": 31.201,
+    "poor": 31.044,
+    "none_c": 30.807
+   },
+   "spread_ms": 0.828
+  },
+  "4 커넥션간 CV <= 0.2": {
+   "extreme": {
+    "n_conn": 28,
+    "mean": 60.227,
+    "cv": 0.0832
+   },
+   "poor": {
+    "n_conn": 28,
+    "mean": 50.529,
+    "cv": 0.0471
+   }
+  }
+ }
+}

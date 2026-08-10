@@ -1,0 +1,189 @@
+{
+ "candidates": [
+  {
+   "cpu": 1,
+   "load": 80,
+   "pre": {
+    "fc_search_p95": 6.34,
+    "fc_search_p50": 4.64,
+    "n_fc": 7998,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "during": {
+    "fc_search_p95": 10.55,
+    "fc_search_p50": 6.05,
+    "n_fc": 8000,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "post": {
+    "fc_search_p95": 6.35,
+    "fc_search_p50": 4.64,
+    "n_fc": 5065,
+    "achieved_rps": 800.1,
+    "achieved_pct": 100.01,
+    "pct_5xx": 0.0
+   },
+   "rise_x": 1.664,
+   "recover_x": 1.002,
+   "pass": {
+    "p95 2배 이상": false,
+    "달성률 90% 이상": true,
+    "5xx 1% 미만": true,
+    "복귀 1.1배 이내": true
+   },
+   "all_pass": false
+  },
+  {
+   "cpu": 1,
+   "load": 90,
+   "pre": {
+    "fc_search_p95": 6.48,
+    "fc_search_p50": 4.69,
+    "n_fc": 8003,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "during": {
+    "fc_search_p95": 10.91,
+    "fc_search_p50": 6.25,
+    "n_fc": 7999,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "post": {
+    "fc_search_p95": 6.3,
+    "fc_search_p50": 4.62,
+    "n_fc": 5068,
+    "achieved_rps": 800.1,
+    "achieved_pct": 100.01,
+    "pct_5xx": 0.0
+   },
+   "rise_x": 1.684,
+   "recover_x": 0.972,
+   "pass": {
+    "p95 2배 이상": false,
+    "달성률 90% 이상": true,
+    "5xx 1% 미만": true,
+    "복귀 1.1배 이내": true
+   },
+   "all_pass": false
+  },
+  {
+   "cpu": 1,
+   "load": 100,
+   "pre": {
+    "fc_search_p95": 6.57,
+    "fc_search_p50": 4.89,
+    "n_fc": 8002,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "during": {
+    "fc_search_p95": 11.41,
+    "fc_search_p50": 6.74,
+    "n_fc": 7998,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "post": {
+    "fc_search_p95": 6.9,
+    "fc_search_p50": 4.98,
+    "n_fc": 5068,
+    "achieved_rps": 800.2,
+    "achieved_pct": 100.02,
+    "pct_5xx": 0.0
+   },
+   "rise_x": 1.737,
+   "recover_x": 1.05,
+   "pass": {
+    "p95 2배 이상": false,
+    "달성률 90% 이상": true,
+    "5xx 1% 미만": true,
+    "복귀 1.1배 이내": true
+   },
+   "all_pass": false
+  },
+  {
+   "cpu": 2,
+   "load": 80,
+   "pre": {
+    "fc_search_p95": 6.41,
+    "fc_search_p50": 4.54,
+    "n_fc": 8002,
+    "achieved_rps": 800.0,
+    "achieved_pct": 100.0,
+    "pct_5xx": 0.0
+   },
+   "during": {
+    "fc_search_p95": 33.86,
+    "fc_search_p50": 18.4,
+    "n_fc": 7999,
+    "achieved_rps": 800.1,
+    "achieved_pct": 100.01,
+    "pct_5xx": 0.0
+   },
+   "post": {
+    "fc_search_p95": 6.09,
+    "fc_search_p50": 4.5,
+    "n_fc": 5066,
+    "achieved_rps": 799.9,
+    "achieved_pct": 99.99,
+    "pct_5xx": 0.0
+   },
+   "rise_x": 5.282,
+   "recover_x": 0.95,
+   "pass": {
+    "p95 2배 이상": true,
+    "달성률 90% 이상": true,
+    "5xx 1% 미만": true,
+    "복귀 1.1배 이내": true
+   },
+   "all_pass": true
+  }
+ ],
+ "chosen": {
+  "cpu": 2,
+  "load": 80,
+  "pre": {
+   "fc_search_p95": 6.41,
+   "fc_search_p50": 4.54,
+   "n_fc": 8002,
+   "achieved_rps": 800.0,
+   "achieved_pct": 100.0,
+   "pct_5xx": 0.0
+  },
+  "during": {
+   "fc_search_p95": 33.86,
+   "fc_search_p50": 18.4,
+   "n_fc": 7999,
+   "achieved_rps": 800.1,
+   "achieved_pct": 100.01,
+   "pct_5xx": 0.0
+  },
+  "post": {
+   "fc_search_p95": 6.09,
+   "fc_search_p50": 4.5,
+   "n_fc": 5066,
+   "achieved_rps": 799.9,
+   "achieved_pct": 99.99,
+   "pct_5xx": 0.0
+  },
+  "rise_x": 5.282,
+  "recover_x": 0.95,
+  "pass": {
+   "p95 2배 이상": true,
+   "달성률 90% 이상": true,
+   "5xx 1% 미만": true,
+   "복귀 1.1배 이내": true
+  },
+  "all_pass": true
+ }
+}

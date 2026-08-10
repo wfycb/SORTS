@@ -1,0 +1,42 @@
+{
+ "w_fixed": {
+  "reserve": 0.2775,
+  "recommend": 0.1775
+ },
+ "C_S2": 515,
+ "C_S2_ci90": [
+  495,
+  530
+ ],
+ "rmse_rel": 0.218,
+ "threshold": 1.0,
+ "bracket_intersection": [
+  473.9,
+  535.6
+ ],
+ "free_fit_S2": null,
+ "w_share_pass": true,
+ "derived_520_in_ci": true,
+ "curve_params": {
+  "reserve": {
+   "a": 0.521,
+   "b": 1.631,
+   "n_pts": 8
+  },
+  "search": {
+   "a": 4.326,
+   "b": 2.852,
+   "n_pts": 8
+  },
+  "recommend": {
+   "a": 0.771,
+   "b": 1.271,
+   "n_pts": 8
+  }
+ },
+ "collapsed": [
+  "s0_s2m0_r1200",
+  "s0_s2m1_r750",
+  "s0_s2m2_r1650"
+ ]
+}
