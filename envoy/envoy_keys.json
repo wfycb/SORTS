@@ -1,0 +1,90 @@
+{
+ "generated_by": "gen_envoy_v10.py",
+ "route_prefixes": [
+  "c1_search",
+  "c1_reserve",
+  "c1_recommend",
+  "c2_search",
+  "c2_reserve",
+  "c2_recommend",
+  "fallback"
+ ],
+ "cluster_keys": [
+  "site_s1",
+  "site_s2",
+  "site_s3",
+  "sub_s23",
+  "sub_s13",
+  "sub_s12",
+  "sub_s123",
+  "bl_rr",
+  "bl_lr",
+  "bl_loc"
+ ],
+ "cluster_sites": {
+  "site_s1": [
+   "S1"
+  ],
+  "site_s2": [
+   "S2"
+  ],
+  "site_s3": [
+   "S3"
+  ],
+  "sub_s23": [
+   "S2",
+   "S3"
+  ],
+  "sub_s13": [
+   "S1",
+   "S3"
+  ],
+  "sub_s12": [
+   "S1",
+   "S2"
+  ],
+  "sub_s123": [
+   "S1",
+   "S2",
+   "S3"
+  ],
+  "bl_rr": [
+   "S1",
+   "S2",
+   "S3"
+  ],
+  "bl_lr": [
+   "S1",
+   "S2",
+   "S3"
+  ],
+  "bl_loc": [
+   "S1",
+   "S2",
+   "S3"
+  ]
+ },
+ "sorts_clusters": [
+  "site_s1",
+  "site_s2",
+  "site_s3",
+  "sub_s23",
+  "sub_s13",
+  "sub_s12",
+  "sub_s123"
+ ],
+ "subset_cluster_of": {
+  "S1": "site_s1",
+  "S2": "site_s2",
+  "S3": "site_s3",
+  "S2|S3": "sub_s23",
+  "S1|S3": "sub_s13",
+  "S1|S2": "sub_s12",
+  "S1|S2|S3": "sub_s123"
+ },
+ "site_ip": {
+  "S1": "192.168.0.3",
+  "S2": "192.168.0.2",
+  "S3": "192.168.0.40"
+ }
+}
