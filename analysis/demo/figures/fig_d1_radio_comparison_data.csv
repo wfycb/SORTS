@@ -1,0 +1,5 @@
+policy,during_c1_search_viol_pct
+SORTS (reactive),0.339
+RR,33.459
+Least-Request,22.771
+Static-Far (반응 없음),100.0

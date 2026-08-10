@@ -1,0 +1,7 @@
+run,policy,disturb,pre_c1_search_viol%,pre_total_viol%,during_c1_search_viol%,during_total_viol%,post_c1_search_viol%,post_total_viol%
+D1_sorts_none,sorts_reactive,none,0.037,0.044,0.037,0.028,0.037,0.046
+D2_sorts_radio,sorts_reactive,radio,0.0,0.015,0.339,0.141,0.045,0.038
+D3_s3_radio,site_s3,radio,0.019,0.043,100.0,20.271,0.019,0.049
+D4_rr_radio,bl_rr,radio,0.057,0.047,33.459,6.842,0.109,0.086
+D5_lr_radio,bl_lr,radio,0.127,0.092,22.771,4.198,0.121,0.082
+D6_sorts_ramp,sorts_reactive,ramp,0.039,0.037,1.149,1.877,0.026,0.063

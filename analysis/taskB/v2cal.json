@@ -1,0 +1,212 @@
+{
+ "runs": [
+  {
+   "run_id": "v2cal_soff_1",
+   "arm": "strict_far",
+   "suspect": false,
+   "n": 504091,
+   "viol_pct": 70.605,
+   "by_class": {
+    "recommend": {
+     "n": 224040,
+     "viol_corrected_pct": 69.934,
+     "viol_service_pct": 20.179,
+     "hol_gap_pct": 49.756
+    },
+    "reserve": {
+     "n": 112020,
+     "viol_corrected_pct": 69.039,
+     "viol_service_pct": 32.625,
+     "hol_gap_pct": 36.414
+    },
+    "search": {
+     "n": 168031,
+     "viol_corrected_pct": 72.542,
+     "viol_service_pct": 50.792,
+     "hol_gap_pct": 21.75
+    }
+   },
+   "per_conn_viol_pct": {
+    "n_conns": 64,
+    "min": 69.32,
+    "p50": 70.785,
+    "max": 72.05
+   },
+   "s2_overload": {
+    "n_secs": 417,
+    "n_secs_over_knee": 0,
+    "share_over": 0.0,
+    "s2_inflow_mean": 586.7,
+    "s2_inflow_max": 704,
+    "fc_p95_over_knee": null,
+    "fc_p95_under_knee": 95.993
+   },
+   "oscillation": {
+    "c1_recommend": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    },
+    "c1_reserve": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    },
+    "c1_search": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    },
+    "c2_recommend": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    },
+    "c2_reserve": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    },
+    "c2_search": {
+     "ticks": 426,
+     "site_transitions": 420,
+     "feasible_transitions": 420,
+     "dwell": {
+      "S2": 0.493,
+      "S3": 0.507
+     }
+    }
+   }
+  },
+  {
+   "run_id": "v2cal_soff_2",
+   "arm": "strict_far",
+   "suspect": false,
+   "n": 504041,
+   "viol_pct": 63.93,
+   "by_class": {
+    "recommend": {
+     "n": 224017,
+     "viol_corrected_pct": 63.297,
+     "viol_service_pct": 18.229,
+     "hol_gap_pct": 45.068
+    },
+    "reserve": {
+     "n": 112010,
+     "viol_corrected_pct": 62.735,
+     "viol_service_pct": 29.408,
+     "hol_gap_pct": 33.326
+    },
+    "search": {
+     "n": 168014,
+     "viol_corrected_pct": 65.57,
+     "viol_service_pct": 45.895,
+     "hol_gap_pct": 19.675
+    }
+   },
+   "per_conn_viol_pct": {
+    "n_conns": 64,
+    "min": 62.71,
+    "p50": 63.898,
+    "max": 65.18
+   },
+   "s2_overload": {
+    "n_secs": 417,
+    "n_secs_over_knee": 0,
+    "share_over": 0.0,
+    "s2_inflow_mean": 458.4,
+    "s2_inflow_max": 942,
+    "fc_p95_over_knee": null,
+    "fc_p95_under_knee": 95.768
+   },
+   "oscillation": {
+    "c1_recommend": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    },
+    "c1_reserve": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    },
+    "c1_search": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    },
+    "c2_recommend": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    },
+    "c2_reserve": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    },
+    "c2_search": {
+     "ticks": 426,
+     "site_transitions": 330,
+     "feasible_transitions": 330,
+     "dwell": {
+      "S2": 0.387,
+      "S3": 0.613
+     }
+    }
+   }
+  }
+ ],
+ "arm_agg": {
+  "strict_far": {
+   "n": 2,
+   "runs": [
+    70.605,
+    63.93
+   ],
+   "mean": 67.267,
+   "half_range": 3.338
+  }
+ },
+ "crit1": null
+}

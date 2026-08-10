@@ -1,0 +1,369 @@
+{
+ "w": {
+  "search": 1.0,
+  "reserve": 0.2775,
+  "recommend": 0.1775
+ },
+ "C_S1": 279,
+ "rmse_rel_insample": 0.4987,
+ "n_fit_pts": 48,
+ "n_fit_runs": 21,
+ "excluded_collapsed": [
+  "a_m2_r850",
+  "t1b_s1mix_r600",
+  "t1b_s1srch_r280",
+  "t1b_s1srch_r300"
+ ],
+ "curve_params": {
+  "reserve": {
+   "a": -0.803,
+   "b": 1.005,
+   "n_pts": 14
+  },
+  "search": {
+   "a": 4.953,
+   "b": 3.512,
+   "n_pts": 21
+  },
+  "recommend": {
+   "a": -0.507,
+   "b": 1.754,
+   "n_pts": 13
+  }
+ },
+ "ci90": {
+  "w_reserve": [
+   0.265,
+   0.315
+  ],
+  "w_recommend": [
+   0.165,
+   0.215
+  ],
+  "C_S1": [
+   273,
+   287
+  ]
+ },
+ "holdout_M3": {
+  "fit_wo_M3": {
+   "w_reserve": 0.265,
+   "w_recommend": 0.2775,
+   "C_S1": 274
+  },
+  "train_rmse_rel": 0.4948,
+  "holdout_rmse_rel": 4.8978,
+  "n_holdout_pts": 9
+ },
+ "runs": [
+  {
+   "run_id": "a_m1_r250",
+   "pre": "a_m1",
+   "total": 250.0,
+   "L_eff": 201.7,
+   "u": 0.723,
+   "fc": {
+    "recommend": 3.036,
+    "reserve": 6.281,
+    "search": 16.589
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m1_r280",
+   "pre": "a_m1",
+   "total": 280.0,
+   "L_eff": 225.9,
+   "u": 0.81,
+   "fc": {
+    "recommend": 5.629,
+    "reserve": 10.888,
+    "search": 23.3
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m1_r310",
+   "pre": "a_m1",
+   "total": 310.0,
+   "L_eff": 250.1,
+   "u": 0.897,
+   "fc": {
+    "recommend": 14.041,
+    "reserve": 19.448,
+    "search": 42.953
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m2_r550",
+   "pre": "a_m2",
+   "total": 550.0,
+   "L_eff": 195.4,
+   "u": 0.7,
+   "fc": {
+    "recommend": 5.475,
+    "reserve": 5.213,
+    "search": 14.17
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m2_r700",
+   "pre": "a_m2",
+   "total": 700.0,
+   "L_eff": 248.7,
+   "u": 0.891,
+   "fc": {
+    "recommend": 11.181,
+    "reserve": 22.234,
+    "search": 30.435
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m2_r850",
+   "pre": "a_m2",
+   "total": 850.2,
+   "L_eff": 302.1,
+   "u": 1.083,
+   "fc": {
+    "recommend": 28.849,
+    "reserve": 55.986,
+    "search": 69.717
+   },
+   "collapsed": true
+  },
+  {
+   "run_id": "a_m3_r550",
+   "pre": "a_m3",
+   "total": 550.0,
+   "L_eff": 161.0,
+   "u": 0.577,
+   "fc": {
+    "recommend": 3.548,
+    "reserve": 3.456,
+    "search": 11.946
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m3_r700",
+   "pre": "a_m3",
+   "total": 700.0,
+   "L_eff": 205.0,
+   "u": 0.735,
+   "fc": {
+    "recommend": 5.904,
+    "reserve": 3.686,
+    "search": 16.006
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "a_m3_r850",
+   "pre": "a_m3",
+   "total": 850.1,
+   "L_eff": 248.9,
+   "u": 0.892,
+   "fc": {
+    "recommend": 11.421,
+    "reserve": 10.981,
+    "search": 26.208
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r100",
+   "pre": "t1_s1mix",
+   "total": 100.0,
+   "L_eff": 47.4,
+   "u": 0.17,
+   "fc": {
+    "recommend": -0.706,
+    "reserve": -0.22,
+    "search": 4.052
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r150",
+   "pre": "t1_s1mix",
+   "total": 150.0,
+   "L_eff": 71.1,
+   "u": 0.255,
+   "fc": {
+    "recommend": -0.071,
+    "reserve": 1.542,
+    "search": 8.208
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r200",
+   "pre": "t1_s1mix",
+   "total": 200.0,
+   "L_eff": 94.8,
+   "u": 0.34,
+   "fc": {
+    "recommend": 0.328,
+    "reserve": 0.712,
+    "search": 8.26
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r250",
+   "pre": "t1_s1mix",
+   "total": 250.0,
+   "L_eff": 118.5,
+   "u": 0.425,
+   "fc": {
+    "recommend": 2.05,
+    "reserve": 1.325,
+    "search": 9.819
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r300",
+   "pre": "t1_s1mix",
+   "total": 300.0,
+   "L_eff": 142.2,
+   "u": 0.51,
+   "fc": {
+    "recommend": 2.451,
+    "reserve": 0.145,
+    "search": 9.21
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1mix_r400",
+   "pre": "t1_s1mix",
+   "total": 400.0,
+   "L_eff": 189.6,
+   "u": 0.679,
+   "fc": {
+    "recommend": 4.758,
+    "reserve": 3.394,
+    "search": 14.025
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1srch_r080",
+   "pre": "t1_s1srch",
+   "total": 80.0,
+   "L_eff": 80.0,
+   "u": 0.287,
+   "fc": {
+    "search": 6.724
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1srch_r120",
+   "pre": "t1_s1srch",
+   "total": 120.0,
+   "L_eff": 120.0,
+   "u": 0.43,
+   "fc": {
+    "search": 7.579
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1srch_r160",
+   "pre": "t1_s1srch",
+   "total": 160.0,
+   "L_eff": 160.0,
+   "u": 0.573,
+   "fc": {
+    "search": 8.58
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1srch_r200",
+   "pre": "t1_s1srch",
+   "total": 200.0,
+   "L_eff": 200.0,
+   "u": 0.717,
+   "fc": {
+    "search": 11.178
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1_s1srch_r240",
+   "pre": "t1_s1srch",
+   "total": 240.0,
+   "L_eff": 240.0,
+   "u": 0.86,
+   "fc": {
+    "search": 25.024
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1b_s1mix_r500",
+   "pre": "t1b_s1mix",
+   "total": 500.0,
+   "L_eff": 236.9,
+   "u": 0.849,
+   "fc": {
+    "recommend": 18.182,
+    "reserve": 22.994,
+    "search": 43.869
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1b_s1mix_r600",
+   "pre": "t1b_s1mix",
+   "total": 600.0,
+   "L_eff": 284.3,
+   "u": 1.019,
+   "fc": {
+    "recommend": 47.814,
+    "reserve": 66.831,
+    "search": 125.056
+   },
+   "collapsed": true
+  },
+  {
+   "run_id": "t1b_s1srch_r260",
+   "pre": "t1b_s1srch",
+   "total": 260.0,
+   "L_eff": 260.0,
+   "u": 0.932,
+   "fc": {
+    "search": 49.052
+   },
+   "collapsed": false
+  },
+  {
+   "run_id": "t1b_s1srch_r280",
+   "pre": "t1b_s1srch",
+   "total": 280.1,
+   "L_eff": 280.1,
+   "u": 1.004,
+   "fc": {
+    "search": 117.703
+   },
+   "collapsed": true
+  },
+  {
+   "run_id": "t1b_s1srch_r300",
+   "pre": "t1b_s1srch",
+   "total": 292.7,
+   "L_eff": 292.7,
+   "u": 1.049,
+   "fc": {
+    "search": 173.947
+   },
+   "collapsed": true
+  }
+ ]
+}

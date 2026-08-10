@@ -1,0 +1,4 @@
+endpoint,span_count,services,n_services,call_path,max_hops,backing_stores,idle_total_ms_p50,idle_total_ms_min,resp_bytes,fc_p50_ms_run,fc_p95_ms_run
+search,N/A (Jaeger 미수집),frontend > search > geo > rate > reservation > profile,6,"frontend → search → {geo, rate} ; frontend → reservation ; frontend → profile",3,mongodb-geo; memcached-rate(+mongodb-rate); memcached-reserve(+mongodb-reservation); memcached-profile(+mongodb-profile),4.789,4.521,4474,4.691,6.384
+reserve,N/A (Jaeger 미수집),frontend > user > reservation,3,frontend → user ; frontend → reservation,2,mongodb-user; memcached-reserve(+mongodb-reservation),1.359,1.327,36,0.967,1.779
+recommend,N/A (Jaeger 미수집),frontend > recommendation > profile,3,frontend → recommendation ; frontend → profile,2,mongodb-recommendation; memcached-profile(+mongodb-profile),0.998,0.975,200,0.775,1.589

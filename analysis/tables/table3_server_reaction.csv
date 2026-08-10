@@ -1,0 +1,5 @@
+policy,during_h1_viol_pct,during_h2_viol_pct,diff_pp,h1_c1_search_pct,h2_c1_search_pct,t_inject_issue_s,t_inject_done_s,pre_S3_mu_pct,pre_S3_sd_pp,thr_S3_pct,t_react_s,react_lag_s,max_S3_dev_pp,cum_viol_before_react_all,cum_viol_before_react_c1_search,reacted
+site_s3,5.1787,4.7862,-0.3925,7.4402,7.2441,120.15,120.75,100.0,0.0,98.0,,,0.0,4674,1149,False
+bl_rr,0.4942,0.2883,-0.2059,0.8454,0.3252,120.15,120.73,33.334,0.083,31.334,,,0.292,361,90,False
+bl_lr,1.3831,1.487,0.1039,3.238,3.3693,120.17,120.75,22.976,0.785,20.62,,,2.023,1348,522,False
+bl_loc,100.0,100.0,0.0,100.0,100.0,120.03,120.61,14.287,0.275,12.287,,,0.569,74996,12452,False

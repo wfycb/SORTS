@@ -1,0 +1,115 @@
+{
+ "measured": {
+  "search": {
+   "n": 12,
+   "codes": [
+    200
+   ],
+   "sizes": [
+    4474
+   ],
+   "p50": 4.789,
+   "min": 4.521,
+   "max": 5.62
+  },
+  "recommend": {
+   "n": 12,
+   "codes": [
+    200
+   ],
+   "sizes": [
+    200
+   ],
+   "p50": 0.998,
+   "min": 0.975,
+   "max": 1.071
+  },
+  "reserve": {
+   "n": 3,
+   "codes": [
+    200
+   ],
+   "sizes": [
+    36
+   ],
+   "p50": 1.359,
+   "min": 1.327,
+   "max": 1.425
+  }
+ },
+ "memcached": {
+  "rate": {
+   "curr_items": 5,
+   "cmd_get": 8710358,
+   "get_hits": 8710353,
+   "get_misses": 5,
+   "hit_pct": 100.0,
+   "bytes": 53690,
+   "evictions": 0
+  },
+  "profile": {
+   "curr_items": 27,
+   "cmd_get": 47807662,
+   "get_hits": 47807635,
+   "get_misses": 27,
+   "hit_pct": 100.0,
+   "bytes": 14579,
+   "evictions": 0
+  },
+  "reserve": {
+   "curr_items": 2,
+   "cmd_get": 891588940,
+   "get_hits": 35328224,
+   "get_misses": 856260716,
+   "hit_pct": 3.962,
+   "bytes": 158,
+   "evictions": 0
+  }
+ },
+ "structure": {
+  "search": {
+   "services": [
+    "frontend",
+    "search",
+    "geo",
+    "rate",
+    "reservation",
+    "profile"
+   ],
+   "path": "frontend → search → {geo, rate} ; frontend → reservation ; frontend → profile",
+   "max_hops": 3,
+   "stores": [
+    "mongodb-geo",
+    "memcached-rate(+mongodb-rate)",
+    "memcached-reserve(+mongodb-reservation)",
+    "memcached-profile(+mongodb-profile)"
+   ]
+  },
+  "recommend": {
+   "services": [
+    "frontend",
+    "recommendation",
+    "profile"
+   ],
+   "path": "frontend → recommendation ; frontend → profile",
+   "max_hops": 2,
+   "stores": [
+    "mongodb-recommendation",
+    "memcached-profile(+mongodb-profile)"
+   ]
+  },
+  "reserve": {
+   "services": [
+    "frontend",
+    "user",
+    "reservation"
+   ],
+   "path": "frontend → user ; frontend → reservation",
+   "max_hops": 2,
+   "stores": [
+    "mongodb-user",
+    "memcached-reserve(+mongodb-reservation)"
+   ]
+  }
+ }
+}

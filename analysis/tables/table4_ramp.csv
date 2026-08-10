@@ -1,0 +1,5 @@
+policy,run_id,t_ramp_start_s,t_ramp_clear_s,T1_s,T5_s,lead_to_T1_s,lead_to_T5_s,T1_rate_kbit,T5_rate_kbit,T1_step,T5_step,T1_roll3_s,T5_roll3_s,lead_to_T1_roll3_s,lead_to_T5_roll3_s,T1_roll3_rate_kbit,T5_roll3_rate_kbit,T1_roll3_step,T5_roll3_step,ramp_end_viol_pct,ramp_end_n,pre_ramp_viol_pct,base_mu_pct,base_sd_pp,dep_thr_pct,T_dep_s,lead_to_T_dep_s,T_dep_rate_kbit,T_dep_step
+site_s3,B_ramp_site_s3,61.06,300.09,70.0,162.0,8.94,100.94,20000,3273,0,10,69.0,163.0,7.94,101.94,20000,3273,0,10,100.0,17216,0.045,0.045,0.236,1.045,160.0,98.94,4945.0,9.0
+bl_rr,B_ramp_bl_rr,61.25,300.13,62.0,62.0,0.75,0.75,20000,20000,0,0,62.0,62.0,0.75,0.75,20000,20000,0,0,60.727,17218,7.577,7.489,3.893,19.169,161.0,99.75,3273.0,10.0
+bl_lr,B_ramp_bl_lr,61.14,300.04,62.0,66.0,0.86,4.86,20000,20000,0,0,62.0,69.0,0.86,7.86,20000,20000,0,0,60.017,17215,3.9,3.883,2.367,10.983,166.0,104.86,3273.0,10.0
+bl_loc,B_ramp_bl_loc,61.17,300.01,62.0,62.0,0.83,0.83,20000,20000,0,0,62.0,62.0,0.83,0.83,20000,20000,0,0,100.0,12052,100.0,100.0,0.0,101.0,,,,
