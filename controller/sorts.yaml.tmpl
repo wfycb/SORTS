@@ -1,0 +1,125 @@
+# SORTS 컨트롤러 설정 (지시서 v10 §0 확정 파라미터).
+# [Phase 4] 이 파일은 sorts.yaml.tmpl 에서 run_all.py 가 arm 스펙으로 렌더한다.
+# sorts.yaml 손편집 금지 — 템플릿(sorts.yaml.tmpl)을 고치고 렌더로 반영해라.
+# 값을 코드에 박지 않는다 — 다음 단계에서 또 바뀐다.
+# f_c 는 service p95 [ms]. §0 표 그대로 (실측이 달라도 여기 값을 바꾸지 않는다).
+
+t_ctrl_s: 1.0            # 제어 주기
+gb_ms: 5.0               # 가드밴드
+overhead: 1.10           # d_acc 오버헤드 계수 (N2 실측)
+
+slo_ms:
+  reserve: 35.0
+  search: 45.0
+  recommend: 35.0
+
+resp_bytes:
+  reserve: 36
+  search: 4474
+  recommend: 200
+
+d_net_ms:                # v10: S2 = 15
+  S1: 2.0
+  S2: 15.0
+  S3: 25.0
+
+f_c_ms:                  # v10 §0 표
+  reserve:   { S1: 1.658, S2: 1.332, S3: 1.348 }
+  search:    { S1: 6.899, S2: 4.287, S3: 4.019 }
+  recommend: { S1: 1.240, S2: 0.975, S3: 1.000 }
+
+# 최원거리부터 시도한다 (d_net 내림차순)
+site_order: [S3, S2, S1]
+
+# ---- 허용 집합 정책 (작업 A §3.1) ----
+# strict_far   = 가용한 가장 먼 사이트 하나 (현행 동등, 회귀 기준선)
+# far_tier     = 원거리 티어(S3,S2) 중 가용 전부. 엣지(S1)는 원거리 전멸 시만.
+#                엣지 보존이 유지되는 기본값 — {S2}<->{S2,S3} 전환으로
+#                bang-bang 이 비례제어가 되는 지점이다.
+# all_feasible = 가용 전부. 엣지 보존 없음 (ablation 대조군 전용).
+# far-first 는 이제 순회 순서가 아니라 티어 구분으로 표현된다 — 용량 기반
+# 표현(작업 B)으로 가는 중간 단계다.
+subset_policy: %SUBSET_POLICY%
+
+# ---- 관측 계층 (작업 1 Phase 2) ----
+# 둘 다 false = Phase 0 과 동일한 라이브 결정 (shadow 열만 추가로 기록).
+# Phase 4 arm: const = 둘 다 false / both = 둘 다 true. bytes-only/fc-only 는
+# 라이브로 돌리지 않고 decisions.csv 의 shadow 4방향 열에서 귀속한다.
+est_resp_bytes: %EST_RESP_BYTES%
+est_f_c: %EST_F_C%
+# 관측 윈도 [s]. Phase 2 확정값 2.0 (obs.DEFAULT_WINDOW_S 와 동일해야 하며
+# 키가 없으면 그 기본값을 쓴다). Phase 4 런 14(W1)만 4.0 으로 렌더된다.
+window_s: %WINDOW_S%
+obs_log_path: /var/log/envoy/front_access.log
+
+# ---- 용량 제약 (작업 B) ----
+# off = 작업 A 와 결정 단위 동일 (회귀 경계). on 이면 각 티어 안에서
+# L_eff(site) = Σ w[class]·rps[class][site] ≤ headroom·c_eq[site] 를 만족하는
+# 사이트만 허용 집합에 남긴다. 밴드는 여기 안 들어간다 — d_acc 로 이미
+# 결정식에 있다 (이중 계산 금지).
+capacity_check: %CAPACITY_CHECK%
+# headroom 근거: 무릎이 ±20 rps 에서 f_c p95 2~5배 폭주 (S1 search
+# 240→25/260→49/280→118 ms, analysis/night-20260810/capacity_knee.md).
+# 예측 오차·관측 지연 여유가 없으면 무릎을 넘는다. 매직 넘버 아님.
+headroom: 0.9
+# w/C: analysis/taskB-prep/weight_estimation.md (2026-08-10).
+# 유효 범위 = 측정 조성 볼록포 안 — 새 조성 외삽 금지 (홀드아웃 실측).
+w_eq:
+  search: 1.0
+  reserve: 0.278
+  recommend: 0.178
+c_eq:                    # search-등가 rps
+  S1: 279.0              # CI [273, 287] (analysis/taskB-prep/weight_estimation.md)
+  S2: 515.0              # 단계 0 실측 확정, CI [495, 530] (analysis/taskB/s0_wshare.json)
+  S3: 865.0              # M0 조성 조건부 (작업 B2 단계 0a, CI [795, 865],
+                         # analysis/taskB2/s3_c_m0.json). ★S3 는 w 공유
+                         # 불성립(브래킷 교집합 공집합 — M2 2400 비붕괴
+                         # 853 eq > M0 붕괴 840.5 eq): 전 조성 단일 C 부재.
+                         # 검증 조건이 M0 이라 조건부 값 사용 — 조성이
+                         # 바뀌면 그 방향 브래킷 재측정 필수.
+# 집합 내 LEAST_REQUEST 분배 근사 (예측 기반 용량 검사의 입력).
+# 출처: S2|S3 = 야간 t2 실측(r/r S2 58 %); S1|S3 = 작업 A 스모크
+# sub_s13 S1 64.6 %; S1|S2 는 미실측 — S1|S3 유추; S1|S2|S3 = 작업 A
+# sub_s123 S1 42.7 % + 잔여를 S2:S3=58:42 로 분할. 근사 오차는 검증 런에서
+# 실측해 보고한다.
+set_share:
+  "S2|S3": {S2: 0.58, S3: 0.42}
+  "S1|S3": {S1: 0.65, S3: 0.35}
+  "S1|S2": {S1: 0.65, S2: 0.35}
+  "S1|S2|S3": {S1: 0.43, S2: 0.33, S3: 0.24}
+
+# ---- 손실 배분 (작업 B2, EXPECTANT 경로 한정) ----
+# off = 작업 B 와 결정 단위 동일 (회귀 경계). on 이면 feasible 이 공집합인
+# (EXPECTANT) 유닛에 한해 위반 건수 최소화(목적함수 B, 사전 등록
+# runs/taskB2-20260810/PROGRESS.md §B) 배정을 한다:
+#   badness = max(0, −slack) 오름차순 그리디, 사이트별 room = HEADROOM·C −
+#   planned 까지 충전, badness=0 동률은 원거리 우선, 전 room 소진 후 잔여는
+#   S1(기존 EXPECTANT 폴백과 동일). 표현은 기존 weighted_clusters 런타임
+#   가중치(정수 %). feasible 비공집합 경로는 불변. capacity_check off 면 무효.
+soft_assign: %SOFT_ASSIGN%
+
+# ---- 밴드 의존 유효 용량 (작업 B3) ----
+# off = B2 와 결정 단위 동일 (회귀 경계). on 이면 용량 검사·soft room 이
+# C_eff(site, band) = min 아님 — 테이블 (T) 실측값을 쓴다 (사전 등록
+# runs/taskB3-20260810/PROGRESS.md §A~C):
+#   결정 유닛의 관측 rate 가 c_eff_band[site] 키와 일치 → 그 값;
+#   불일치 → 가장 가까운 측정점 값 + c_eff_extrapolated 기록 + 경고 1회;
+#   무제한(rate 없음) → c_eq (§B — 무제한 회귀 요구 정합, 무제한 SLO-유효
+#   실측은 보고 대조만). 미측정 사이트(S2/S3)는 밴드 무관 c_eq (한계 기록).
+c_eff: %C_EFF%
+c_eff_band:              # [site][band_kbit] = SLO-유효 등가 용량 (1% 기준)
+  # 출처: 작업 B3 단계 0 (analysis/taskB3/ceff_fit.json, 2026-08-11).
+  # M0 조성·16conn/코호트·양 코호트 상시 밴드 조건부. 무제한 SLO-유효
+  # 실측은 206.1 (결정식 무제한 항은 §B 대로 c_eq 유지 — 보고 대조만).
+  # 브래킷: 1600 [94.8, 118.6] / 2300 [151.8, 180.2].
+  # ★주의: 최근접 규칙이라 미측정 고밴드(예: 20000)가 관측되면 2300 값으로
+  # 사상된다 — extrapolated 플래그·경고로 드러나며, 이 실험 조건(무제한/
+  # 1600)에선 발생하지 않음. 새 밴드 도입 시 그 밴드 측정 필수.
+  S1: {1600: 105.4, 2300: 161.7}
+
+cohorts:                 # tc classid 상위비트 -> 코호트 (tb-radio2.sh v2 규약)
+  c1: 0x1000
+  c2: 0x2000
+
+envoy_admin: "http://127.0.0.1:9901"
+iface: ogstun
