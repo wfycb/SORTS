@@ -1,5 +1,5 @@
 # 생성: gen_envoy_v10.py (지시서 v10 T2). 손으로 고치지 말 것 — 재생성하라.
-# 코호트 UE 주소: c1=10.46.0.6 c2=10.46.0.7 (/run/tb-cohort.map)
+# 코호트 UE 주소: c1=10.46.0.6 c2=10.46.0.7 c3=10.46.0.8 c4=10.46.0.9 c5=10.46.0.10 c6=10.46.0.11 (/run/tb-cohort.map)
 admin:
   address:
     socket_address: { address: 127.0.0.1, port_value: 9901 }
@@ -75,6 +75,162 @@ layered_runtime:
             bl_od: 0
             bl_loc_pri: 0
           c2_recommend:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c3_search:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c3_reserve:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c3_recommend:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c4_search:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c4_reserve:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c4_recommend:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c5_search:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c5_reserve:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c5_recommend:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c6_search:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c6_reserve:
+            site_s1: 0
+            site_s2: 0
+            site_s3: 100
+            sub_s23: 0
+            sub_s13: 0
+            sub_s12: 0
+            sub_s123: 0
+            bl_rr: 0
+            bl_lr: 0
+            bl_loc: 0
+            bl_od: 0
+            bl_loc_pri: 0
+          c6_recommend:
             site_s1: 0
             site_s2: 0
             site_s3: 100
@@ -313,6 +469,414 @@ static_resources:
                             timeout: 5s
                             weighted_clusters:
                               runtime_key_prefix: routing.c2_recommend
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/hotels"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.8" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c3_search
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/reservation"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.8" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c3_reserve
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/recommendations"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.8" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c3_recommend
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/hotels"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.9" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c4_search
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/reservation"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.9" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c4_reserve
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/recommendations"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.9" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c4_recommend
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/hotels"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.10" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c5_search
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/reservation"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.10" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c5_reserve
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/recommendations"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.10" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c5_recommend
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/hotels"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.11" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c6_search
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/reservation"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.11" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c6_reserve
+                              clusters:
+                                - name: site_s1
+                                  weight: 0
+                                - name: site_s2
+                                  weight: 0
+                                - name: site_s3
+                                  weight: 100
+                                - name: sub_s23
+                                  weight: 0
+                                - name: sub_s13
+                                  weight: 0
+                                - name: sub_s12
+                                  weight: 0
+                                - name: sub_s123
+                                  weight: 0
+                                - name: bl_rr
+                                  weight: 0
+                                - name: bl_lr
+                                  weight: 0
+                                - name: bl_loc
+                                  weight: 0
+                                - name: bl_od
+                                  weight: 0
+                                - name: bl_loc_pri
+                                  weight: 0
+                        - match:
+                            prefix: "/recommendations"
+                            headers:
+                              - name: x-forwarded-for
+                                string_match: { exact: "10.46.0.11" }
+                          route:
+                            timeout: 5s
+                            weighted_clusters:
+                              runtime_key_prefix: routing.c6_recommend
                               clusters:
                                 - name: site_s1
                                   weight: 0

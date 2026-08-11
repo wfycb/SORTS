@@ -1,0 +1,28 @@
+{
+ "batch_id": "stage3-repro",
+ "note": "해제 검증 재현런 (FREEZE 해제 기록 2·PREREG_S3 §4): 코호트 열거 일반화 후 2코호트 stage2 T=1s config 그대로 1런. 판정 대역(사전 등록): c1s during 0.708±0.090%, 반응(발효) 0.963±0.016s. read_rates 동작 실측 포함.",
+ "runs": [
+  {
+   "type": "TB",
+   "run_id": "s3repro_t1000_1",
+   "policy": "sorts_reactive",
+   "disturb": "radio",
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier",
+   "capacity_check": true,
+   "soft_assign": true,
+   "c_eff": true,
+   "ctl_period_s": 1.0,
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 5,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}

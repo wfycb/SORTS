@@ -121,9 +121,10 @@ c_eff_band:              # [site][band_kbit] = SLO-유효 등가 용량 (1% 기�
   # 1600)에선 발생하지 않음. 새 밴드 도입 시 그 밴드 측정 필수.
   S1: {1600: 105.4, 2300: 161.7}
 
-cohorts:                 # tc classid 상위비트 -> 코호트 (tb-radio2.sh v2 규약)
-  c1: 0x1000
-  c2: 0x2000
+# [3단계] 코호트 열거 일반화 — 러너가 n_cohorts 에 맞춰 렌더한다.
+# (tc classid 상위비트 -> 코호트, tb-radio2.sh v2/v3 규약: cN = N*0x1000)
+cohorts:
+%COHORTS%
 
 envoy_admin: "http://127.0.0.1:9901"
 iface: ogstun

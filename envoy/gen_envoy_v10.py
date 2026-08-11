@@ -76,8 +76,10 @@ HC_BLOCK = """\
 """
 # SORTS 가 라우팅에 쓰는 클러스터 (관측 필터의 허용 집합. bl_* 는 계속 배제)
 SORTS_CLUSTERS = ["site_s1", "site_s2", "site_s3"] + list(SUBSETS)
-ROUTE_PREFIXES = ["c1_search", "c1_reserve", "c1_recommend",
-                  "c2_search", "c2_reserve", "c2_recommend", "fallback"]
+# [3단계] route_prefixes 는 코호트 수의 함수 — write_keys(n_cohorts) 가 생성.
+def route_prefixes(n_cohorts):
+    return [f"c{c}_{cls}" for c in range(1, n_cohorts + 1)
+            for cls in ("search", "reserve", "recommend")] + ["fallback"]
 # 허용 집합("S2|S3" 정렬·파이프 구분) -> 클러스터 이름
 SUBSET_CLUSTER_OF = {
     "S1": "site_s1", "S2": "site_s2", "S3": "site_s3",
@@ -88,7 +90,7 @@ KEYS_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "envoy_keys.json")
 
 
-def write_keys(active_hc=False):
+def write_keys(active_hc=False, n_cohorts=2):
     """config 와 같은 실행에서 키 목록 산출물을 뱉는다 (단일 출처).
 
     active_hc 는 라우팅 키와 무관한 **기록**이다 — 같은 실행에서 렌더된
@@ -97,7 +99,8 @@ def write_keys(active_hc=False):
     obj = {
         "generated_by": "gen_envoy_v10.py",
         "active_hc": bool(active_hc),
-        "route_prefixes": ROUTE_PREFIXES,
+        "n_cohorts": int(n_cohorts),
+        "route_prefixes": route_prefixes(n_cohorts),
         "cluster_keys": CLUSTERS,
         "cluster_sites": {k: list(v) for k, v in CLUSTER_SITES.items()},
         "sorts_clusters": SORTS_CLUSTERS,
@@ -109,14 +112,16 @@ def write_keys(active_hc=False):
         f.write("\n")
     return KEYS_OUT
 # (runtime prefix 이름, 코호트, 경로 prefix)
-UNITS = [
-    ("c1_search", 1, "/hotels"),
-    ("c1_reserve", 1, "/reservation"),
-    ("c1_recommend", 1, "/recommendations"),
-    ("c2_search", 2, "/hotels"),
-    ("c2_reserve", 2, "/reservation"),
-    ("c2_recommend", 2, "/recommendations"),
-]
+# [3단계] 코호트 열거 일반화 — n_cohorts 에서 생성한다. 클래스·경로 매핑은
+# 종전과 동일, 코호트 수만 매개변수화 (기본 2 = 종전 거동).
+CLASS_PATHS = [("search", "/hotels"), ("reserve", "/reservation"),
+               ("recommend", "/recommendations")]
+
+
+def make_units(n_cohorts):
+    return [(f"c{c}_{cls}", c, path)
+            for c in range(1, n_cohorts + 1)
+            for cls, path in CLASS_PATHS]
 
 
 def cohort_ips():
@@ -180,6 +185,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--c1")
     ap.add_argument("--c2")
+    # [3단계] 코호트 수. 기본 2 = 종전 거동 (--c1/--c2 하위 호환 유지).
+    ap.add_argument("--n-cohorts", type=int, default=2)
     ap.add_argument("-o", "--out")
     # [1단계] 전 클러스터 active health check (§4.1). off 가 기본 = 종전 거동.
     ap.add_argument("--hc", action="store_true",
@@ -189,8 +196,10 @@ def main():
         ips = {1: a.c1, 2: a.c2}
     else:
         ips = cohort_ips()
-    if 1 not in ips or 2 not in ips:
-        sys.exit(f"FATAL: 코호트 맵에 1/2 없음: {ips}")
+    missing = [c for c in range(1, a.n_cohorts + 1) if c not in ips]
+    if missing:
+        sys.exit(f"FATAL: 코호트 맵에 {missing} 없음: {ips}")
+    UNITS = make_units(a.n_cohorts)
 
     routes = []
     for key, cohort, path in UNITS:
@@ -211,7 +220,7 @@ def main():
             static_runtime.append(f"            {c}: {100 if c == 'site_s3' else 0}")
 
     cfg = f"""# 생성: gen_envoy_v10.py (지시서 v10 T2). 손으로 고치지 말 것 — 재생성하라.
-# 코호트 UE 주소: c1={ips[1]} c2={ips[2]} (/run/tb-cohort.map)
+# 코호트 UE 주소: {" ".join(f"c{c}={ips[c]}" for c in sorted(ips) if c <= a.n_cohorts)} (/run/tb-cohort.map)
 admin:
   address:
     socket_address: {{ address: 127.0.0.1, port_value: 9901 }}
@@ -436,13 +445,15 @@ static_resources:
         cfg = cfg.replace(
             "# 코호트 UE 주소:",
             "# 변형: active health check ON (전 클러스터, --hc)\n# 코호트 UE 주소:")
-    kp = write_keys(active_hc=a.hc)
-    print(f"-> {kp} (클러스터 {len(CLUSTERS)}개, prefix {len(ROUTE_PREFIXES)}개, "
-          f"런타임 키 {len(CLUSTERS) * len(ROUTE_PREFIXES)}개, "
+    kp = write_keys(active_hc=a.hc, n_cohorts=a.n_cohorts)
+    n_pref = len(route_prefixes(a.n_cohorts))
+    print(f"-> {kp} (클러스터 {len(CLUSTERS)}개, prefix {n_pref}개, "
+          f"런타임 키 {len(CLUSTERS) * n_pref}개, "
           f"hc={'on' if a.hc else 'off'})", file=sys.stderr)
     if a.out:
         open(a.out, "w").write(cfg)
-        print(f"-> {a.out} (c1={ips[1]} c2={ips[2]})", file=sys.stderr)
+        print(f"-> {a.out} ({' '.join(f'c{c}={ips[c]}' for c in range(1, a.n_cohorts + 1))})",
+              file=sys.stderr)
     else:
         sys.stdout.write(cfg)
 

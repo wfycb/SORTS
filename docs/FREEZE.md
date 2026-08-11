@@ -97,3 +97,41 @@
 손실 배분 무수정, 관측 파라미터(WINDOW_S 2.0 · n_min 100/20 · stale_ttl 2.0 ·
 FILL_RATIO 0.8 · HEADROOM 0.9) 무변경. 스위치 off 회귀 **앞 12열 96행 동일**
 (2026-08-12 02:14 재확인).
+
+## 동결 해제 기록 2 — 3단계 코호트 확장 (2026-08-12 02:5x)
+
+- **해제 일시**: 2026-08-12 (STAGE3 G1 회신 §2.1 승인. 작업 전 stage2-freeze
+  md5 6/6 일치 재확인)
+- **해제 범위** (이것만): `sorts.yaml.tmpl` / `gen_envoy_v10.py` /
+  `run_all.py` — **코호트 열거 일반화 한정** (2코호트 하드코딩: tmpl cohorts
+  2항목, gen UNITS 6개·--c1/--c2, run_all `for c in (1,2)` 5곳·radio()·
+  rps 검증·ogstun 파서).
+- **불변**: `sorts_ctl.py`·`obs.py` **무접촉**(결정 로직·관측), 비교군·HC
+  무접촉, 관측 파라미터 무변경. `read_rates` 는 코드 무수정이나 동작 범위가
+  0x1000~0x6000 으로 넓어지므로 재현런+6코호트 드라이런 양쪽에서 실측 확인.
+- **검증**: 회귀 96행 + **2코호트 재현런 1회** — 사전 등록 대역: stage2
+  T=1 s arm 대비 c1 search during 위반율 0.708±0.090 % 및 반응(발효 기준)
+  0.963±0.016 s 의 ±1σ. 밖이면 정지·보고.
+- **재동결 예정**: STAGE3 본 배치 종료 즉시, 태그 `stage3-freeze`.
+
+---
+
+# 재동결 — 3단계 종료 (2026-08-12 05:2x, 태그 `stage3-freeze`)
+
+해제 기록 2(코호트 열거 일반화)로 열린 창을 닫는다.
+
+## 동결 대상 md5 (.40 원본, 재스냅샷)
+
+| 파일 | md5 | stage2-freeze 대비 |
+|---|---|---|
+| sorts_ctl.py | `97d63b83044b07a3bba969a2d7f8614f` | **무변경** |
+| obs.py | `b9fac68d079b017acf99d451cd9ddbae` | **무변경** |
+| sorts.yaml.tmpl | `de707b96fdc4cf36da6f05188718dd13` | 변경(cohorts → %COHORTS% 토큰) |
+| run_all.py | `e64919ca19da9651a37394a716478ebb` | 변경(N_COHORTS/run_cohorts/radio applyn) |
+| gen_envoy_v10.py | `ace343788b45fdcfada23908fac237a9` | 변경(make_units/route_prefixes/--n-cohorts) |
+| envoy_keys.json | `071cf575ed7ec9d9700c3c312de01b35` | 변경(6코호트 렌더 — prefix 19, 키 228) |
+
+해제 범위 준수 확인: 결정 로직·관측 코드 **무변경**(sorts_ctl/obs md5 동일),
+회귀 96행 동일 + 2코호트 재현런 등록 대역 통과(0.643 % / 0.973 s).
+`.43` 배포 4종 + envoy.yaml(6코호트, md5 c2bb0e26) + tb-radio2.sh v4
+(md5 43cfe69c, v2/v3 백업 보존). 이후 변경은 명시적 해제 결정 필요.

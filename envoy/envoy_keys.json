@@ -1,6 +1,7 @@
 {
  "generated_by": "gen_envoy_v10.py",
  "active_hc": false,
+ "n_cohorts": 6,
  "route_prefixes": [
   "c1_search",
   "c1_reserve",
@@ -8,6 +9,18 @@
   "c2_search",
   "c2_reserve",
   "c2_recommend",
+  "c3_search",
+  "c3_reserve",
+  "c3_recommend",
+  "c4_search",
+  "c4_reserve",
+  "c4_recommend",
+  "c5_search",
+  "c5_reserve",
+  "c5_recommend",
+  "c6_search",
+  "c6_reserve",
+  "c6_recommend",
   "fallback"
  ],
  "cluster_keys": [

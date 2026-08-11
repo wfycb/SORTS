@@ -30,6 +30,13 @@ ENVOY = "192.168.0.43"
 SITES = {"192.168.0.3": "S1", "192.168.0.2": "S2", "192.168.0.40": "S3"}
 ENVOY_LOG = "/var/log/envoy/front_access.log"
 COHORT_MAP = "/run/tb-cohort.map"
+# [3단계] 배치의 코호트 수 상한 — main() 이 manifest 에서 max(n_cohorts) 로
+# 설정한다. 기본 2 = 종전 거동. 런 단위 수는 run_cohorts(run).
+N_COHORTS = 2
+
+
+def run_cohorts(run):
+    return range(1, int(run.get("n_cohorts", 2)) + 1)
 PIN = "taskset -c 6-15"
 # sudo 는 .43 의 tb-radio2.sh 하나뿐이고 /etc/sudoers.d/tb-exp 로 NOPASSWD 등록돼
 # 있다. 비밀번호는 코드·환경파일 어디에도 두지 않는다. sudo -n 이 실패하면
@@ -179,12 +186,16 @@ def radio(spec1, spec2, ips):
     # v2 = 커넥션(=가상 사용자) 단위 셰이핑. v1(코호트 전체를 netem 하나에)은
     # 코호트당 700 rps 의 하향 8.89 Mbit/s 가 밴드 rate 를 넘어 코호트 전체가
     # 붕괴했다 (완료율 700 -> 163/s). 되돌리지 마라.
-    c1, c2 = ips[1][1], ips[2][1]
-    base = (f"ssh {ENVOY} \"C1_IP={c1} C2_IP={c2} "
-            f"sudo -n /usr/local/sbin/tb-radio2.sh ")
+    # [3단계] N 코호트: applyn <ip1,..,ipN> <spec1..N> (argv — sudo 가 env 를
+    # 스트립하므로 env 로 IPs 를 넘기지 않는다. tb-radio2 v4 실측 규약).
+    # spec1=c1, spec2=c2, 코호트 3+ 는 none — 기존 호출부 시그니처 유지.
+    base = f"ssh {ENVOY} \"sudo -n /usr/local/sbin/tb-radio2.sh "
     if spec1 is None:
         return out(base + 'clear"', 90)
-    return out(base + f"apply '{spec1}' '{spec2}'\"", 90)
+    ips_csv = ",".join(ips[c][1] for c in range(1, N_COHORTS + 1))
+    specs = [spec1, spec2] + ["none"] * (N_COHORTS - 2)
+    q = " ".join(f"'{sp}'" for sp in specs)
+    return out(base + f"applyn {ips_csv} {q}\"", 90)
 
 
 def stress(on):
@@ -313,7 +324,7 @@ def precheck(ips):
     # 어긋난 채 돌면 runtime_modify 가 없는 클러스터 키를 조용히 무시한다.
     if names and names != sorted(CLUSTER_KEYS):
         bad.append(f"클러스터 집합 불일치: envoy={names} keys={sorted(CLUSTER_KEYS)}")
-    for c in (1, 2):
+    for c in range(1, N_COHORTS + 1):
         if c not in ips:
             bad.append(f"코호트맵에 {c} 없음")
             continue
@@ -355,6 +366,9 @@ def render_deploy_ctl(run):
     out_p = os.path.join(d, "sorts.yaml")
     # subset_policy 기본은 strict_far — 구 manifest(Phase 4 등)를 그대로 돌리면
     # 기존 단일 사이트 거동이 재현된다. 작업 A 런은 manifest 에 명시한다.
+    n_coh = int(run.get("n_cohorts", 2))
+    if not (1 <= n_coh <= 8):
+        return [f"n_cohorts 범위 밖 {n_coh!r} (1~8)"], None
     want = {"est_resp_bytes": bool(run.get("est_resp_bytes", False)),
             "est_f_c": bool(run.get("est_f_c", False)),
             "window_s": float(run.get("window_s", 2.0)),
@@ -385,7 +399,9 @@ def render_deploy_ctl(run):
                      ("%CAPACITY_CHECK%", "true" if want["capacity_check"] else "false"),
                      ("%SOFT_ASSIGN%", "true" if want["soft_assign"] else "false"),
                      ("%C_EFF%", "true" if want["c_eff"] else "false"),
-                     ("%CTL_PERIOD%", f"{want['ctl_period_s']:g}")):
+                     ("%CTL_PERIOD%", f"{want['ctl_period_s']:g}"),
+                     ("%COHORTS%", "\n".join(
+                         f"  c{i}: 0x{i:x}000" for i in range(1, n_coh + 1)))):
         if tok not in txt:
             return [f"템플릿에 토큰 {tok} 없음"], None
         txt = txt.replace(tok, val)
@@ -398,6 +414,13 @@ def render_deploy_ctl(run):
         return bad, None
     got = yaml.safe_load(open(out_p))
     eff = {k: got.get(k) for k in ARM_KEYS}
+    # [3단계] 렌더된 cohorts 블록 재검증 — 수와 classid 규약(cN = N*0x1000)
+    coh_eff = got.get("cohorts") or {}
+    if (len(coh_eff) != n_coh
+            or any(int(coh_eff.get(f"c{i}", -1)) != i * 0x1000
+                   for i in range(1, n_coh + 1))):
+        return [f"cohorts 렌더 불일치: want {n_coh}개, got {coh_eff}"], None
+    eff["n_cohorts"] = len(coh_eff)
     if (bool(eff["est_resp_bytes"]) != want["est_resp_bytes"]
             or bool(eff["est_f_c"]) != want["est_f_c"]
             or abs(float(eff["window_s"]) - want["window_s"]) > 1e-9
@@ -601,7 +624,7 @@ def _parse_ogstun_classes(txt):
         m = re.search(r"Sent \d+ bytes (\d+) pkt", line)
         if m and cid is not None:
             coh, bucket = cid >> 12, cid & (PORT_BUCKET_MOD - 1)
-            if coh in (1, 2):
+            if 1 <= coh <= N_COHORTS:
                 out_.setdefault(coh, {})[bucket] = int(m.group(1))
             cid = None
     return out_
@@ -755,7 +778,7 @@ def pctl(xs, q):
 
 def summarize(rundir, run, t_meas, hostmap, sections):
     rows = []
-    for c in (1, 2):
+    for c in run_cohorts(run):
         f = os.path.join(rundir, f"load_c{c}.csv")
         if not os.path.exists(f):
             continue
@@ -834,7 +857,7 @@ def summarize(rundir, run, t_meas, hostmap, sections):
             }
         # 코호트별
         sec["by_cohort"] = {}
-        for c in (1, 2):
+        for c in run_cohorts(run):
             csub = [r for r in sub if r["cohort"] == c]
             if not csub:
                 continue
@@ -1014,7 +1037,7 @@ def do_run(run, outdir, ips):
         f"(커넥션 {conns}개 -> 서로 다른 버킷 {conns}칸)")
 
     procs, logs = [], []
-    for c in (1, 2):
+    for c in run_cohorts(run):
         lf = os.path.join(rundir, f"loadgen_c{c}.log")
         cmd = (f'ssh {LOADGEN} "{PIN} python3 ~/tb-load.py --host {ENVOY} --port 8080 '
                f"--cohort {c} --mix '{mix}' --connections {conns} "
@@ -1199,7 +1222,7 @@ def do_run(run, outdir, ips):
     sh(f"ssh {ENVOY} \"tail -c +{off0 + 1} {ENVOY_LOG} | head -c {max(off1 - off0, 0)}\" "
        f"| gzip -1 > {slice_path}", 900)
 
-    for c in (1, 2):
+    for c in run_cohorts(run):
         sh(f"scp -q {LOADGEN}:/var/tmp/dexp_{rid}_c{c}.csv "
            f"{os.path.join(rundir, f'load_c{c}.csv')}", 900)
         sh(f"ssh {LOADGEN} 'rm -f /var/tmp/dexp_{rid}_c{c}.csv'", 60)
@@ -1292,6 +1315,9 @@ def main():
     guard_snapshot(args.manifest, args.outdir)      # [작업 B2 §5]
     prog_path = os.path.join(args.outdir, "progress.json")
     runs = man["runs"]
+    global N_COHORTS
+    N_COHORTS = max(int(r.get("n_cohorts", 2)) for r in runs)
+    log(f"배치 코호트 수 상한: {N_COHORTS}")
     ips = cohort_ips()
     log(f"코호트 맵: {ips}")
 

@@ -43,14 +43,14 @@ site_order: [S3, S2, S1]
 # all_feasible = 가용 전부. 엣지 보존 없음 (ablation 대조군 전용).
 # far-first 는 이제 순회 순서가 아니라 티어 구분으로 표현된다 — 용량 기반
 # 표현(작업 B)으로 가는 중간 단계다.
-subset_policy: strict_far
+subset_policy: far_tier
 
 # ---- 관측 계층 (작업 1 Phase 2) ----
 # 둘 다 false = Phase 0 과 동일한 라이브 결정 (shadow 열만 추가로 기록).
 # Phase 4 arm: const = 둘 다 false / both = 둘 다 true. bytes-only/fc-only 는
 # 라이브로 돌리지 않고 decisions.csv 의 shadow 4방향 열에서 귀속한다.
-est_resp_bytes: false
-est_f_c: false
+est_resp_bytes: true
+est_f_c: true
 # 관측 윈도 [s]. Phase 2 확정값 2.0 (obs.DEFAULT_WINDOW_S 와 동일해야 하며
 # 키가 없으면 그 기본값을 쓴다). Phase 4 런 14(W1)만 4.0 으로 렌더된다.
 window_s: 2.0
@@ -61,7 +61,7 @@ obs_log_path: /var/log/envoy/front_access.log
 # L_eff(site) = Σ w[class]·rps[class][site] ≤ headroom·c_eq[site] 를 만족하는
 # 사이트만 허용 집합에 남긴다. 밴드는 여기 안 들어간다 — d_acc 로 이미
 # 결정식에 있다 (이중 계산 금지).
-capacity_check: false
+capacity_check: true
 # headroom 근거: 무릎이 ±20 rps 에서 f_c p95 2~5배 폭주 (S1 search
 # 240→25/260→49/280→118 ms, analysis/night-20260810/capacity_knee.md).
 # 예측 오차·관측 지연 여유가 없으면 무릎을 넘는다. 매직 넘버 아님.
@@ -100,7 +100,7 @@ set_share:
 #   planned 까지 충전, badness=0 동률은 원거리 우선, 전 room 소진 후 잔여는
 #   S1(기존 EXPECTANT 폴백과 동일). 표현은 기존 weighted_clusters 런타임
 #   가중치(정수 %). feasible 비공집합 경로는 불변. capacity_check off 면 무효.
-soft_assign: false
+soft_assign: true
 
 # ---- 밴드 의존 유효 용량 (작업 B3) ----
 # off = B2 와 결정 단위 동일 (회귀 경계). on 이면 용량 검사·soft room 이
@@ -110,7 +110,7 @@ soft_assign: false
 #   불일치 → 가장 가까운 측정점 값 + c_eff_extrapolated 기록 + 경고 1회;
 #   무제한(rate 없음) → c_eq (§B — 무제한 회귀 요구 정합, 무제한 SLO-유효
 #   실측은 보고 대조만). 미측정 사이트(S2/S3)는 밴드 무관 c_eq (한계 기록).
-c_eff: false
+c_eff: true
 c_eff_band:              # [site][band_kbit] = SLO-유효 등가 용량 (1% 기준)
   # 출처: 작업 B3 단계 0 (analysis/taskB3/ceff_fit.json, 2026-08-11).
   # M0 조성·16conn/코호트·양 코호트 상시 밴드 조건부. 무제한 SLO-유효
@@ -121,9 +121,15 @@ c_eff_band:              # [site][band_kbit] = SLO-유효 등가 용량 (1% 기�
   # 1600)에선 발생하지 않음. 새 밴드 도입 시 그 밴드 측정 필수.
   S1: {1600: 105.4, 2300: 161.7}
 
-cohorts:                 # tc classid 상위비트 -> 코호트 (tb-radio2.sh v2 규약)
+# [3단계] 코호트 열거 일반화 — 러너가 n_cohorts 에 맞춰 렌더한다.
+# (tc classid 상위비트 -> 코호트, tb-radio2.sh v2/v3 규약: cN = N*0x1000)
+cohorts:
   c1: 0x1000
   c2: 0x2000
+  c3: 0x3000
+  c4: 0x4000
+  c5: 0x5000
+  c6: 0x6000
 
 envoy_admin: "http://127.0.0.1:9901"
 iface: ogstun

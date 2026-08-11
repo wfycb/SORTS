@@ -279,7 +279,7 @@ nohup /var/tmp/s2_cpusample.sh > /var/tmp/s2_cpu.log 2>&1 & echo sampler_pid=$!'
     if not stop_why:
         try:
             subprocess.run([sys.executable,
-                            os.path.join(EXP, "analysis/stage2/s2_analyze.py"), OUT],
+                            os.path.join(EXP, "analysis/stage3/s3_analyze.py"), OUT],
                            check=True, timeout=1800,
                            stdout=open(os.path.join(OUT, "AUTO_RESULTS.md"), "w"),
                            stderr=subprocess.STDOUT)
