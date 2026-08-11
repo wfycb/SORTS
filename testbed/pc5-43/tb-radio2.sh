@@ -1,7 +1,24 @@
 #!/usr/bin/env bash
-# UE 하향 무선 열화 주입 v2 — **커넥션(=가상 사용자) 단위** 셰이핑.
+# UE 하향 무선 열화 주입 v3 — **커넥션(=가상 사용자) 단위** 셰이핑.
 #   apply <cohort1_spec> <cohort2_spec> | clear | show | classes
 # spec 예: "rate 2300kbit"  "none"
+#
+# ── v2 -> v3 (2026-08-11, STAGE2 §4 / ISSUES I-16) ─────────────────────────
+# v2 는 tc 를 명령 하나당 프로세스 하나로 194회 불렀고(실측 apply 0.86 s),
+# 코호트마다 **(1) netem leaf 64개 -> (2) u32 필터** 순서로 만들었다. 그런데
+# 컨트롤러의 관측(`read_rates`)은 `tc qdisc show` 의 netem **rate 속성**만
+# 읽으므로, (1)만 끝나도 "밴드를 본다". 실측(20 ms 폴러):
+#     leaf 첫 가시화 +0.26 s < 감지·전환 +0.307 s < 첫 필터 +0.52 s
+#                                                  < 트래픽 발효 +0.60 s
+# 즉 **아무 패킷도 셰이핑되지 않은 상태에서 라우팅이 바뀌었다**(감지 시점
+# leaf 14/64, 필터 0/64). 주기 ablation 은 이 인공물 위에서 성립하지 않는다.
+#
+# v3 의 두 가지 변경 — **최종 상태·분류 키·rate 의미는 v2 와 동일**하다:
+#   (A) 전 명령을 `tc -batch` 하나로 (실측 196명령 ~10 ms, 86배 단축)
+#   (B) 코호트마다 **classes -> filters -> netem(rate)** 순서로 재배열.
+#       필터가 먼저 붙으므로 어떤 leaf 의 rate 가 보이는 순간 그 버킷은
+#       이미 셰이핑된다 = **가시화 ≈ 발효**.
+# 되돌리기: /usr/local/sbin/tb-radio2.sh.v2.bak (동일 CLI, 무손실 롤백)
 #
 # ── v1 이 왜 틀렸나 ────────────────────────────────────────────────────────
 # v1 은 코호트 전체를 netem 하나에 태웠다. §0.3 밴드의 d_acc 는 "요청 1건을
@@ -10,7 +27,7 @@
 # 처리량 8.895 -> 2.074 Mbit/s, 완료율 700 -> 163/s, corrected p50 이 전
 # 엔드포인트에서 22초. 클래스별 triage 가 아니라 코호트 전체 붕괴였다.
 #
-# ── v2 의 모형 ────────────────────────────────────────────────────────────
+# ── v2 의 모형 (v3 유지) ──────────────────────────────────────────────────
 # 밴드는 원래 "사용자 1명의 무선 링크"를 모형화한 것이다. 부하 생성기는
 # 코호트당 28개 keepalive 커넥션을 유지하고 **워커가 커넥션당 요청 1건만
 # in-flight** 로 돌리므로, 커넥션 1개 = 가상 사용자 1명으로 보는 것이 옳다.
@@ -51,43 +68,52 @@ parse_rate() {
   fi
 }
 
-setup_cohort() {
+# 배치 명령을 표준출력으로 낸다 (v2 의 setup_cohort 와 최종 상태 동일).
+emit_cohort() {
   local idx="$1" ip="$2" rate="$3"
   [ -z "$rate" ] && return 0
   local base=$((idx * 0x1000))          # 1:1000.. / 1:2000..
   local ht=$((idx * 16))                # 해시테이블 핸들 16: / 32:
-  # 분류용 leaf class (무제한) + 실제 셰이핑을 하는 netem
   local i cid
+  # (1) 분류용 leaf class (무제한)
   for ((i = 0; i < DIVISOR; i++)); do
     cid=$((base + i))
-    tc class add dev "$IFACE" parent 1: classid 1:$(printf '%x' $cid) \
-       htb rate 10000mbit ceil 10000mbit quantum 1400
-    tc qdisc add dev "$IFACE" parent 1:$(printf '%x' $cid) \
-       handle $(printf '%x' $cid): netem rate "$rate"
+    printf 'class add dev %s parent 1: classid 1:%x htb rate 10000mbit ceil 10000mbit quantum 1400\n' \
+      "$IFACE" "$cid"
   done
-  # dst IP 로 거른 뒤 dst 포트 하위비트로 해싱
-  tc filter add dev "$IFACE" parent 1: prio "$idx" handle ${ht}: protocol ip u32 \
-     divisor "$DIVISOR"
-  tc filter add dev "$IFACE" parent 1: prio "$idx" protocol ip u32 \
-     match ip dst "$ip"/32 hashkey mask "$MASK" at 20 link ${ht}:
+  # (2) dst IP 로 거른 뒤 dst 포트 하위비트로 해싱 — **netem 보다 먼저**
+  printf 'filter add dev %s parent 1: prio %d handle %d: protocol ip u32 divisor %d\n' \
+    "$IFACE" "$idx" "$ht" "$DIVISOR"
+  printf 'filter add dev %s parent 1: prio %d protocol ip u32 match ip dst %s/32 hashkey mask %s at 20 link %d:\n' \
+    "$IFACE" "$idx" "$ip" "$MASK" "$ht"
   for ((i = 0; i < DIVISOR; i++)); do
     cid=$((base + i))
-    tc filter add dev "$IFACE" parent 1: prio "$idx" protocol ip u32 \
-       ht ${ht}:$(printf '%x' $i): match ip dst "$ip"/32 \
-       flowid 1:$(printf '%x' $cid)
+    printf 'filter add dev %s parent 1: prio %d protocol ip u32 ht %d:%x: match ip dst %s/32 flowid 1:%x\n' \
+      "$IFACE" "$idx" "$ht" "$i" "$ip" "$cid"
+  done
+  # (3) 실제 셰이핑 — 이 시점부터 가시화 == 발효
+  for ((i = 0; i < DIVISOR; i++)); do
+    cid=$((base + i))
+    printf 'qdisc replace dev %s parent 1:%x handle %x: netem rate %s\n' \
+      "$IFACE" "$cid" "$cid" "$rate"
   done
 }
 
 apply() {
-  local r1 r2
+  local r1 r2 bf
   r1=$(parse_rate "$1"); r2=$(parse_rate "$2")
+  bf=$(mktemp /var/tmp/tb-radio2.batch.XXXXXX)
+  trap 'rm -f "$bf"' EXIT
+  {
+    # default 9999 = 미매칭(코호트 외 트래픽, none 인 코호트) -> 무제한
+    printf 'qdisc add dev %s root handle 1: htb default 9999\n' "$IFACE"
+    printf 'class add dev %s parent 1: classid 1:9999 htb rate 10000mbit ceil 10000mbit quantum 1400\n' "$IFACE"
+    emit_cohort 1 "$C1_IP" "$r1"
+    emit_cohort 2 "$C2_IP" "$r2"
+  } > "$bf"
+  # del 은 배치 밖 — 빈 상태에서 실패하면 -batch 가 첫 줄에서 중단된다.
   tc qdisc del dev "$IFACE" root 2>/dev/null || true
-  # default 9999 = 미매칭(코호트 외 트래픽, none 인 코호트) -> 무제한
-  tc qdisc add dev "$IFACE" root handle 1: htb default 9999
-  tc class add dev "$IFACE" parent 1: classid 1:9999 \
-     htb rate 10000mbit ceil 10000mbit quantum 1400
-  setup_cohort 1 "$C1_IP" "$r1"
-  setup_cohort 2 "$C2_IP" "$r2"
+  tc -batch "$bf"          # 전 명령 성공해야 0 (실패 시 set -e 로 중단)
 }
 
 clear_all() { tc qdisc del dev "$IFACE" root 2>/dev/null || true; }

@@ -1,0 +1,28 @@
+{
+ "batch_id": "stage2-inject",
+ "note": "G1 회신 §4-1: tc 실제 적용 시각 vs 감지 시각 실측용 짧은 radio 런. arm 은 앵커런과 동일(b3 기본) — 앵커런의 +0.305s 감지를 그대로 설명해야 하므로. warmup 30/duration 90/주입 t+40~70.",
+ "runs": [
+  {
+   "type": "TB",
+   "run_id": "s2inject_1",
+   "policy": "sorts_reactive",
+   "disturb": "radio",
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier",
+   "capacity_check": true,
+   "soft_assign": true,
+   "c_eff": true,
+   "ctl_period_s": 1.0,
+   "warmup": 30,
+   "duration": 90,
+   "disturb_start": 40,
+   "disturb_end": 70,
+   "rest": 5,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}

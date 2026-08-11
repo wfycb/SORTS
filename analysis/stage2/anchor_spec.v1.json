@@ -1,0 +1,9 @@
+{
+ "_note": "P-S2-0' — v3 primitive 기준 신규 앵커. 출처 runs/stage2-anchor2-20260812 (T=1s n=3). PREREG_S2 §8·§9. 사후 변경 금지.",
+ "A1_band_s": [0.222, 0.282],
+ "A1_mean_s": 0.2523,
+ "A1_sd_s": 0.0035,
+ "d_acc_ms": "17.118",
+ "feasible_set": "S2",
+ "react_bound_note": "react_from_effect < T + 0.010 (드라이버 하드코딩)"
+}

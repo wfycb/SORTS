@@ -326,7 +326,8 @@ def build(res, outroot, status):
     if st:
         L += ["", "### 종료 상태 (원복)",
               f"- hc_off 원복: {'성공' if st.get('hc_off') else '★실패'}",
-              f"- iptables 5000 잔재 룰: {st.get('iptables_5000_rules')}",
+              f"- iptables sorts-fault 잔재 룰: "
+              f"{st.get('iptables_sorts_fault_rules', st.get('iptables_5000_rules'))}",
               f"- precheck: {st.get('precheck')}"]
     L += ["", "## 10. 검증하지 못한 채 남긴 것", "",
           "- **부분 장애(느려짐만, 응답 200)** 에서의 HC 거동 — 이번 차단은 "

@@ -51,3 +51,49 @@
 - **작업 전 백업**: `.40:~/exp/*.20260811-stage1.bak` 6종.
 - **회귀 요구**: `ctl_period_s: 1.0` + 기존 arm = 동결 코드와 결정 단위 동일
   (obs_ctl_regress). 불일치 시 중단.
+
+---
+
+# 재동결 — 2단계 종료 (2026-08-12 02:15, 태그 `stage2-freeze`)
+
+1단계 해제 기록 1 로 열린 **해제 창을 여기서 닫는다.** 이후 동결 6파일·결정
+로직 변경은 다시 명시적 해제 결정을 거친다.
+
+## 동결 대상 md5 (.40 원본, 재스냅샷)
+
+| 파일 | md5 | b3-freeze 대비 |
+|---|---|---|
+| sorts_ctl.py | `97d63b83044b07a3bba969a2d7f8614f` | 변경(주기 읽기 2줄) |
+| obs.py | `b9fac68d079b017acf99d451cd9ddbae` | **무변경** |
+| sorts.yaml.tmpl | `006047f8b424d3564e07d12db069b0bf` | 변경(`ctl_period_s` 키) |
+| run_all.py | `86db0c7544e63ce6f7a877641d670be5` | 변경(비교군·주기 arm 렌더) |
+| gen_envoy_v10.py | `e10a70f815ed2d6a8e038fd1becc43d9` | 변경(비교군 3종) |
+| envoy_keys.json | `b5b47c99e19cfdf77cbe3e7753d6cc61` | 변경(렌더 산출물) |
+
+## `.43` 배포본 md5 (재스냅샷 시점 실측)
+
+| 경로 | md5 | 비고 |
+|---|---|---|
+| ~/sorts_ctl.py | `97d63b83044b07a3bba969a2d7f8614f` | 원본 일치 |
+| ~/obs.py | `b9fac68d079b017acf99d451cd9ddbae` | 원본 일치 |
+| ~/envoy_keys.json | `b5b47c99e19cfdf77cbe3e7753d6cc61` | 원본 일치 |
+| ~/sorts.yaml | `f29bb1b53ac53d0735ccf1a1082e2dc0` | 렌더 산출물 (휴지 기본 arm: strict/off/off/off, **ctl_period_s 1.0**) |
+| /etc/envoy/envoy.yaml | `518cd1a5bd6b6676dd0cea087b2754f8` | hc_off 원복본 |
+| /usr/local/sbin/tb-radio2.sh | `aa51e4148d8795f4e2ff6de56ced8fcb` | **v3**(동결 대상 아님, 이력 기록용) |
+| /usr/local/sbin/tb-radio2.sh.v2.bak | `58c9e39104c0486c8d1af0bd9375d352` | v2 롤백본 |
+
+## 해제 창(1단계~2단계)에서 실제로 바뀐 것
+
+1. **Envoy 생성기·설정** — 비교군 3종 추가(`bl_od`, `bl_loc_pri`, active HC).
+2. **제어 주기 파라미터화** — `ctl_period_s` 신설(`sorts.yaml.tmpl` +
+   `sorts_ctl.py` 읽기 2줄 + `run_all.py` 렌더 경로). **2단계 결론에 따라
+   기본값 1.0 확정**(코드 기본값·템플릿 렌더 기본이 모두 1.0 — 추가 변경 없음).
+3. **주입 primitive v3** (`tb-radio2.sh`, 동결 대상 아님) — `tc -batch` 단일
+   호출 + classes→filters→netem 재배열. 사유 ISSUES I-16.
+4. **iptables 차단 룰 `sorts-fault` 태그** + 잔재 검사 교체(analysis 측).
+5. **드라이버·분석기 신규** (`analysis/stage1/`, `analysis/stage2/`).
+
+**결정 로직 무변경 확인**: `obs.py` md5 동일, `decide`/`decide_live`/용량/
+손실 배분 무수정, 관측 파라미터(WINDOW_S 2.0 · n_min 100/20 · stale_ttl 2.0 ·
+FILL_RATIO 0.8 · HEADROOM 0.9) 무변경. 스위치 off 회귀 **앞 12열 96행 동일**
+(2026-08-12 02:14 재확인).

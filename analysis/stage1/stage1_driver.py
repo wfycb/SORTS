@@ -265,14 +265,16 @@ def main():
     log("hc_off 원복 시작")
     ok_restore = swap_envoy(False)
     sh(f"bash {EXP}/analysis/night2/node_unblock.sh", 60)
-    resid = out("sudo -n iptables -S 2>/dev/null | grep -- '--dport 5000' | wc -l")
+    # STAGE2 §1-1: 잔재 검사 = 태그 기반 (Docker 자체 ACCEPT 룰과 영구 무관.
+    # 구판 '--dport 5000' grep 은 172.18.0.20:5000 ACCEPT 를 과잉 매칭했다)
+    resid = out("sudo -n iptables-save 2>/dev/null | grep -c sorts-fault")
     sys.path.insert(0, EXP)
     import run_all
     try:
         pb = run_all.precheck(run_all.cohort_ips())
     except Exception as e:
         pb = [f"precheck 예외: {e}"]
-    save("restore", {"hc_off": ok_restore, "iptables_5000_rules": resid,
+    save("restore", {"hc_off": ok_restore, "iptables_sorts_fault_rules": resid,
                      "precheck": pb or "통과"})
     log(f"원복: hc_off={ok_restore} iptables잔재={resid} precheck={pb or '통과'}")
 

@@ -1,0 +1,11 @@
+{
+ "_note": "P-S2-0'' — G2 회신 §2.2 승인으로 (b)를 축소 재등록. feasible_set 은 게이트에서 **관측 항목으로 강등**(경계 근처 입력값의 함수임이 기전으로 특정 — STAGE2_REPORT §5). 게이트는 d_acc + changed 만. 원 등록은 anchor_spec.v1.json 에 보존. 결과 지표 산식 불변.",
+ "_registered": "2026-08-12 01:4x, 남은 3런(rep3) 착수 전",
+ "A1_band_s": [0.222, 0.282],
+ "A1_mean_s": 0.2523,
+ "A1_sd_s": 0.0035,
+ "d_acc_ms": "17.118",
+ "require_changed": "1",
+ "feasible_set_observed_only": true,
+ "react_bound_note": "react_from_effect < T + 0.010 (드라이버 하드코딩)"
+}

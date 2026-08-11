@@ -1,0 +1,28 @@
+{
+ "batch_id": "stage2-probe",
+ "note": "S2-0-5 precheck: probe_buckets 실측용 미니 radio 런 (밴드 창 자동 probe). 결과는 G1 보고용 — 본 배치 지표에 불사용.",
+ "runs": [
+  {
+   "type": "TB",
+   "run_id": "s2probe_radio_1",
+   "policy": "sorts_reactive",
+   "disturb": "radio",
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier",
+   "capacity_check": true,
+   "soft_assign": true,
+   "c_eff": true,
+   "ctl_period_s": 1.0,
+   "warmup": 15,
+   "duration": 60,
+   "disturb_start": 20,
+   "disturb_end": 40,
+   "rest": 5,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800
+  }
+ ]
+}
