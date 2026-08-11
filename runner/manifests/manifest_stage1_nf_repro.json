@@ -1,0 +1,28 @@
+{
+ "comment": "1단계 §4.2 arm1: SORTS(HC 없음) 야간 재현 n=1. 차단은 오케스트레이터(analysis/stage1/nodefail_orch.py, 야간과 동일 스크립트·타이밍 t+120→t+240·300s 백스톱). envoy_hc_off 배포 상태에서 실행.",
+ "batch_id": "stage1-nf-repro",
+ "runs": [
+  {
+   "type": "TB",
+   "policy": "sorts_reactive",
+   "disturb": "none",
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier",
+   "capacity_check": true,
+   "soft_assign": true,
+   "c_eff": true,
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 0,
+   "disturb_end": 360,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800,
+   "drain_budget": 900,
+   "run_id": "s1nf_repro_1"
+  }
+ ]
+}

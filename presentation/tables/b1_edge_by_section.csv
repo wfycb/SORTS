@@ -1,0 +1,13 @@
+run,policy,section,window_s,n,S1_share_pct,S1_inflow_rps,edge_headroom_pct,c1_search_viol_pct,c1_search_n,c1_search_site,c2_search_viol_pct,c2_search_n,c2_search_site
+E1_sorts_far,SORTS (far-first),pre,18.0,14402,0.0,0.0,100.0,0.042,2400,S3:100%,0.042,2400,S3:100%
+E1_sorts_far,SORTS (far-first),c1만,85.3,68231,16.67,133.4,66.66,2.137,11373,S1:100%,0.0,11371,S3:100%
+E1_sorts_far,SORTS (far-first),c1+c2,54.7,43111,33.33,262.9,34.27,94.464,7207,S1:100%,95.589,7164,S1:100%
+E1_sorts_far,SORTS (far-first),post,67.5,54272,0.0,0.0,100.0,1.867,9050,S3:100%,2.875,9079,S3:100%
+E2_sorts_near,SORTS-NearFirst,pre,18.1,11074,100.0,612.2,-53.06,100.0,1850,S1:100%,100.0,1843,S1:100%
+E2_sorts_near,SORTS-NearFirst,c1만,85.1,51119,100.0,600.7,-50.19,100.0,7628,S1:100%,100.0,9415,S1:100%
+E2_sorts_near,SORTS-NearFirst,c1+c2,54.9,32485,100.0,592.1,-48.03,100.0,5419,S1:100%,100.0,5416,S1:100%
+E2_sorts_near,SORTS-NearFirst,post,7.4,4521,100.0,611.7,-52.92,100.0,750,S1:100%,100.0,758,S1:100%
+E3_lr,Least Request,pre,18.0,14408,48.8,390.4,2.4,0.083,2403,S1:49%/S2:30%/S3:21%,0.125,2401,S1:49%/S2:30%/S3:21%
+E3_lr,Least Request,c1만,85.1,68074,48.98,391.8,2.04,32.22,11347,S1:49%/S2:31%/S3:21%,0.106,11345,S1:50%/S2:29%/S3:22%
+E3_lr,Least Request,c1+c2,54.5,43570,48.54,388.3,2.93,33.228,7262,S1:49%/S2:29%/S3:22%,28.918,7262,S1:50%/S2:29%/S3:21%
+E3_lr,Least Request,post,67.3,53769,49.16,392.6,1.86,0.056,8977,S1:49%/S2:30%/S3:20%,0.078,8978,S1:48%/S2:29%/S3:23%

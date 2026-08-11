@@ -1,0 +1,9 @@
+{
+ "comment": "야간배치2 과제3: 노드 장애 — S3:5000 차단(수신측 .40, .43 발신 한정, DROP=무응답). 동결 코드(far+cap+soft+ceff), 무제한 밴드, 800rps. 타임라인: 본측정 t+120 차단 → t+240 해제 (오케스트레이터 analysis/night2/nodefail_orch.py가 로그 감시로 주입, 차단 스크립트 자체에 300s 자동 해제 백스톱). n=3.",
+ "batch_id": "night2-nodefail",
+ "runs": [
+  {"run_id": "nf_1", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier", "capacity_check": true, "soft_assign": true, "c_eff": true, "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800, "drain_budget": 900},
+  {"run_id": "nf_2", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier", "capacity_check": true, "soft_assign": true, "c_eff": true, "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800, "drain_budget": 900},
+  {"run_id": "nf_3", "type": "TB", "policy": "sorts_reactive", "disturb": "none", "est_resp_bytes": true, "est_f_c": true, "window_s": 2.0, "subset_policy": "far_tier", "capacity_check": true, "soft_assign": true, "c_eff": true, "warmup": 60, "duration": 360, "disturb_start": 0, "disturb_end": 360, "rest": 60, "connections": 16, "rps_per_connection": 25, "total_rps": 800, "drain_budget": 900}
+ ]
+}

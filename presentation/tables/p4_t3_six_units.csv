@@ -1,0 +1,7 @@
+unit,n,S1_pct,S2_pct,S3_pct,violation_pct,corrected_p50,corrected_p95,source
+c1_reserve,10234,0.0,0.0,100.0,0.0782,27.336,27.796,D2_sorts_radio load_c1.csv JOIN envoy log
+c1_search,15349,0.0,100.0,0.0,0.3388,36.247,38.719,D2_sorts_radio load_c1.csv JOIN envoy log
+c1_recommend,20466,0.0,0.0,100.0,0.3029,27.504,27.951,D2_sorts_radio load_c1.csv JOIN envoy log
+c2_reserve,10234,0.0,0.0,100.0,0.0293,26.223,26.361,D2_sorts_radio load_c2.csv JOIN envoy log
+c2_search,15348,0.0,0.0,100.0,0.0,28.552,29.314,D2_sorts_radio load_c2.csv JOIN envoy log
+c2_recommend,20466,0.0,0.0,100.0,0.0244,25.996,26.362,D2_sorts_radio load_c2.csv JOIN envoy log

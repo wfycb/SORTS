@@ -1,0 +1,4 @@
+run,policy,c2_search_placement,c2_search_viol_pct,c1_search_viol_pct,S1_total_inflow_rps,vs_capacity_pct,edge_headroom_pct
+E1_sorts_far,SORTS (far-first),S1:100%,95.589,94.464,262.9,65.7,34.27
+E2_sorts_near,SORTS-NearFirst,S1:100%,100.0,100.0,592.1,148.0,-48.03
+E3_lr,Least Request,S1:50%/S2:29%/S3:21%,28.918,33.228,388.3,97.1,2.93

@@ -1,0 +1,5 @@
+t_rel_s,observed_rate_kbit,d_acc_ms,slack_S3,slack_S2,slack_S1,chosen,recomputed,match,apply_latency_ms,source
+-63.67,(무제한),0.0,,,,S3,S3,O,0.58,D6_sorts_ramp/decisions.csv + 독립 재계산(v10 §0 파라미터)
+160.33,3273,12.029,-1.05,8.68,19.07,S2,S2,O,0.94,D6_sorts_ramp/decisions.csv + 독립 재계산(v10 §0 파라미터)
+171.34,1600,24.607,-13.63,-3.89,6.49,S1,S1,O,0.72,D6_sorts_ramp/decisions.csv + 독립 재계산(v10 §0 파라미터)
+300.33,(무제한),0.0,,,,S3,S3,O,0.8,D6_sorts_ramp/decisions.csv + 독립 재계산(v10 §0 파라미터)

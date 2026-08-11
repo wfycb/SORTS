@@ -1,0 +1,5 @@
+policy,run,n,violations,violation_pct,source
+SORTS,D2_sorts_radio,15349,52,0.3388,runs/demo-20260805/D2_sorts_radio/load_c1.csv + meta.json(sections_abs_12.during)
+Round Robin,D4_rr_radio,15326,5128,33.4595,runs/demo-20260805/D4_rr_radio/load_c1.csv + meta.json(sections_abs_12.during)
+Least Request,D5_lr_radio,15322,3489,22.7712,runs/demo-20260805/D5_lr_radio/load_c1.csv + meta.json(sections_abs_12.during)
+Static-Far (no reaction),D3_s3_radio,15350,15350,100.0,runs/demo-20260805/D3_s3_radio/load_c1.csv + meta.json(sections_abs_12.during)

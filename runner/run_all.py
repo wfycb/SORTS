@@ -340,7 +340,7 @@ DEPLOY_FILES = {"sorts_ctl.py": "~/sorts_ctl.py",
                 # [작업 A] 키 목록 단일 출처 — sorts_ctl/obs 가 .43 에서 읽는다
                 "envoy_keys.json": "~/envoy_keys.json"}
 ARM_KEYS = ("est_resp_bytes", "est_f_c", "window_s", "subset_policy",
-            "capacity_check", "soft_assign", "c_eff")
+            "capacity_check", "soft_assign", "c_eff", "ctl_period_s")
 SUBSET_POLICIES = ("strict_far", "far_tier", "all_feasible")
 
 
@@ -365,7 +365,12 @@ def render_deploy_ctl(run):
             # 손실 배분 — capacity_check off 면 컨트롤러가 무효 처리한다.
             "soft_assign": bool(run.get("soft_assign", False)),
             # [작업 B3] 밴드 의존 유효 용량. 기본 off = B2 거동 (회귀 경계).
-            "c_eff": bool(run.get("c_eff", False))}
+            "c_eff": bool(run.get("c_eff", False)),
+            # [1단계] 제어 주기 [s]. 기본 1.0 = 동결 거동 (회귀 경계).
+            # 주기 ablation 은 2단계 — 이번 단계 manifest 는 값을 넣지 않는다.
+            "ctl_period_s": float(run.get("ctl_period_s", 1.0))}
+    if not (want["ctl_period_s"] > 0):
+        return [f"ctl_period_s 비양수 {want['ctl_period_s']!r}"], None
     if want["subset_policy"] not in SUBSET_POLICIES:
         return [f"subset_policy 미지값 {want['subset_policy']!r} "
                 f"(허용: {SUBSET_POLICIES})"], None
@@ -379,7 +384,8 @@ def render_deploy_ctl(run):
                      ("%SUBSET_POLICY%", want["subset_policy"]),
                      ("%CAPACITY_CHECK%", "true" if want["capacity_check"] else "false"),
                      ("%SOFT_ASSIGN%", "true" if want["soft_assign"] else "false"),
-                     ("%C_EFF%", "true" if want["c_eff"] else "false")):
+                     ("%C_EFF%", "true" if want["c_eff"] else "false"),
+                     ("%CTL_PERIOD%", f"{want['ctl_period_s']:g}")):
         if tok not in txt:
             return [f"템플릿에 토큰 {tok} 없음"], None
         txt = txt.replace(tok, val)
@@ -398,7 +404,8 @@ def render_deploy_ctl(run):
             or str(eff["subset_policy"]) != want["subset_policy"]
             or bool(eff["capacity_check"]) != want["capacity_check"]
             or bool(eff["soft_assign"]) != want["soft_assign"]
-            or bool(eff["c_eff"]) != want["c_eff"]):
+            or bool(eff["c_eff"]) != want["c_eff"]
+            or abs(float(eff["ctl_period_s"]) - want["ctl_period_s"]) > 1e-9):
         return [f"렌더 유효값 불일치: want={want} got={eff}"], None
     md5 = out(f"md5sum {out_p} | cut -d' ' -f1", 60)
     return [], {"requested": want, "effective": eff, "sorts_yaml_md5": md5}

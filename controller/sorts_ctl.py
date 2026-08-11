@@ -491,11 +491,13 @@ def run(cfg_path: str, out_csv: str):
     fo = open(obs_state_path(out_csv), "w", newline="", buffering=1)
     wo = csv.writer(fo)
     wo.writerow(OBS_HEADER)
-    print(f"sorts_ctl 시작 T_ctrl={cfg['t_ctrl_s']}s est_resp_bytes={ctl.est_bytes} "
+    # [1단계] 제어 주기 파라미터화 — ctl_period_s 우선, 구 렌더본(t_ctrl_s)
+    # 하위 호환. 결정 로직 무관 — 주기 값만 설정에서 읽는다.
+    period = float(cfg.get("ctl_period_s", cfg.get("t_ctrl_s", 1.0)))
+    print(f"sorts_ctl 시작 T_ctrl={period}s est_resp_bytes={ctl.est_bytes} "
           f"est_f_c={ctl.est_fc} subset_policy={ctl.subset_policy} -> {out_csv}",
           flush=True)
 
-    period = float(cfg["t_ctrl_s"])
     next_at = time.time()
     while not stop:
         dt_obs = obs.update()

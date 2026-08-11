@@ -1,0 +1,7 @@
+band,n,loadgen_e2e_p50_ms,envoy_duration_p50_ms,envoy_duration_us_p50_ms,radio_segment_p50_ms,source
+무교란,1800,4.975,4.0,4.446,0.529,"n2/n2_A_baseline_search.csv[service_ms] , n2/n2_A_baseline_search_envoy.csv[fld7 %DURATION%, fld16 DS_RX_BEG:DS_TX_END:us]"
+정상 20Mbps,1800,6.98,4.0,4.456,2.524,"n2/n2_B_normal_search.csv[service_ms] , n2/n2_B_normal_search_envoy.csv[fld7 %DURATION%, fld16 DS_RX_BEG:DS_TX_END:us]"
+Fair 4.5Mbps,1800,13.721,4.0,4.409,9.312,"n2/n2_B_fair_search.csv[service_ms] , n2/n2_B_fair_search_envoy.csv[fld7 %DURATION%, fld16 DS_RX_BEG:DS_TX_END:us]"
+Poor 2.3Mbps,1800,22.032,4.0,4.411,17.621,"n2/n2_B_poor_search.csv[service_ms] , n2/n2_B_poor_search_envoy.csv[fld7 %DURATION%, fld16 DS_RX_BEG:DS_TX_END:us]"
+극단 1.6Mbps,1800,29.543,4.0,4.478,25.065,"n2/n2_B_extreme_search.csv[service_ms] , n2/n2_B_extreme_search_envoy.csv[fld7 %DURATION%, fld16 DS_RX_BEG:DS_TX_END:us]"
+정상->극단 변화량,,22.563,0.0,0.022,22.541,위 두 행의 차

@@ -1,0 +1,5 @@
+policy,n_joined,unjoined,S3_share_pct,violation_pct,diff_pp,viol_given_S3_pct,viol_given_S1S2_pct,n_S3,n_S1S2,source
+SORTS,15349,0,0.0,0.339,0.339,,0.339,0,15349,D2_sorts_radio/load_c1.csv JOIN envoy_access.log.gz on x-request-id
+Round Robin,15326,0,32.951,33.459,0.509,100.0,0.759,5050,10276,D4_rr_radio/load_c1.csv JOIN envoy_access.log.gz on x-request-id
+Least Request,15322,0,20.911,22.771,1.86,100.0,2.352,3204,12118,D5_lr_radio/load_c1.csv JOIN envoy_access.log.gz on x-request-id
+Static-Far (no reaction),15350,0,100.0,100.0,0.0,100.0,,15350,0,D3_s3_radio/load_c1.csv JOIN envoy_access.log.gz on x-request-id

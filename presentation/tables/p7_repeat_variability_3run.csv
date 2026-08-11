@@ -1,0 +1,25 @@
+policy,endpoint,stat,n,values,mean,stdev,cv_pct,note,source
+site_s3,reserve,corrected_p50,3,26.45|26.59|26.44,26.494,0.087,0.33,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+site_s3,reserve,corrected_p95,3,27.27|27.36|27.26,27.297,0.054,0.2,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+site_s3,search,corrected_p50,3,30.20|30.14|30.14,30.161,0.036,0.12,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+site_s3,search,corrected_p95,3,31.89|31.73|31.91,31.84,0.098,0.31,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+site_s3,recommend,corrected_p50,3,26.25|26.19|26.19,26.21,0.036,0.14,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+site_s3,recommend,corrected_p95,3,27.09|26.93|26.98,27.001,0.08,0.3,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,reserve,corrected_p50,3,11.65|11.61|11.36,11.541,0.155,1.34,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,reserve,corrected_p95,3,26.40|26.33|26.38,26.37,0.035,0.13,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,search,corrected_p50,3,17.54|17.30|17.21,17.351,0.171,0.99,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,search,corrected_p95,3,30.29|30.18|30.06,30.179,0.115,0.38,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,recommend,corrected_p50,3,11.10|11.19|11.29,11.193,0.097,0.86,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_rr,recommend,corrected_p95,3,26.09|26.05|26.08,26.074,0.023,0.09,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,reserve,corrected_p50,3,11.46|11.51|11.42,11.461,0.045,0.39,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,reserve,corrected_p95,3,26.37|26.38|26.35,26.365,0.015,0.06,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,search,corrected_p50,3,21.41|21.61|21.36,21.463,0.131,0.61,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,search,corrected_p95,3,40.97|40.68|40.56,40.736,0.213,0.52,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,recommend,corrected_p50,3,11.05|11.12|11.04,11.07,0.044,0.4,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_lr,recommend,corrected_p95,3,26.05|26.09|26.05,26.064,0.018,0.07,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,reserve,corrected_p50,3,24656.14|23985.37|23544.45,24061.99,559.792,2.33,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,reserve,corrected_p95,3,36477.08|36422.70|35544.07,36147.949,523.685,1.45,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,search,corrected_p50,3,24732.60|24057.90|23606.36,24132.285,566.789,2.35,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,search,corrected_p95,3,36525.84|36476.47|35611.34,36204.55,514.328,1.42,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,recommend,corrected_p50,3,24701.83|24018.69|23568.10,24096.207,570.822,2.37,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre
+bl_loc,recommend,corrected_p95,3,36491.50|36442.19|35579.25,36170.98,513.049,1.42,B_ramp 제외 (pre 창이 20Mbps 셰이핑 상태),d1-20260804 summary.json sections.pre

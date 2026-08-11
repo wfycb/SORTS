@@ -1,0 +1,66 @@
+{
+ "comment": "1단계 §6.2 서버 축: bl_od(outlier, 기본값) n=3 + bl_lr n=1 (HC-on 상태 재현성 대조 — phase4 S6_lr_server 와 비교). 교란=tb-stress(S3), 기존 서버 축 조건 그대로 (120~240s). SORTS 값은 phase4 기존값 사용.",
+ "batch_id": "stage1-server",
+ "runs": [
+  {
+   "type": "TB",
+   "disturb": "server",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800,
+   "drain_budget": 900,
+   "policy": "bl_od",
+   "run_id": "s1od_server_1"
+  },
+  {
+   "type": "TB",
+   "disturb": "server",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800,
+   "drain_budget": 900,
+   "policy": "bl_od",
+   "run_id": "s1od_server_2"
+  },
+  {
+   "type": "TB",
+   "disturb": "server",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800,
+   "drain_budget": 900,
+   "policy": "bl_od",
+   "run_id": "s1od_server_3"
+  },
+  {
+   "type": "TB",
+   "disturb": "server",
+   "warmup": 60,
+   "duration": 360,
+   "disturb_start": 120,
+   "disturb_end": 240,
+   "rest": 60,
+   "connections": 16,
+   "rps_per_connection": 25,
+   "total_rps": 800,
+   "drain_budget": 900,
+   "policy": "bl_lr",
+   "run_id": "s1lr_server_hc_1"
+  }
+ ]
+}

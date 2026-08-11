@@ -1,5 +1,6 @@
 {
  "generated_by": "gen_envoy_v10.py",
+ "active_hc": false,
  "route_prefixes": [
   "c1_search",
   "c1_reserve",
@@ -19,7 +20,9 @@
   "sub_s123",
   "bl_rr",
   "bl_lr",
-  "bl_loc"
+  "bl_loc",
+  "bl_od",
+  "bl_loc_pri"
  ],
  "cluster_sites": {
   "site_s1": [
@@ -59,6 +62,16 @@
    "S3"
   ],
   "bl_loc": [
+   "S1",
+   "S2",
+   "S3"
+  ],
+  "bl_od": [
+   "S1",
+   "S2",
+   "S3"
+  ],
+  "bl_loc_pri": [
    "S1",
    "S2",
    "S3"

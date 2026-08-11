@@ -1,0 +1,25 @@
+policy,endpoint,stat,n,values,mean,stdev,cv_pct,source
+site_s3,reserve,corrected_p50,4,26.45|26.59|26.44|26.40,26.471,0.084,0.32,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+site_s3,reserve,corrected_p95,4,27.27|27.36|27.26|27.24,27.282,0.054,0.2,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+site_s3,search,corrected_p50,4,30.20|30.14|30.14|31.50,30.497,0.673,2.21,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+site_s3,search,corrected_p95,4,31.89|31.73|31.91|33.43,32.238,0.799,2.48,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+site_s3,recommend,corrected_p50,4,26.25|26.19|26.19|26.34,26.242,0.071,0.27,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+site_s3,recommend,corrected_p95,4,27.09|26.93|26.98|27.26,27.067,0.147,0.54,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,reserve,corrected_p50,4,11.65|11.61|11.36|12.78,11.851,0.633,5.34,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,reserve,corrected_p95,4,26.40|26.33|26.38|26.44,26.388,0.047,0.18,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,search,corrected_p50,4,17.54|17.30|17.21|23.77,18.956,3.214,16.95,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,search,corrected_p95,4,30.29|30.18|30.06|51.43,35.492,10.626,29.94,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,recommend,corrected_p50,4,11.10|11.19|11.29|11.56,11.286,0.201,1.78,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_rr,recommend,corrected_p95,4,26.09|26.05|26.08|26.67,26.224,0.3,1.15,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,reserve,corrected_p50,4,11.46|11.51|11.42|11.55,11.485,0.059,0.51,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,reserve,corrected_p95,4,26.37|26.38|26.35|26.45,26.386,0.043,0.16,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,search,corrected_p50,4,21.41|21.61|21.36|23.12,21.878,0.836,3.82,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,search,corrected_p95,4,40.97|40.68|40.56|41.73,40.984,0.527,1.29,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,recommend,corrected_p50,4,11.05|11.12|11.04|11.26,11.117,0.102,0.91,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_lr,recommend,corrected_p95,4,26.05|26.09|26.05|26.23,26.106,0.086,0.33,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,reserve,corrected_p50,4,24656.14|23985.37|23544.45|18013.33,22549.825,3058.672,13.56,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,reserve,corrected_p95,4,36477.08|36422.70|35544.07|25297.99,33435.46,5441.802,16.28,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,search,corrected_p50,4,24732.60|24057.90|23606.36|18086.38,22620.808,3058.172,13.52,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,search,corrected_p95,4,36525.84|36476.47|35611.34|25359.07,33493.181,5438.976,16.24,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,recommend,corrected_p50,4,24701.83|24018.69|23568.10|18053.25,22585.467,3057.216,13.54,d1-20260804 각 런 summary.json sections.pre.by_endpoint
+bl_loc,recommend,corrected_p95,4,36491.50|36442.19|35579.25|25328.64,33460.395,5437.33,16.25,d1-20260804 각 런 summary.json sections.pre.by_endpoint

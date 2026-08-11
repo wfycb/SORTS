@@ -41,14 +41,39 @@ SUBSETS = {
     "sub_s123": ("S1", "S2", "S3"),
 }
 CLUSTERS = (["site_s1", "site_s2", "site_s3"] + list(SUBSETS)
-            + ["bl_rr", "bl_lr", "bl_loc"])
+            + ["bl_rr", "bl_lr", "bl_loc", "bl_od", "bl_loc_pri"])
 # 클러스터 -> 엔드포인트 사이트 (키 산출물·precheck 엔드포인트 수 계산용)
 CLUSTER_SITES = {
     "site_s1": ("S1",), "site_s2": ("S2",), "site_s3": ("S3",),
     **SUBSETS,
     "bl_rr": ("S1", "S2", "S3"), "bl_lr": ("S1", "S2", "S3"),
     "bl_loc": ("S1", "S2", "S3"),
+    # [1단계] 비교군 확장: outlier detection / locality+priority failover
+    "bl_od": ("S1", "S2", "S3"), "bl_loc_pri": ("S1", "S2", "S3"),
 }
+
+# [1단계] active health check 블록 (--hc 로 켠다. 기본 off = 종전 config).
+# Envoy 는 4필드(timeout/interval/unhealthy/healthy_threshold)가 **필수**라
+# "Envoy 기본값"이 존재하지 않는다 (v1.39 api-v3 health_check.proto). 상용
+# 통념값으로 Kubernetes probe 기본값을 채택: periodSeconds 10 / timeoutSeconds
+# 1 / failureThreshold 3 / successThreshold 1. 경로 "/" = DSB frontend 정적
+# 인덱스(200, 1507B, DB 무접촉 — 실측 2026-08-11). event_logger 는 감지/복귀
+# 시각 실측용 계측이며 라우팅 거동에는 영향 없다.
+# 문서 확인 기본값(설정 안 함): no_traffic_interval 60s, reuse_connection true.
+HC_BLOCK = """\
+      health_checks:
+        - timeout: 1s
+          interval: 10s
+          unhealthy_threshold: 3
+          healthy_threshold: 1
+          http_health_check:
+            path: "/"
+          event_logger:
+            - name: envoy.health_check.event_sinks.file
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.health_check.event_sinks.file.v3.HealthCheckEventFileSink
+                event_log_path: /var/log/envoy/hc_events.log
+"""
 # SORTS 가 라우팅에 쓰는 클러스터 (관측 필터의 허용 집합. bl_* 는 계속 배제)
 SORTS_CLUSTERS = ["site_s1", "site_s2", "site_s3"] + list(SUBSETS)
 ROUTE_PREFIXES = ["c1_search", "c1_reserve", "c1_recommend",
@@ -63,10 +88,15 @@ KEYS_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "envoy_keys.json")
 
 
-def write_keys():
-    """config 와 같은 실행에서 키 목록 산출물을 뱉는다 (단일 출처)."""
+def write_keys(active_hc=False):
+    """config 와 같은 실행에서 키 목록 산출물을 뱉는다 (단일 출처).
+
+    active_hc 는 라우팅 키와 무관한 **기록**이다 — 같은 실행에서 렌더된
+    envoy.yaml 변형(HC on/off)을 사후에 식별하기 위해 남긴다. 배포 시
+    config 와 키 파일을 반드시 같은 실행 산출물로 함께 배포할 것."""
     obj = {
         "generated_by": "gen_envoy_v10.py",
+        "active_hc": bool(active_hc),
         "route_prefixes": ROUTE_PREFIXES,
         "cluster_keys": CLUSTERS,
         "cluster_sites": {k: list(v) for k, v in CLUSTER_SITES.items()},
@@ -151,6 +181,9 @@ def main():
     ap.add_argument("--c1")
     ap.add_argument("--c2")
     ap.add_argument("-o", "--out")
+    # [1단계] 전 클러스터 active health check (§4.1). off 가 기본 = 종전 거동.
+    ap.add_argument("--hc", action="store_true",
+                    help="전 클러스터에 active health check 블록 삽입")
     a = ap.parse_args()
     if a.c1 and a.c2:
         ips = {1: a.c1, 2: a.c2}
@@ -335,10 +368,78 @@ static_resources:
               - endpoint:
                   address:
                     socket_address: {{ address: 192.168.0.40, port_value: 5000 }}
+    # ---------------- [1단계] 비교군 확장 ----------------
+    # bl_od: least-request 기반 + outlier detection. 빈 블록 = v1.39 문서
+    # 기본값 전부 (consecutive_5xx 5, interval 10s, base_ejection_time 30s,
+    # max_ejection_percent 10%, enforcing_consecutive_5xx 100%). 임의 튜닝
+    # 금지 — 기본값에서 벗어나는 항목이 생기면 docs/baselines.md 에 이유를
+    # 남겨라.
+    - name: bl_od
+      type: STATIC
+      connect_timeout: 1s
+      # choice_count 는 기본값 2 (P2C) 를 쓴다. 지정하지 않는다.
+      lb_policy: LEAST_REQUEST
+      outlier_detection: {{}}
+      load_assignment:
+        cluster_name: bl_od
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.3, port_value: 5000 }}
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.2, port_value: 5000 }}
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.40, port_value: 5000 }}
+    # bl_loc_pri: 가까운 순(S1→S2→S3) priority failover — 상용 기본 배치.
+    # overprovisioning factor 는 기본값 1.4 (설정하지 않는다). failover 는
+    # health 기반이므로 active HC(--hc) 없이는 P0(S1) 100% 고정이 문서상
+    # 기대 거동이다 — 그 자체가 엣지 축 주장의 측정 대상.
+    - name: bl_loc_pri
+      type: STATIC
+      connect_timeout: 1s
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: bl_loc_pri
+        endpoints:
+          - locality: {{ zone: s1 }}
+            priority: 0
+            lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.3, port_value: 5000 }}
+          - locality: {{ zone: s2 }}
+            priority: 1
+            lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.2, port_value: 5000 }}
+          - locality: {{ zone: s3 }}
+            priority: 2
+            lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address: {{ address: 192.168.0.40, port_value: 5000 }}
 """
-    kp = write_keys()
+    # [1단계] --hc: 모든 클러스터에 동일 HC 블록 삽입. 앵커는 connect_timeout
+    # (전 클러스터 공통 필드)이며, 삽입 수 == 클러스터 수를 검사해 일부만
+    # 빠지는 조용한 실패를 막는다.
+    if a.hc:
+        anchor = "      connect_timeout: 1s\n"
+        n = cfg.count(anchor)
+        if n != len(CLUSTERS):
+            sys.exit(f"FATAL: HC 앵커 {n}개 != 클러스터 {len(CLUSTERS)}개 — "
+                     f"클러스터 정의 형식이 변했다. 앵커를 갱신하라")
+        cfg = cfg.replace(anchor, anchor + HC_BLOCK)
+        cfg = cfg.replace(
+            "# 코호트 UE 주소:",
+            "# 변형: active health check ON (전 클러스터, --hc)\n# 코호트 UE 주소:")
+    kp = write_keys(active_hc=a.hc)
     print(f"-> {kp} (클러스터 {len(CLUSTERS)}개, prefix {len(ROUTE_PREFIXES)}개, "
-          f"런타임 키 {len(CLUSTERS) * len(ROUTE_PREFIXES)}개)", file=sys.stderr)
+          f"런타임 키 {len(CLUSTERS) * len(ROUTE_PREFIXES)}개, "
+          f"hc={'on' if a.hc else 'off'})", file=sys.stderr)
     if a.out:
         open(a.out, "w").write(cfg)
         print(f"-> {a.out} (c1={ips[1]} c2={ips[2]})", file=sys.stderr)
