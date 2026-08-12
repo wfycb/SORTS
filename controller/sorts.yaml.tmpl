@@ -127,4 +127,6 @@ cohorts:
 %COHORTS%
 
 envoy_admin: "http://127.0.0.1:9901"
-iface: ogstun
+# [4단계] 관측 인터페이스 — 기본 ogstun(직결). 감쇠 arm 은 미러(obsshim0).
+# 실제 셰이핑 인터페이스가 아니라 **read_rates 가 읽는 곳**만 바뀐다.
+iface: %OBS_IFACE%

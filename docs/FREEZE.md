@@ -135,3 +135,41 @@ FILL_RATIO 0.8 · HEADROOM 0.9) 무변경. 스위치 off 회귀 **앞 12열 96�
 회귀 96행 동일 + 2코호트 재현런 등록 대역 통과(0.643 % / 0.973 s).
 `.43` 배포 4종 + envoy.yaml(6코호트, md5 c2bb0e26) + tb-radio2.sh v4
 (md5 43cfe69c, v2/v3 백업 보존). 이후 변경은 명시적 해제 결정 필요.
+
+## 동결 해제 기록 3 — 4단계 관측 감쇠 (2026-08-12 06:0x)
+
+- **해제 일시**: 2026-08-12 (STAGE4 G1 회신 §1.1 승인. 작업 전 stage3-freeze
+  md5 재확인)
+- **해제 범위** (이것만): `sorts.yaml.tmpl` — `iface` 토큰화(`%OBS_IFACE%`) /
+  `run_all.py` — 렌더 치환 + run 스펙 `obs_iface`(기본 "ogstun" = 종전 거동)
+  + 유효값 재검증. **~6줄.**
+- **불변**: `sorts_ctl.py`·`obs.py`·`gen_envoy_v10.py`·`envoy_keys.json`
+  무접촉. 결정 로직·관측 코드·비교군·HC 무변경. 감쇠는 미러 인터페이스
+  shim(obs_shim.py, 비동결)이 담당 — 실제 셰이핑(ogstun) 무변경.
+- **검증**: 회귀 96행 + 항등 검증 런(PREREG_S4 §6 — pre 창 전 tick 일치 +
+  감지 tick 값 동일 + 첫 전환 <1 tick).
+- **재동결 예정**: STAGE4 본 배치 종료 즉시, 태그 `stage4-freeze`.
+
+
+---
+
+# 재동결 — 4단계 종료 (2026-08-12 17:10, 태그 `stage4-freeze`)
+
+해제 기록 3(iface 토큰화)으로 열린 창을 닫는다.
+
+## 동결 대상 md5 (.40 원본, 재스냅샷)
+
+| 파일 | md5 | stage3-freeze 대비 |
+|---|---|---|
+| sorts_ctl.py | `97d63b83044b07a3bba969a2d7f8614f` | **무변경** |
+| obs.py | `b9fac68d079b017acf99d451cd9ddbae` | **무변경** |
+| sorts.yaml.tmpl | `9467651b8374bb2e92ce9d1cd093d639` | 변경(iface → %OBS_IFACE% 토큰) |
+| run_all.py | `79babd3db8b83f051e496168e6dff2a4` | 변경(obs_iface 렌더, 기본 ogstun) |
+| gen_envoy_v10.py | `ace343788b45fdcfada23908fac237a9` | **무변경** |
+| envoy_keys.json | `071cf575ed7ec9d9700c3c312de01b35` | **무변경** |
+
+해제 범위 준수: 결정 로직·관측 코드 무변경(sorts_ctl/obs md5 동일), 회귀
+96행 동일 + 항등 검증 통과(pre 창 결정 구조 702행 일치·감지 값 동일·
+0.006 s). 감쇠는 전부 비동결 shim(obs_shim.py, .43 root)·래퍼(tb-obshim.sh,
+sudoers 1줄) 담당. 휴지 상태: obs_iface 기본 ogstun(직결), obsshim0 제거됨,
+shim 데몬 정지. 이후 변경은 명시적 해제 결정 필요.

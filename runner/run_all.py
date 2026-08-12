@@ -382,7 +382,9 @@ def render_deploy_ctl(run):
             "c_eff": bool(run.get("c_eff", False)),
             # [1단계] 제어 주기 [s]. 기본 1.0 = 동결 거동 (회귀 경계).
             # 주기 ablation 은 2단계 — 이번 단계 manifest 는 값을 넣지 않는다.
-            "ctl_period_s": float(run.get("ctl_period_s", 1.0))}
+            "ctl_period_s": float(run.get("ctl_period_s", 1.0)),
+            # [4단계] 관측 인터페이스(미러 shim). 기본 ogstun = 종전 거동.
+            "obs_iface": str(run.get("obs_iface", "ogstun"))}
     if not (want["ctl_period_s"] > 0):
         return [f"ctl_period_s 비양수 {want['ctl_period_s']!r}"], None
     if want["subset_policy"] not in SUBSET_POLICIES:
@@ -400,6 +402,7 @@ def render_deploy_ctl(run):
                      ("%SOFT_ASSIGN%", "true" if want["soft_assign"] else "false"),
                      ("%C_EFF%", "true" if want["c_eff"] else "false"),
                      ("%CTL_PERIOD%", f"{want['ctl_period_s']:g}"),
+                     ("%OBS_IFACE%", want["obs_iface"]),
                      ("%COHORTS%", "\n".join(
                          f"  c{i}: 0x{i:x}000" for i in range(1, n_coh + 1)))):
         if tok not in txt:
@@ -421,6 +424,9 @@ def render_deploy_ctl(run):
                    for i in range(1, n_coh + 1))):
         return [f"cohorts 렌더 불일치: want {n_coh}개, got {coh_eff}"], None
     eff["n_cohorts"] = len(coh_eff)
+    eff["obs_iface"] = str(got.get("iface"))
+    if eff["obs_iface"] != want["obs_iface"]:
+        return [f"obs_iface 렌더 불일치: want {want['obs_iface']} got {eff['obs_iface']}"], None
     if (bool(eff["est_resp_bytes"]) != want["est_resp_bytes"]
             or bool(eff["est_f_c"]) != want["est_f_c"]
             or abs(float(eff["window_s"]) - want["window_s"]) > 1e-9
