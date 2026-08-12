@@ -22,6 +22,9 @@ EXP = "/home/user/exp"
 DATA = os.path.join(EXP, "figures/data")
 SLO_SEARCH = 45.0
 POLS = ["SORTS", "bl_lr", "bl_loc_pri"]
+# both 창 위반율 [%] — docs/NUMBERS.md §5.5 (arm 평균, n=2; L800 loc_pri 는 n=1)
+VIOL = {450: {"SORTS": 0.420, "bl_lr": 7.407, "bl_loc_pri": 4.162},
+        800: {"SORTS": 6.340, "bl_lr": 10.614, "bl_loc_pri": 100.000}}
 
 
 def read(name, load):
@@ -58,14 +61,17 @@ def draw_marks(ax, mk, shade=True, label=False):
 
 
 def panel_band(ax, slack, mk):
-    """1단 — 컨트롤러가 관측한 밴드(kbit). 미셰이핑 구간은 'unlimited'."""
-    xs, ys = [], []
-    for r in slack:
-        t = float(r["t_rel_s"])
-        v = fnum(r["observed_rate_kbit"])
-        xs.append(t)
-        ys.append(v if v else 20000.0)      # 미셰이핑 = 상한(20 Mbit/s) 위치에 표시
-    ax.step(xs, ys, where="post", color="#333333", lw=plt.rcParams["lines.linewidth"])
+    """1단 — 컨트롤러가 관측한 밴드(kbit), 코호트별. 미셰이핑은 'no shaping'."""
+    for coh, ls, lw_f in (("c1", "-", 1.0), ("c2", (0, (5, 2)), 0.85)):
+        rows = sorted((r for r in slack if r["cohort"] == coh),
+                      key=lambda r: float(r["t_rel_s"]))
+        xs = [float(r["t_rel_s"]) for r in rows]
+        ys = [fnum(r["observed_rate_kbit"]) or 20000.0 for r in rows]
+        ax.step(xs, ys, where="post", color="#333333", ls=ls,
+                lw=plt.rcParams["lines.linewidth"] * lw_f,
+                label=f"cohort {coh[-1]}")
+    ax.legend(loc="lower left", ncol=2, frameon=False,
+              fontsize=plt.rcParams["legend.fontsize"])
     ax.set_yscale("log")
     ax.set_yticks([1600, 20000])
     ax.set_yticklabels(["1600", "no shaping"])
@@ -74,7 +80,7 @@ def panel_band(ax, slack, mk):
     draw_marks(ax, mk, label=True)
 
 
-def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s"):
+def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s", ymax=60.0):
     """2단 — 정책 3종 롤링 p50 + p95 밴드 + SLO 선."""
     by = defaultdict(list)
     for r in lat:
@@ -94,7 +100,19 @@ def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s"):
                 xycoords=("axes fraction", "data"), ha="right", va="bottom",
                 fontsize=plt.rcParams["legend.fontsize"])
     ax.set_ylabel(f"search latency\n{col} [ms]")
-    ax.set_ylim(0, 115)
+    ax.set_ylim(0, ymax)
+    # 잘린 꼬리는 반드시 표시한다 (잘라놓고 말하지 않으면 오독된다)
+    clipped = [(float(r[xkey]), fnum(r[f"{col}_p95"]), r["policy"])
+               for r in lat if (fnum(r[f"{col}_p95"]) or 0) > ymax]
+    if clipped:
+        t, v, pol = max(clipped, key=lambda z: z[1])
+        ax.annotate(f"{st.POLICY_LABEL[pol].split(' ')[0]} p95 spikes to "
+                    f"~{v:.0f} ms (clipped)",
+                    xy=(t, ymax * 0.985), xytext=(max(t - 105, 5), ymax * 0.60),
+                    color=st.POLICY[pol]["color"],
+                    fontsize=plt.rcParams["legend.fontsize"],
+                    arrowprops=dict(arrowstyle="->", color=st.POLICY[pol]["color"],
+                                    lw=1.4))
     ax.set_title("line = p50, shading = p50…p95 (1 s buckets)", loc="right",
                  fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
     if xkey == "t_rel_s":
@@ -148,14 +166,14 @@ def panel_sites(ax, sites, mk, policy="SORTS", ylabel=None, annotate=True):
                     arrowprops=dict(arrowstyle="->", color="#222222", lw=1.2))
 
 
-def panel_slack(ax, slack, mk):
+def panel_slack(ax, slack, mk, cohort="c1"):
     rows = sorted(slack, key=lambda r: float(r["t_rel_s"]))
     x = [float(r["t_rel_s"]) for r in rows]
     for s in ("S1", "S2", "S3"):
         ax.plot(x, [float(r[f"slack_{s}"]) for r in rows],
                 color=st.SITE[s]["color"], ls=st.SITE[s]["ls"], label=st.SITE_LABEL[s])
     ax.axhline(0.0, color=st.SLO_COLOR, lw=1.2)
-    ax.set_ylabel("slack [ms]\n(SORTS only)")
+    ax.set_ylabel(f"slack [ms]\n(SORTS only, {cohort})")
     ax.set_title("slack = SLO − GB − d_net − f_c − d_acc   "
                  "(SORTS only — baselines have no such state;  "
                  "colors as above: S1 orange, S2 blue, S3 pink)",
@@ -171,12 +189,13 @@ def panel_slack(ax, slack, mk):
                     xytext=(3, 3), textcoords="offset points", va="bottom",
                     ha="left", color=st.SITE[s]["color"], fontweight="bold",
                     fontsize=plt.rcParams["legend.fontsize"])
-    ax.annotate("under the band S2/S3 fall below 0 — no server speed meets the SLO there",
+    ax.annotate("under the band S2/S3 < 0 → SLO unreachable there",
                 xy=(3, lo - 0.10 * (hi - lo)), va="bottom", ha="left",
                 color=st.ANNOT, fontsize=plt.rcParams["legend.fontsize"])
 
 
-def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False):
+def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False,
+             ymax=60.0, cohort="c1", suffix=""):
     lat, pts = read("latency", load), read("points", load)
     sites, slack = read("sites", load), read("slack", load)
     mk = marks_of(read("marks", load))
@@ -186,9 +205,10 @@ def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False):
     if scatter:
         panel_latency_scatter(axes[1], pts, mk)
     else:
-        panel_latency(axes[1], lat, mk, xkey=xkey)
+        panel_latency(axes[1], lat, mk, xkey=xkey, ymax=ymax)
     panel_sites(axes[2], sites, mk)
-    panel_slack(axes[3], slack, mk)
+    panel_slack(axes[3], [r for r in slack if r["cohort"] == cohort], mk,
+                cohort=cohort)
     axes[-1].set_xlabel("time since measurement start [s]"
                         if xkey == "t_rel_s" else "request index")
     if xkey == "t_rel_s":
@@ -200,10 +220,10 @@ def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False):
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     name = ("F1_timeseries_scatter" if scatter else
             "F1_timeseries" if xkey == "t_rel_s" else "F1_timeseries_reqidx")
-    return st.save(fig, outdir, f"{name}_L{load}")
+    return st.save(fig, outdir, f"{name}_L{load}{suffix}")
 
 
-def fig_sites_by_policy(load, prof, outdir):
+def fig_sites_by_policy(load, prof, outdir, suffix=""):
     sites = read("sites", load)
     mk = marks_of(read("marks", load))
     w, h = prof["figsize_1panel"]
@@ -222,8 +242,10 @@ def fig_sites_by_policy(load, prof, outdir):
         pre = sum(float(r["S1_pct"]) for r in sites
                   if r["policy"] == pol and float(r["t_rel_s"]) < 115)
         npre = sum(1 for r in sites if r["policy"] == pol and float(r["t_rel_s"]) < 115)
+        viol = VIOL[load][pol]
         ax.set_xlabel(f"time [s]\nS1 share: {pre/max(npre,1):.0f} % → "
-                      f"{share/max(n,1):.0f} % under band")
+                      f"{share/max(n,1):.0f} % under band\n"
+                      f"both-window violation: {viol:.2f} %")
     handles = [Patch(facecolor=st.SITE[s]["color"], label=st.SITE_LABEL[s])
                for s in ("S1", "S2", "S3")]
     axes[0].legend(handles=handles, loc="lower left", frameon=False, ncol=1)
@@ -231,10 +253,10 @@ def fig_sites_by_policy(load, prof, outdir):
                  f"(L = {load} rps, band 1600 kbit at t=120/180 s)",
                  x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.93))
-    return st.save(fig, outdir, f"F1c_sites_by_policy_L{load}")
+    return st.save(fig, outdir, f"F1c_sites_by_policy_L{load}{suffix}")
 
 
-def fig_saturated(load, prof, outdir):
+def fig_saturated(load, prof, outdir, suffix=""):
     """L=800 보조 — bl_loc_pri 를 별도 패널로 분리(corrected 기준)."""
     lat = read("latency", load)
     mk = marks_of(read("marks", load))
@@ -251,41 +273,52 @@ def fig_saturated(load, prof, outdir):
     x = [float(r["t_rel_s"]) for r in rows]
     s = st.POLICY["bl_loc_pri"]
     axes[1].plot(x, [fnum(r["corrected_p50"]) for r in rows], color=s["color"],
-                 ls=s["ls"], label="bl_loc_pri  corrected p50")
+                 ls=s["ls"], label="corrected p50  (wait since due — includes generator backlog)")
     axes[1].plot(x, [fnum(r["service_p50"]) for r in rows], color=s["color"],
-                 ls="-", alpha=0.55, label="bl_loc_pri  service p50")
+                 ls="-", alpha=0.55, label="service p50  (actual server work)")
     axes[1].axhline(SLO_SEARCH, color=st.SLO_COLOR, ls=(0, (6, 3)), lw=1.4)
     axes[1].set_yscale("log")
     axes[1].set_ylabel("bl_loc_pri latency [ms]\n(log scale)")
     axes[1].legend(loc="center left", frameon=False)
     draw_marks(axes[1], mk)
-    axes[1].annotate("already saturated before the disturbance\n"
-                     "(service p50 87 ms at t < 120 s);\n"
-                     "corrected − service gap = generator schedule backlog (I-19)",
-                     xy=(0.36, 0.42), xycoords="axes fraction", va="top",
-                     fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
+    axes[1].annotate(
+        "NOT a 65 s server response.\n"
+        "  service  = server work per request → p50 99.7 ms (both window)\n"
+        "  corrected = wait since the request was DUE → p50 65 s\n"
+        "The gap is the load generator's own queue: offered load exceeds\n"
+        "capacity, so scheduled requests pile up (I-19).",
+        xy=(0.30, 0.62), xycoords="axes fraction", va="top",
+        fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT,
+        bbox=dict(boxstyle="round,pad=0.35", fc="white", ec="#bbbbbb", alpha=0.9))
     axes[1].set_xlabel("time since measurement start [s]")
     axes[1].set_xlim(0, 300)
     fig.suptitle("F1b  At L = 800 rps the locality-first baseline is broken "
                  "before the radio degrades", x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.95))
-    return st.save(fig, outdir, "F1b_L800_saturated")
+    return st.save(fig, outdir, f"F1b_L800_saturated{suffix}")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--load", type=int, default=450)
     ap.add_argument("--profile", default="talk", choices=["talk", "paper"])
+    ap.add_argument("--scale", type=float, default=1.0,
+                    help="발표장 확대율 (1.2 / 1.5). 파일명에 _x1.2 접미사")
     a = ap.parse_args()
-    prof = st.apply(a.profile)
+    prof = st.apply(a.profile, a.scale)
+    sfx = "" if a.scale == 1.0 else f"_x{a.scale:g}"
     outdir = os.path.join(EXP, "figures", a.profile)
     made = []
-    made.append(fig_main(a.load, prof, outdir))
-    made.append(fig_main(a.load, prof, outdir, xkey="req_idx_start"))
-    made.append(fig_main(a.load, prof, outdir, scatter=True))
-    made.append(fig_sites_by_policy(a.load, prof, outdir))
+    made.append(fig_main(a.load, prof, outdir, suffix=sfx))                 # 주 그림 (0~60)
+    made.append(fig_main(a.load, prof, outdir, ymax=115.0,
+                         suffix=f"_full{sfx}"))                             # 백업 (0~115)
+    made.append(fig_main(a.load, prof, outdir, cohort="c2",
+                         suffix=f"_slackc2{sfx}"))                          # 예비 (c2 slack)
+    made.append(fig_main(a.load, prof, outdir, xkey="req_idx_start", suffix=sfx))
+    made.append(fig_main(a.load, prof, outdir, scatter=True, suffix=sfx))
+    made.append(fig_sites_by_policy(a.load, prof, outdir, suffix=sfx))
     if a.load == 800:
-        made.append(fig_saturated(a.load, prof, outdir))
+        made.append(fig_saturated(a.load, prof, outdir, suffix=sfx))
     for pdf, png in made:
         print(f"-> {os.path.relpath(pdf, EXP)} / {os.path.basename(png)}")
 

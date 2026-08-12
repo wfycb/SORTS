@@ -124,7 +124,7 @@ def main():
     t0, d12, d43 = meta["t_meas"], meta["clock"]["d12_s"], meta["clock"]["d43_s"]
     slack_rows = []
     for r in csv.DictReader(open(os.path.join(rd, "decisions.csv"))):
-        if r["class"] != "search" or r["cohort"] != "c1":
+        if r["class"] != "search":          # 코호트는 둘 다 뽑는다(c2 는 예비 판용)
             continue
         slack_rows.append({"t_rel_s": round(float(r["ts"]) - d43 + d12 - t0, 2),
                            "cohort": r["cohort"], "class": r["class"],

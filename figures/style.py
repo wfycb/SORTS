@@ -40,8 +40,14 @@ PROFILES = {
 }
 
 
-def apply(profile="talk"):
-    p = PROFILES[profile]
+def apply(profile="talk", scale=1.0):
+    """scale = 투사 환경별 확대율(발표장에서 글씨가 작을 때 1.2·1.5 로 재방출)."""
+    p = dict(PROFILES[profile])
+    if scale != 1.0:
+        for k in ("font", "small", "lw"):
+            p[k] = p[k] * scale
+        for k in ("figsize_4panel", "figsize_1panel"):
+            p[k] = tuple(v * scale for v in p[k])
     plt.rcParams.update({
         "font.size": p["font"],
         "axes.titlesize": p["font"],
