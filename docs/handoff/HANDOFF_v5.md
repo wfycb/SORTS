@@ -11,7 +11,8 @@ v4 본문은 이 저장소에 없다(대화 문서) — 구조는 v4 참조 인�
 
 - **수치를 쓸 때**: `docs/NUMBERS.md` 에서 (출처 런 · 재계산 명령 · 조건 · 계열)을
   확인하고 쓴다. 대장에 없으면 논문에 쓰지 않는다.
-- **그림**: `figures/README.md` 의 발표용 최종 목록(F1c → F1 → F3 → F4 → F5).
+- **그림**: `docs/FIGURES.md` 의 발표용 최종 목록(F1c → F1 → F3 → F4 → F5).
+  산출물·값 CSV·생성 스크립트는 **릴리스 `figures-v2` 첨부** `SORTS_figures_v2.zip`.
 - **재현**: 각 보고서(`docs/STAGE*_REPORT.md`) 머리말에 원자료 경로와 분석
   스크립트가 있다. 분석은 전부 `analysis/**` 이며 **동결 대상이 아니다**.
 - **동결**: `docs/FREEZE.md`. 결정 로직 6파일은 b3 이후 md5 고정이며, 단계마다
@@ -22,7 +23,7 @@ v4 본문은 이 저장소에 없다(대화 문서) — 구조는 v4 참조 인�
 **목표**: 무선 접속 상태(밴드)를 관측해 (코호트 × 클래스) 단위로 **허용 사이트
 집합**을 제약함으로써, LB 가 보지 못하는 열화에서 SLO 위반을 줄인다.
 SORTS 는 **LB 를 대체하지 않는다** — 집합만 좁히고 집합 안 선택은 Envoy
-least-request 가 한다(`figures/ARCH_SPEC.md`).
+least-request 가 한다(`docs/ARCH_SPEC.md`).
 
 **확정 산출 문장** (4단계 G2 확정):
 > 최소 노출 요건은 **UE 그룹 단위 해상도**다(평균화 시 104배 악화).
@@ -31,7 +32,7 @@ least-request 가 한다(`figures/ARCH_SPEC.md`).
 
 ## §2. 테스트베드
 
-`figures/ARCH_SPEC.md` 가 정본(코드 근거 포함). 요약:
+`docs/ARCH_SPEC.md` 가 정본(코드 근거 포함). 요약:
 UE 6(UERANSIM, `.12`) → Open5GS UPF·`ogstun`·front Envoy v1.39·컨트롤러(`.43`)
 → S1 `.3`(d_net 2 ms) / S2 `.2`(15) / S3 `.40`(25), 각 DSB HR **24 컨테이너**.
 부하 `tb-load.py`(커넥션당 1 outstanding·절대 스케줄), 조성 **M0 = reserve :
@@ -186,7 +187,7 @@ v4 는 `C_eff(S2/S3)` 측정을 "잔여 6.5 %는 용량 부정확이 원인이 �
 | 분포표(평균 대신 분포) | `docs/DISTRIBUTIONS.md` |
 | 예산 표 | `analysis/stage6/budget_table.{py,csv}` |
 | 단계 보고서 | `docs/STAGE1~5_REPORT.md`, `docs/TASK*_REPORT.md`, `docs/NIGHT*_REPORT.md` |
-| 그림·명세 | `figures/`(README = 발표 목록), `figures/ARCH_SPEC.md` |
+| 그림·명세 | `docs/FIGURES.md`(캡션·발표 순서) · `docs/ARCH_SPEC.md` · 산출물은 릴리스 `figures-v2` 첨부 zip |
 | 이슈 원장 | `docs/ISSUES.md`(I-1~I-19) |
 | 방법론 사례 | `analysis/method_cases.md` |
 | 동결 이력 | `docs/FREEZE.md` |
