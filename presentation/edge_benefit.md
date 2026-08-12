@@ -161,8 +161,12 @@ S1 유입 612 rps(용량의 153%), 헤드룸 −53%, 전 구간 위반율 100%.
 
 ### 그림 B
 
-- `figures/b1_edge_reclaim.png` — S1 유입 시계열 3정책 + 용량선 2개(400 혼합, 133 search 성분)
-- `figures/b2_violation_timeline.png` — 정책별 코호트1·2 search 위반율 시계열
+- ~~`figures/b1_edge_reclaim.png`~~ — **삭제(2026-08-13)**: S1 유입 시계열 3정책
+  + 용량선(400 혼합 / 133 search)이었다. **figures-v2 의 F1(사이트 몫·slack)·
+  F1c 가 대체**하며, 여기 쓰인 무릎 400 rps 는 현행 정의(C_eff 105.4 eq,
+  `docs/NUMBERS.md` §3)로 대체된 **보고 전용 구값**이라 그대로 두면 오독된다
+- ~~`figures/b2_violation_timeline.png`~~ — **삭제(2026-08-13)**: 정책별 코호트
+  search 위반율 시계열. **figures-v2 F1 의 3단(롤링 위반율)이 대체**
 
 **b1 에서 보이는 것**: SORTS 는 0 → 133 → 263 두 계단으로 올라갔다 0 으로 복귀.
 NearFirst 는 처음부터 600 대에 붙어 있어 올라갈 자리가 없다. LR 은 390 대에서

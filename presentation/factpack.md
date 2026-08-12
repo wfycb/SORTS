@@ -219,9 +219,12 @@ UE 주소: 코호트1 `10.46.0.6` (uesimtun0), 코호트2 `10.46.0.7` (uesimtun1
 
 ## 4. 결과 (P4)
 
-**그림 2: `figures/p2_violation_by_policy.png`**
-**그림 3: `figures/p3_six_units.png`**
-**그림 4: `figures/p4_s1_pulse.png`**
+**그림 2·3 삭제(2026-08-13)** — `p2_violation_by_policy`(정책별 코호트1 search
+위반율)와 `p3_six_units`(6유닛 중 1개만 이동)는 **figures-v2 의 F1·F1c·F1d 가
+같은 주장을 현행 계열로 대체**해 지웠다. 대체본은 릴리스 `figures-v2` 첨부
+`SORTS_figures_v2.zip`(F1_timeseries·F1c_sites_by_policy·F1d_byclass).
+
+**그림 4: `figures/p4_s1_pulse.png`**(램프 축 — 대체 그림 없음, 유지)
 
 전부 `runs/demo-20260805/` 원자료에서 재계산. 보고서 인용 없음.
 

@@ -116,3 +116,10 @@ c1_search 전환 이력 (decisions.csv, changed=1):
 각 그림 옆 `*_data.csv` 가 원자료다. 팔레트는 검증된 기본 3슬롯
 (S1 blue / S2 orange / S3 aqua — validate_palette all-pairs 통과, aqua 의
 대비 WARN 은 직접 라벨·범례로 relief).
+
+
+> **그림 정리(2026-08-13)**: `fig_d1_radio_comparison.png`(radio 중 코호트1
+> search 초과율)과 `fig_d3_decision_timeline.png`(관측→slack→결정→분배)은
+> **figures-v2 의 F1·F1c 가 현행 계열로 대체**해 삭제했다. 대체본은 릴리스
+> `figures-v2` 첨부 `SORTS_figures_v2.zip`. `fig_d2_s1_occupancy_ramp.png`
+> (램프 축)는 대체 그림이 없어 유지한다.
