@@ -5,6 +5,12 @@ STAGE6-FIG **figures-v2**(2026-08-13). 각 그림은 ① 생성 스크립트 ②
 CSV → 그림 단계(`f1_plot.py`)가 분리돼 있어 **스타일 수정 시 원자료를 다시 훑지
 않는다.**
 
+> **산출물(PDF·PNG)은 이 브랜치에 없다.** 그림 바이너리는 GitHub 릴리스
+> **[figures-v2](https://github.com/wfycb/SORTS/releases/tag/figures-v2)** 의
+> `SORTS_figures_v2.zip` 에 **값 파일(CSV)과 함께** 첨부돼 있다.
+> main 에는 **생성 스크립트 · 입력 CSV(`data/`) · 캡션 · 아키텍처 명세**만 둔다 —
+> 아래 재생성 명령으로 언제든 동일 산출물을 만들 수 있다.
+
 ## 발표용 최종 목록 (이 순서로)
 
 | # | 파일 (talk/) | 한 줄 |
