@@ -1,0 +1,33 @@
+{
+ "comment": "STAGE5 S5-0 §2.2.3 부하 생성 성립 프로브. 목적=후보 부하점에서 (a) 달성 rps vs 요청 rps, (b) 커넥션당 rps 상한(스레드당 1 outstanding = 1/latency), (c) 16 vs 32 conn 선택, (d) 밴드 창에서의 생성 능력. 정책은 bl_rr 고정(3사이트 균등 분산 -> 단일 사이트 포화와 생성기 능력을 분리). 짧은 런(warmup 15 + 60~90s). 2코호트.",
+ "batch_id": "stage5-probe",
+ "runs": [
+  {"type": "TB", "run_id": "p_L200", "policy": "bl_rr", "disturb": "none",
+   "n_cohorts": 2, "warmup": 15, "duration": 60, "disturb_start": 20, "disturb_end": 50,
+   "rest": 15, "connections": 16, "rps_per_connection": 6.25, "total_rps": 200},
+  {"type": "TB", "run_id": "p_L450", "policy": "bl_rr", "disturb": "none",
+   "n_cohorts": 2, "warmup": 15, "duration": 60, "disturb_start": 20, "disturb_end": 50,
+   "rest": 15, "connections": 16, "rps_per_connection": 14.0625, "total_rps": 450},
+  {"type": "TB", "run_id": "p_L800", "policy": "bl_rr", "disturb": "none",
+   "n_cohorts": 2, "warmup": 15, "duration": 60, "disturb_start": 20, "disturb_end": 50,
+   "rest": 15, "connections": 16, "rps_per_connection": 25, "total_rps": 800},
+  {"type": "TB", "run_id": "p_L1400c16", "policy": "bl_rr", "disturb": "none",
+   "n_cohorts": 2, "warmup": 15, "duration": 60, "disturb_start": 20, "disturb_end": 50,
+   "rest": 15, "connections": 16, "rps_per_connection": 43.75, "total_rps": 1400},
+  {"type": "TB", "run_id": "p_L1400c32", "policy": "bl_rr", "disturb": "none",
+   "n_cohorts": 2, "warmup": 15, "duration": 60, "disturb_start": 20, "disturb_end": 50,
+   "rest": 15, "connections": 32, "rps_per_connection": 21.875, "total_rps": 1400},
+  {"type": "TB", "run_id": "p_L1400c16b", "policy": "bl_rr", "disturb": "seq_extreme",
+   "n_cohorts": 2, "warmup": 15, "duration": 90, "c1_start": 20, "c2_start": 40,
+   "disturb_end": 70, "rest": 15, "connections": 16, "rps_per_connection": 43.75,
+   "total_rps": 1400},
+  {"type": "TB", "run_id": "p_L1400c32b", "policy": "bl_rr", "disturb": "seq_extreme",
+   "n_cohorts": 2, "warmup": 15, "duration": 90, "c1_start": 20, "c2_start": 40,
+   "disturb_end": 70, "rest": 15, "connections": 32, "rps_per_connection": 21.875,
+   "total_rps": 1400},
+  {"type": "TB", "run_id": "p_L800c16b", "policy": "bl_rr", "disturb": "seq_extreme",
+   "n_cohorts": 2, "warmup": 15, "duration": 90, "c1_start": 20, "c2_start": 40,
+   "disturb_end": 70, "rest": 15, "connections": 16, "rps_per_connection": 25,
+   "total_rps": 800}
+ ]
+}

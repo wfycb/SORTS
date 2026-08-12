@@ -1,0 +1,31 @@
+{
+ "comment": "STAGE5 본 배치 전 스모크 1런 — 매니페스트 키 검증(I-18(c) 규율: DONE 마커 확인 후 본 배치).",
+ "batch_id": "stage5-smoke",
+ "runs": [
+  {
+   "type": "TB",
+   "run_id": "s5smoke_sorts",
+   "policy": "sorts_reactive",
+   "disturb": "seq_extreme",
+   "est_resp_bytes": true,
+   "est_f_c": true,
+   "window_s": 2.0,
+   "subset_policy": "far_tier",
+   "capacity_check": true,
+   "soft_assign": true,
+   "c_eff": true,
+   "ctl_period_s": 1.0,
+   "n_cohorts": 2,
+   "warmup": 15,
+   "duration": 90,
+   "disturb_start": 20,
+   "c1_start": 20,
+   "c2_start": 40,
+   "disturb_end": 70,
+   "rest": 15,
+   "connections": 16,
+   "rps_per_connection": 14.0625,
+   "total_rps": 450
+  }
+ ]
+}
