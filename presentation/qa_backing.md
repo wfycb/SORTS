@@ -41,7 +41,9 @@ N2 원자료, 밴드를 정상 → 극단으로 바꾸며 같은 요청을 측�
 | 극단 1.6 Mbps | 29.543 | 4.0 | 4.478 | 25.065 |
 
 **정상 → 극단: 무선 구간이 +22.541 ms 변하는 동안 Envoy 가 재는 값은 +0.022 ms 변했다.**
-(약 1,000 : 1)
+(1024.6 : 1 — **정적 스윕·search 단독·p50 조건부 부기**. 발표·논문 헤드라인은
+**부하 중 46 : 1**(`R1_rr_radio`, c1 search, 2300 k, 800 rps, 평균차)이고 두 수는
+같은 문장에 병렬로 쓰지 않는다. STAGE6 §3, `docs/NUMBERS.md` §1.)
 
 출처: `tables/p4_t5_envoy_blind.csv`
 (`n2/n2_*_search.csv[service_ms]`, `n2/n2_*_search_envoy.csv[필드7 %DURATION%, 필드16 DS_RX_BEG:DS_TX_END:us]`)

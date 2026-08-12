@@ -101,3 +101,37 @@
   ueransim-gnb 유닛 부재만 명시).
 - 커밋 히스토리에는 백업 시점 스냅샷만 — 과거 작업별 diff 이력은 없음
   (docs/ 보고서가 변경 서사를 대체).
+
+---
+
+## 9. 최종 백업 점검 (STAGE6 §7, 2026-08-13 — `paper-ready`)
+
+### 9.1 미백업 항목
+
+**논문·재현에 필요한 항목 미백업 0 건.** 기계 대조 결과:
+
+| 대상 | 결과 |
+|---|---|
+| `~/exp/*.md`(보고서·대장·분포표·인수인계) | 전부 `docs/`(또는 `docs/handoff/`)에 존재 |
+| `analysis/*` 하위 디렉터리 | `cache`·`obs_replay` 2개만 제외(§9.2), 나머지 전부 백업 |
+| `manifest_*.json` 전 파일 | `runner/manifests/` 에 전부 존재 |
+| 동결 6파일 md5 | exp ↔ repo **6/6 일치** |
+
+### 9.2 의도적 제외 (파생물, 재생성 가능)
+
+| 경로 | 크기 | 사유 |
+|---|---|---|
+| `analysis/cache/` | 213 M | 런 원자료에서 뽑은 중간 CSV 캐시 — 분석 스크립트로 재생성 |
+| `analysis/obs_replay/` | 36 M | 관측 재생 산출물 — 동상 |
+| `runs/**/load_c*.csv`·`*.log(.gz)` | (대) | `.gitignore` 규칙(§5) — 요청 단위 원자료는 `.40` 로컬 보관 |
+
+**주의**: 위 세 항목은 **논문 수치의 출처가 아니다** — 대장(`docs/NUMBERS.md`)이
+인용하는 경로는 전부 저장소 안에 있고, 인용 49건 전수 존재 확인
+(`analysis/stage6/verify_numbers.py`)을 통과했다.
+
+### 9.3 최종 상태
+
+- 저장소 119 M(.git 72 M), 태그: `b3-freeze` → `stage1-complete` →
+  `stage2-freeze` → `stage3-freeze` → `stage4-freeze` → `stage5-complete` →
+  `figures-v1` → `figures-v2` → **`paper-ready`**.
+- 결정 로직 6파일은 **b3 이후 md5 불변**(해제 창은 전부 닫힘 — `docs/FREEZE.md`).

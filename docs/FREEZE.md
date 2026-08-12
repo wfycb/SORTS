@@ -173,3 +173,38 @@ FILL_RATIO 0.8 · HEADROOM 0.9) 무변경. 스위치 off 회귀 **앞 12열 96�
 0.006 s). 감쇠는 전부 비동결 shim(obs_shim.py, .43 root)·래퍼(tb-obshim.sh,
 sudoers 1줄) 담당. 휴지 상태: obs_iface 기본 ogstun(직결), obsshim0 제거됨,
 shim 데몬 정지. 이후 변경은 명시적 해제 결정 필요.
+
+
+---
+
+# 최종 상태 — 논문 마무리 (2026-08-13, 태그 `paper-ready`)
+
+**실험 종료.** 이 시점 이후 결과 수치를 바꾸지 않는다. 바꿔야 하면 새 태그와
+함께 대장(`docs/NUMBERS.md`)·보고서·그림을 **같이** 갱신한다.
+
+## 동결 6파일 md5 (최종, `.40` 원본 = 저장소 사본)
+
+| 파일 | md5 | stage4-freeze 대비 |
+|---|---|---|
+| sorts_ctl.py | `97d63b83044b07a3bba969a2d7f8614f` | **무변경** |
+| obs.py | `b9fac68d079b017acf99d451cd9ddbae` | **무변경** |
+| sorts.yaml.tmpl | `9467651b8374bb2e92ce9d1cd093d639` | **무변경** |
+| run_all.py | `79babd3db8b83f051e496168e6dff2a4` | **무변경** |
+| gen_envoy_v10.py | `ace343788b45fdcfada23908fac237a9` | **무변경** |
+| envoy_keys.json | `071cf575ed7ec9d9700c3c312de01b35` | **무변경** |
+
+## 5단계·6단계에서 열린 해제 창
+
+**없다.** 5단계(부하 스윕)는 부하·코호트 수·정책이 전부 run 스펙 config 키라
+접촉 0이었고, 6단계(마무리)는 런이 0이다. 4단계 종료 시 닫은 창 이후로 결정
+로직은 한 번도 열리지 않았다.
+
+- 5단계에서 **접촉이 필요했던 유일한 항목**은 HC 통일(`gen_envoy_v10.py --hc`
+  가 `envoy_keys.json` 을 덮어씀)이었고, **지시자가 원 지시를 철회**해
+  hc_off 유지로 접촉 0을 택했다(STAGE5 G1 §1.2).
+
+## 태그 이력
+
+`b3-freeze` → `stage1-complete` → `stage2-freeze` → `stage3-freeze` →
+`stage4-freeze` → `stage5-complete` → `figures-v1` → `figures-v2` →
+**`paper-ready`**.
