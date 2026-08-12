@@ -1,0 +1,10 @@
+policy,mark,label,t_rel_s
+SORTS,c1_extreme,c1 band 1600k,120.62
+SORTS,c2_extreme,both cohorts 1600k,180.63
+SORTS,clear_all,band cleared,240.62
+bl_lr,c1_extreme,c1 band 1600k,120.78
+bl_lr,c2_extreme,both cohorts 1600k,180.73
+bl_lr,clear_all,band cleared,240.71
+bl_loc_pri,c1_extreme,c1 band 1600k,120.75
+bl_loc_pri,c2_extreme,both cohorts 1600k,180.7
+bl_loc_pri,clear_all,band cleared,240.82

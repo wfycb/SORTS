@@ -1,0 +1,5 @@
+L_total_rps,k_ratio_bl_lr,k_ratio_bl_loc_pri,k_ratio_sorts,k_ratio_best_comparator,viol_sorts_pct,viol_bl_lr_pct,viol_bl_loc_pri_pct,best_comparator,gap_pp
+200,0.42,0.9,0.63,0.9,0.17099999999999999,8.3725,0.226,bl_loc_pri,0.055
+450,1.025,2.025,0.92,2.025,0.42000000000000004,7.407,4.162,bl_loc_pri,3.742
+800,1.765,3.599,0.92,1.765,6.34,10.6135,100.0,bl_lr,4.274
+1400,2.335,6.299,0.915,2.335,46.778999999999996,30.8545,100.0,bl_lr,-15.924

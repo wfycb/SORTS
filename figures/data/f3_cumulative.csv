@@ -1,0 +1,8 @@
+label,label_wrapped,layers,n,viol_pct,half_range,runs,values
+strict_far,strict_far,strict_far,1,95.034,0.0,v1_strictoff,95.034
++ far_tier + capacity,"+ far_tier
++ capacity",far_tier + capacity,3,74.597,1.419,v1s_off_1;v1s_off_2;v1s_off_3,74.452;76.089;73.250
++ soft assignment,"+ soft
+assignment",far_tier + capacity + soft,3,28.063,3.418,v1s_on_1;v1s_on_2;v1s_on_3,30.110;30.457;23.621
++ C_eff (band-aware),"+ C_eff
+(band-aware)",far_tier + capacity + soft + C_eff,3,6.499,0.847,v1c_on_1;v1c_on_2;v1c_on_3,6.896;7.148;5.453

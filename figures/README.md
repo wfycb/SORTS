@@ -1,16 +1,23 @@
-# 그림 목록·캡션 (figures-v2)
+# figures/ — 발표·논문용 그림
 
-STAGE6-FIG **figures-v2**(2026-08-13).
-
-> **그림·값 파일·생성 스크립트는 이 저장소(main)에 없다.** 전부 릴리스
-> **[figures-v2](https://github.com/wfycb/SORTS/releases/tag/figures-v2)** 의
-> `SORTS_figures_v2.zip`(15.4 MB) 안에 있다 — `talk/` `paper/` `backup/`(그림),
-> **`data/`(각 그림에 들어간 CSV 16개)**, `scripts/`(생성 스크립트 8개),
-> `MANIFEST.md`(그림 ↔ 값 파일 대응·열 설명). 이 문서는 **캡션·발표 순서**만 남긴
-> 색인이다. 각 그림은 ① 생성 스크립트 ② 입력 CSV
+STAGE6-FIG **figures-v2**(2026-08-13). 각 그림은 ① 생성 스크립트 ② 입력 CSV
 ③ 산출물(PDF 벡터 + PNG 300 dpi)을 함께 둔다. 원자료 → CSV 단계(`f1_extract.py`)와
 CSV → 그림 단계(`f1_plot.py`)가 분리돼 있어 **스타일 수정 시 원자료를 다시 훑지
 않는다.**
+
+`analysis/` · `controller/` · `docs/` 와 같은 **저장소 디렉터리 단위**로 정리했다:
+
+```
+figures/
+  talk/     발표용(16:9)   — PDF(벡터) + PNG(300 dpi)   32개
+  paper/    논문용(단일 컬럼 3.4 in)                      32개
+  backup/   산점도 변형(예비)                              4개
+  data/     각 그림에 들어간 값 파일(CSV)                 16개
+  *.py      생성 스크립트(추출 3 + 그리기 4 + 스타일 1)    8개
+  MANIFEST.md   그림 ↔ 값 파일 대응표 · CSV 열 설명
+  README.md     이 문서 — 캡션 초안 · 발표 순서 · 재생성
+  ARCH_SPEC.md  F6 아키텍처 그리기 명세(코드 근거)
+```
 
 ## 발표용 최종 목록 (이 순서로)
 
@@ -27,10 +34,10 @@ CSV → 그림 단계(`f1_plot.py`)가 분리돼 있어 **스타일 수정 시 �
 `backup/…scatter`)는 **질문 대비 예비**이며 슬라이드에 넣지 않는다.
 확대 배율이 필요하면 `--scale 1.2` / `1.5` 로 즉시 재생성한다(파일은 남기지 않음).
 
-## 재생성 (번들을 풀고)
+## 재생성
 
 ```bash
-cd SORTS_figures_v2/scripts
+cd ~/exp/figures
 python3 f1_extract.py --load 450          # 원자료 → data/f1_L450_*.csv
 python3 f1_extract.py --load 800
 python3 f1_plot.py --load 450 --profile talk    # → talk/*.pdf|png (기본)
