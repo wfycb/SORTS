@@ -53,11 +53,11 @@ def draw_marks(ax, mk, shade=True, label=False):
     for x in (c1, both, clear):
         ax.axvline(x, color=st.ANNOT, ls="-", lw=1.0, alpha=0.7)
     if label:
-        y = ax.get_ylim()[1]
+        y = 5200.0                      # 1600 계단과 no-shaping 선 사이 빈 구간
         for x, t in ((c1, "c1 1600k"), (both, "both 1600k"), (clear, "clear")):
-            ax.annotate(t, xy=(x, y), xytext=(3, -2), textcoords="offset points",
-                        va="top", ha="left", fontsize=plt.rcParams["legend.fontsize"],
-                        color=st.ANNOT)
+            ax.annotate(t, xy=(x, y), xytext=(4, 0), textcoords="offset points",
+                        va="center", ha="left",
+                        fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
 
 
 def panel_band(ax, slack, mk):
@@ -68,15 +68,14 @@ def panel_band(ax, slack, mk):
         xs = [float(r["t_rel_s"]) for r in rows]
         ys = [fnum(r["observed_rate_kbit"]) or 20000.0 for r in rows]
         ax.step(xs, ys, where="post", color="#333333", ls=ls,
-                lw=plt.rcParams["lines.linewidth"] * lw_f,
-                label=f"cohort {coh[-1]}")
-    ax.legend(loc="lower left", ncol=2, frameon=False,
-              fontsize=plt.rcParams["legend.fontsize"])
+                lw=plt.rcParams["lines.linewidth"] * lw_f)
+    ax.set_title("cohort 1 = solid,  cohort 2 = dashed", loc="right",
+                 fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
     ax.set_yscale("log")
     ax.set_yticks([1600, 20000])
     ax.set_yticklabels(["1600", "no shaping"])
-    ax.set_ylabel("radio band\n[kbit/s]")
-    ax.set_ylim(1000, 40000)
+    ax.set_ylabel("band\n[kbit/s]")
+    ax.set_ylim(700, 40000)
     draw_marks(ax, mk, label=True)
 
 
@@ -99,7 +98,7 @@ def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s", ymax=60.0):
     ax.annotate(f"SLO {SLO_SEARCH:.0f} ms", xy=(0.995, SLO_SEARCH),
                 xycoords=("axes fraction", "data"), ha="right", va="bottom",
                 fontsize=plt.rcParams["legend.fontsize"])
-    ax.set_ylabel(f"search latency\n{col} [ms]")
+    ax.set_ylabel(f"latency\n{col} [ms]")
     ax.set_ylim(0, ymax)
     # 잘린 꼬리는 반드시 표시한다 (잘라놓고 말하지 않으면 오독된다)
     clipped = [(float(r[xkey]), fnum(r[f"{col}_p95"]), r["policy"])
@@ -108,7 +107,7 @@ def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s", ymax=60.0):
         t, v, pol = max(clipped, key=lambda z: z[1])
         ax.annotate(f"{st.POLICY_LABEL[pol].split(' ')[0]} p95 spikes to "
                     f"~{v:.0f} ms (clipped)",
-                    xy=(t, ymax * 0.985), xytext=(max(t - 105, 5), ymax * 0.60),
+                    xy=(t, ymax * 0.985), xytext=(6, ymax * 0.905),
                     color=st.POLICY[pol]["color"],
                     fontsize=plt.rcParams["legend.fontsize"],
                     arrowprops=dict(arrowstyle="->", color=st.POLICY[pol]["color"],
@@ -117,7 +116,8 @@ def panel_latency(ax, lat, mk, col="service", xkey="t_rel_s", ymax=60.0):
                  fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
     if xkey == "t_rel_s":
         draw_marks(ax, mk)
-    ax.legend(loc="upper left", ncol=3, frameon=False)
+    ax.legend(loc="lower left", ncol=3, frameon=False,
+              bbox_to_anchor=(0.0, 1.01))
 
 
 def panel_latency_scatter(ax, pts, mk, col="service_ms"):
@@ -136,34 +136,80 @@ def panel_latency_scatter(ax, pts, mk, col="service_ms"):
         h.set_alpha(1.0)
 
 
-def panel_sites(ax, sites, mk, policy="SORTS", ylabel=None, annotate=True):
-    rows = sorted((r for r in sites if r["policy"] == policy),
+def panel_sites(ax, cls_rows, mk, policy="SORTS", ylabel=None, annotate=True,
+                klass="search"):
+    """3단 — **search 전용** 사이트 몫(4단 slack 과 같은 대상).
+    참조선: reserve/recommend 의 S3 몫 — "다른 클래스는 원거리 유지"."""
+    rows = sorted((r for r in cls_rows
+                   if r["policy"] == policy and r["class"] == klass),
                   key=lambda r: float(r["t_rel_s"]))
     x = [float(r["t_rel_s"]) for r in rows]
     ys = [[float(r[f"{s}_pct"]) for r in rows] for s in ("S1", "S2", "S3")]
-    ax.stackplot(x, *ys,
-                 colors=[st.SITE[s]["color"] for s in ("S1", "S2", "S3")],
+    ax.stackplot(x, *ys, colors=[st.SITE[s]["color"] for s in ("S1", "S2", "S3")],
                  labels=[st.SITE_LABEL[s] for s in ("S1", "S2", "S3")], alpha=0.85)
     ax.set_ylim(0, 100)
-    ax.set_ylabel(f"site share\n[%] ({policy})" if ylabel is None else ylabel)
+    ax.set_ylabel(f"{klass} only\nsite share [%]" if ylabel is None else ylabel)
     draw_marks(ax, mk, shade=False)
-    # 스택 안에 사이트 라벨을 직접 얹는다 (범례 상자가 S1 영역을 가리지 않게)
-    if policy == "SORTS" and annotate:
-        pre = [r for r in rows if float(r["t_rel_s"]) < 100]
-        acc = 0.0
-        for site in ("S1", "S2", "S3"):
-            v = sum(float(r[f"{site}_pct"]) for r in pre) / max(len(pre), 1)
-            if v > 6:
-                ax.text(50, acc + v / 2, site, ha="center", va="center",
-                        fontweight="bold", color="#222222")
-            acc += v
+    if annotate:
+        # 참조선 — reserve·recommend 의 S3 몫 (한 선)
+        ref = {}
+        for r in cls_rows:
+            if r["policy"] != policy or r["class"] == klass:
+                continue
+            sec = float(r["t_rel_s"])
+            ref.setdefault(sec, []).append(float(r["S3_pct"]))
+        rx = sorted(ref)
+        ry = [sum(ref[t]) / len(ref[t]) for t in rx]
+        ax.plot(rx, ry, color="#000000", ls=(0, (2, 2)), lw=1.6)
+        ax.annotate("reserve + recommend on S3 (reference — they stay far)",
+                    xy=(148, ry[len(ry) // 2]), xytext=(0, 10),
+                    textcoords="offset points", ha="center", va="bottom",
+                    fontsize=plt.rcParams["legend.fontsize"], color="#000000",
+                    bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="none",
+                              alpha=0.85))
+        def at(xt, site):
+            r = min(rows, key=lambda r: abs(float(r["t_rel_s"]) - xt))
+            lo = {"S1": 0.0, "S2": float(r["S1_pct"]),
+                  "S3": float(r["S1_pct"]) + float(r["S2_pct"])}[site]
+            return lo + float(r[f"{site}_pct"]) / 2
+        for site, xt in (("S1", 210), ("S2", 60), ("S3", 60)):
+            ax.text(xt, at(xt, site), site, ha="center", va="center",
+                    fontweight="bold", color="#222222",
+                    fontsize=plt.rcParams["legend.fontsize"])
+        pre = [r for r in rows if float(r["t_rel_s"]) < 115]
         dur = [r for r in rows if 185 < float(r["t_rel_s"]) < 238]
-        s1 = sum(float(r["S1_pct"]) for r in dur) / max(len(dur), 1)
-        ax.annotate(f"edge (S1) enters only while the band is degraded\n"
-                    f"S1 share  0 % (pre)  →  {s1:.0f} % (both cohorts 1600 k)",
-                    xy=(212, s1), xytext=(150, 62), color="#222222",
-                    fontsize=plt.rcParams["legend.fontsize"],
-                    arrowprops=dict(arrowstyle="->", color="#222222", lw=1.2))
+        s1d = sum(float(r["S1_pct"]) for r in dur) / max(len(dur), 1)
+        s3p = sum(float(r["S3_pct"]) for r in pre) / max(len(pre), 1)
+        s3d = sum(float(r["S3_pct"]) for r in dur) / max(len(dur), 1)
+        ax.set_title(f"search on S3: {s3p:.0f} % → {s3d:.1f} % under the band "
+                     f"(budget −9.6 ms — not one request);  "
+                     f"S1 {s1d:.0f} % = C_eff cap (105.4 eq), rest to S2",
+                     loc="left", fontsize=plt.rcParams["legend.fontsize"],
+                     color="#222222")
+
+
+def panel_viol(ax, lat, mk, xkey="t_rel_s"):
+    """2b단 — 정책별 롤링 위반율(%) (search, corrected > SLO 45 ms)."""
+    by = defaultdict(list)
+    for r in lat:
+        by[r["policy"]].append(r)
+    for pol in POLS:
+        if not by[pol]:
+            continue
+        rows = sorted(by[pol], key=lambda r: float(r[xkey]))
+        sp = st.POLICY[pol]
+        ax.plot([float(r[xkey]) for r in rows],
+                [max(fnum(r["viol_pct"]) or 0.0, 0.02) for r in rows],
+                color=sp["color"], ls=sp["ls"], label=st.POLICY_LABEL[pol])
+    ax.set_yscale("log")
+    ax.set_ylim(0.02, 200)
+    ax.set_yticks([0.1, 1, 10, 100])
+    ax.set_yticklabels(["0.1", "1", "10", "100"])
+    ax.set_ylabel("violations\n[%, log]")
+    draw_marks(ax, mk)
+    ax.set_title("both-window totals: SORTS 0.42 %  ·  bl_lr 7.41 %  ·  "
+                 "bl_loc_pri 4.16 %", loc="right",
+                 fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT)
 
 
 def panel_slack(ax, slack, mk, cohort="c1"):
@@ -173,7 +219,7 @@ def panel_slack(ax, slack, mk, cohort="c1"):
         ax.plot(x, [float(r[f"slack_{s}"]) for r in rows],
                 color=st.SITE[s]["color"], ls=st.SITE[s]["ls"], label=st.SITE_LABEL[s])
     ax.axhline(0.0, color=st.SLO_COLOR, lw=1.2)
-    ax.set_ylabel(f"slack [ms]\n(SORTS only, {cohort})")
+    ax.set_ylabel(f"slack [ms]\n({cohort}, SORTS)")
     ax.set_title("slack = SLO − GB − d_net − f_c − d_acc   "
                  "(SORTS only — baselines have no such state;  "
                  "colors as above: S1 orange, S2 blue, S3 pink)",
@@ -197,17 +243,18 @@ def panel_slack(ax, slack, mk, cohort="c1"):
 def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False,
              ymax=60.0, cohort="c1", suffix=""):
     lat, pts = read("latency", load), read("points", load)
-    sites, slack = read("sites", load), read("slack", load)
+    cls, slack = read("sites_by_class", load), read("slack", load)
     mk = marks_of(read("marks", load))
-    fig, axes = plt.subplots(4, 1, figsize=prof["figsize_4panel"], sharex=True,
-                             gridspec_kw={"height_ratios": [0.7, 1.5, 1.0, 1.1]})
+    fig, axes = plt.subplots(5, 1, figsize=prof["figsize_4panel"], sharex=True,
+                             gridspec_kw={"height_ratios": [0.45, 1.15, 0.85, 1.0, 0.95]})
     panel_band(axes[0], slack, mk)
     if scatter:
         panel_latency_scatter(axes[1], pts, mk)
     else:
         panel_latency(axes[1], lat, mk, xkey=xkey, ymax=ymax)
-    panel_sites(axes[2], sites, mk)
-    panel_slack(axes[3], [r for r in slack if r["cohort"] == cohort], mk,
+    panel_viol(axes[2], lat, mk, xkey=xkey)
+    panel_sites(axes[3], cls, mk)
+    panel_slack(axes[4], [r for r in slack if r["cohort"] == cohort], mk,
                 cohort=cohort)
     axes[-1].set_xlabel("time since measurement start [s]"
                         if xkey == "t_rel_s" else "request index")
@@ -218,9 +265,44 @@ def fig_main(load, prof, outdir, xkey="t_rel_s", scatter=False,
                  f"(L = {load} rps, seq_extreme 1600 kbit, 2 cohorts, hc_off)",
                  x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.97))
-    name = ("F1_timeseries_scatter" if scatter else
-            "F1_timeseries" if xkey == "t_rel_s" else "F1_timeseries_reqidx")
+    name = ("F1_timeseries_scatter" if scatter else "F1_timeseries")
     return st.save(fig, outdir, f"{name}_L{load}{suffix}")
+
+
+def fig_byclass(load, prof, outdir, policy="SORTS", suffix=""):
+    """예비 — 클래스 × 사이트 9칸 완전판(질문 대비, 발표 슬라이드 아님)."""
+    cls = read("sites_by_class", load)
+    mk = marks_of(read("marks", load))
+    w, h = prof["figsize_1panel"]
+    fig, axes = plt.subplots(1, 3, figsize=(w, h * 0.95), sharey=True)
+    for ax, klass in zip(axes, ("search", "reserve", "recommend")):
+        panel_sites(ax, cls, mk, policy=policy, klass=klass, annotate=False,
+                    ylabel="site share [%]" if klass == "search" else "")
+        ax.set_title(f"{klass}", fontsize=plt.rcParams["axes.titlesize"])
+        ax.set_xlabel("time [s]")
+        ax.set_xlim(0, 300)
+        ax.set_xticks([0, 120, 180, 240, 300])
+    handles = [Patch(facecolor=st.SITE[s]["color"], label=st.SITE_LABEL[s])
+               for s in ("S1", "S2", "S3")]
+    axes[0].legend(handles=handles, loc="center left", frameon=True,
+                   framealpha=0.85, fontsize=plt.rcParams["legend.fontsize"])
+    fig.suptitle(f"F1d (backup)  {policy}: site share per class — only search "
+                 f"abandons S3 when the band degrades  (L = {load} rps)",
+                 x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
+    return st.save(fig, outdir, f"F1d_byclass_L{load}{suffix}")
+
+
+def panel_sites_allclass(ax, sites, mk, policy, ylabel=None):
+    rows = sorted((r for r in sites if r["policy"] == policy),
+                  key=lambda r: float(r["t_rel_s"]))
+    x = [float(r["t_rel_s"]) for r in rows]
+    ys = [[float(r[f"{s}_pct"]) for r in rows] for s in ("S1", "S2", "S3")]
+    ax.stackplot(x, *ys, colors=[st.SITE[s]["color"] for s in ("S1", "S2", "S3")],
+                 labels=[st.SITE_LABEL[s] for s in ("S1", "S2", "S3")], alpha=0.85)
+    ax.set_ylim(0, 100)
+    ax.set_ylabel("site share [%]" if ylabel is None else ylabel)
+    draw_marks(ax, mk, shade=False)
 
 
 def fig_sites_by_policy(load, prof, outdir, suffix=""):
@@ -229,9 +311,8 @@ def fig_sites_by_policy(load, prof, outdir, suffix=""):
     w, h = prof["figsize_1panel"]
     fig, axes = plt.subplots(1, 3, figsize=(w, h * 0.95), sharey=True)
     for ax, pol in zip(axes, POLS):
-        panel_sites(ax, sites, marks_of(read("marks", load), pol), policy=pol,
-                    ylabel="site share [%]" if pol == POLS[0] else "",
-                    annotate=False)
+        panel_sites_allclass(ax, sites, marks_of(read("marks", load), pol), pol,
+                             ylabel="site share [%]" if pol == POLS[0] else "")
         ax.set_title(st.POLICY_LABEL[pol], fontsize=plt.rcParams["axes.titlesize"])
         ax.set_xlabel("time [s]")
         ax.set_xlim(0, 300)
@@ -279,7 +360,7 @@ def fig_saturated(load, prof, outdir, suffix=""):
     axes[1].axhline(SLO_SEARCH, color=st.SLO_COLOR, ls=(0, (6, 3)), lw=1.4)
     axes[1].set_yscale("log")
     axes[1].set_ylabel("bl_loc_pri latency [ms]\n(log scale)")
-    axes[1].legend(loc="center left", frameon=False)
+    axes[1].legend(loc="lower left", frameon=False, bbox_to_anchor=(0.0, 0.02))
     draw_marks(axes[1], mk)
     axes[1].annotate(
         "NOT a 65 s server response.\n"
@@ -287,7 +368,7 @@ def fig_saturated(load, prof, outdir, suffix=""):
         "  corrected = wait since the request was DUE → p50 65 s\n"
         "The gap is the load generator's own queue: offered load exceeds\n"
         "capacity, so scheduled requests pile up (I-19).",
-        xy=(0.30, 0.62), xycoords="axes fraction", va="top",
+        xy=(0.985, 0.97), xycoords="axes fraction", va="top", ha="right",
         fontsize=plt.rcParams["legend.fontsize"], color=st.ANNOT,
         bbox=dict(boxstyle="round,pad=0.35", fc="white", ec="#bbbbbb", alpha=0.9))
     axes[1].set_xlabel("time since measurement start [s]")
@@ -314,8 +395,9 @@ def main():
                          suffix=f"_full{sfx}"))                             # 백업 (0~115)
     made.append(fig_main(a.load, prof, outdir, cohort="c2",
                          suffix=f"_slackc2{sfx}"))                          # 예비 (c2 slack)
-    made.append(fig_main(a.load, prof, outdir, xkey="req_idx_start", suffix=sfx))
-    made.append(fig_main(a.load, prof, outdir, scatter=True, suffix=sfx))
+    made.append(fig_byclass(a.load, prof, outdir, suffix=sfx))
+    made.append(fig_main(a.load, prof, os.path.join(EXP, "figures/backup"),
+                         scatter=True, suffix=sfx))     # 산점도 = 백업만
     made.append(fig_sites_by_policy(a.load, prof, outdir, suffix=sfx))
     if a.load == 800:
         made.append(fig_saturated(a.load, prof, outdir, suffix=sfx))

@@ -55,13 +55,22 @@ def main():
                         fontsize=plt.rcParams["legend.fontsize"])
                 if v <= 0:
                     ax.add_patch(plt.Rectangle((j - .5, i - .5), 1, 1, fill=False,
-                                               ec="#000000", lw=2.0))
+                                               ec="#000000", lw=2.2))
+                elif abs(v) < 1.0:      # 양수지만 여유가 사실상 없는 칸
+                    ax.add_patch(plt.Rectangle((j - .5, i - .5), 1, 1, fill=False,
+                                               ec="#000000", lw=2.0, ls=(0, (3, 2))))
     axes[0].set_ylabel("radio band")
     cb = fig.colorbar(im, ax=axes, fraction=0.025, pad=0.02)
     cb.set_label("f_c budget [ms]   (negative = SLO unreachable)")
+    from matplotlib.lines import Line2D
+    axes[0].legend(handles=[
+        Line2D([0], [0], color="#000000", lw=2.2, label="budget ≤ 0 — SLO unreachable"),
+        Line2D([0], [0], color="#000000", lw=2.0, ls=(0, (3, 2)),
+               label="|budget| < 1 ms — no margin left")],
+        loc="upper center", bbox_to_anchor=(0.5, -0.12), frameon=False,
+        fontsize=plt.rcParams["legend.fontsize"], ncol=1)
     fig.suptitle("F2  The band hits classes selectively — "
-                 "budget = SLO − GB − d_net − d_acc  (boxed = negative)",
-                 x=0.01, ha="left")
+                 "budget = SLO − GB − d_net − d_acc", x=0.01, ha="left")
     return st.save(fig, os.path.join(EXP, "figures", a.profile),
                    f"F2_budget_heatmap{'' if a.scale == 1 else f'_x{a.scale:g}'}")
 

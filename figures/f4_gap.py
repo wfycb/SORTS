@@ -60,7 +60,14 @@ def main():
                          color="#1a7f37", alpha=0.12, interpolate=True)
     axes[1].fill_between(x, gap, 0, where=[g < 0 for g in gap],
                          color="#b3261e", alpha=0.12, interpolate=True)
-    axes[1].set_ylabel("gap [%p]\n(baseline − SORTS)")
+    axes[1].set_ylabel("gap [%p]\n(best baseline − SORTS)")
+    # 점마다 최선 비교군이 다르다 — 표기 없으면 한 정책과의 격차로 오해된다
+    short = {"bl_lr": "vs lr", "bl_loc_pri": "vs loc"}
+    for xi, r in zip(x, rows):
+        axes[1].annotate(short.get(r["best_comparator"], r["best_comparator"]),
+                         xy=(xi, 0), xytext=(0, -6), textcoords="offset points",
+                         ha="center", va="top", color=st.ANNOT,
+                         fontsize=plt.rcParams["legend.fontsize"])
     axes[1].annotate("SORTS better ↑", xy=(0.995, 0.78), xycoords="axes fraction",
                      ha="right", color="#1a7f37",
                      fontsize=plt.rcParams["legend.fontsize"])
@@ -79,8 +86,8 @@ def main():
         axes[1].set_xlabel("K-ratio = S1 demand / C_eff(S1|1600k)   [bl_lr axis]")
         axes[1].axvline(1.0, color=st.ANNOT, ls=":", lw=1.2)
     fig.suptitle("F4  Where the advantage exists — and where it flips\n"
-                 "(1600 kbit on both cohorts, 2 cohorts, hc_off; "
-                 "L=1400 uses 32 conn/cohort)", x=0.01, ha="left")
+                 "gap = min(baselines) − SORTS; the best baseline changes with "
+                 "load (vs loc at 200/450, vs lr at 800/1400)", x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.93))
     sfx = "" if a.scale == 1 else f"_x{a.scale:g}"
     name = "F4_gap_curve" + ("" if a.xaxis == "load" else "_kratio") + sfx

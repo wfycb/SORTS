@@ -32,10 +32,10 @@ SLO_COLOR = "#000000"
 
 PROFILES = {
     # 발표용: 16:9, 큰 폰트, 굵은 선
-    "talk": {"figsize_4panel": (13.33, 7.5), "figsize_1panel": (13.33, 5.6),
+    "talk": {"figsize_4panel": (13.33, 9.4), "figsize_1panel": (13.33, 5.6),
              "font": 15, "small": 13, "lw": 2.6, "grid_alpha": 0.25, "dpi": 300},
     # 논문용: 단일 컬럼 폭(3.4 in) 기준, 작은 폰트, 가는 선
-    "paper": {"figsize_4panel": (3.4, 5.2), "figsize_1panel": (3.4, 2.2),
+    "paper": {"figsize_4panel": (3.4, 6.4), "figsize_1panel": (3.4, 2.2),
               "font": 7.5, "small": 6.5, "lw": 1.1, "grid_alpha": 0.3, "dpi": 300},
 }
 
