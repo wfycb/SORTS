@@ -81,7 +81,9 @@ runner/      run_all.py, reserve_reset.sh, 회귀·매니페스트·캘리브 �
 envoy/       gen_envoy_v10.py, envoy_keys.json, envoy.yaml(.43 배포본)
 testbed/     pc5-43: tb-radio2/tb-radio/tb-netem.sh · pc2-40: tb-stress.sh · pc3-12: tb-load.py
 analysis/    분석 스크립트+판정 JSON 전부 (cache·obs_replay 제외)
-docs/        보고서 9종 + ISSUES.md + handoff
+figures/     발표·논문용 그림 + **각 그림에 들어간 값 CSV** + 생성 스크립트
+             (talk/ paper/ backup/ · data/ · *.py · README·MANIFEST·ARCH_SPEC)
+docs/        보고서 + NUMBERS.md(수치 대장) + DISTRIBUTIONS.md + ISSUES.md + handoff
 results/     calibration/ + summary/ (핵심 판정 산출물 요약)
 runs/        전 배치 선별 산출물 (decisions/obs_state/meta/summary/thermal + PROGRESS)
 ```
