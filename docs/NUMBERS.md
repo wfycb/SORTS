@@ -243,7 +243,9 @@ search 몫 33.3 % × search 의 S1 비율 64.8 %(F1 캡션), (d) 예산 표(§3)
 | **분해 잔차**(Σ4구간 p50 − 실측 전체 p50) | 36칸 최대 **0.076 ms**, 중앙 0.007 (p95 판: 최대 0.171, 중앙 0.076) | §3 | `analysis/stage6/prof_verify.py` §2 | — | ✓ |
 | **무선 구간 실측**(1600 k 인가 증분, 3정책 풀링) | search **24.82** / recommend **2.25** / reserve **1.43** ms | §5 | `figures/data/prof/G1b_model_vs_measured.csv` | p50(degraded) − p50(normal) | ✓ |
 | **`d_acc` 모델 오차** | search **−0.8 %**, recommend −51.2 %, reserve −86.1 % | §7 한계 | 〃 | 원인 = 본문 바이트만 계상(I-20). 헤더 보정 시 −2.4 / −0.1 / +0.1 % | ✓ |
-| **서버 축 f_c(S3 search p95)** | pre **3.94** → stress **6.95** ms (초당 p95 의 구간 p50) | §6 | `figures/data/prof/G3_server_timeseries.csv` | `runs/taskA-20260809/T3_fartier_both_server`, S3 stress·c1 상시 6000 k | ✓ |
+| **서버 축 짝 — `far_tier`** | f_c(S3) **3.77 → 6.55 ms**, 예산 잔여 **+4.67 → +1.89 ms**(소진 5/116초), S3 몫 **41.2 → 41.7 %**(불변) | §6 | `figures/data/prof/G3_server_timeseries.csv` | `runs/taskA-20260809/T3_fartier_both_server`(F1 arm 동일), S3 stress·c1 상시 6000 k, 초당 p95 의 구간 중앙값 | ✓ |
+| **서버 축 짝 — `strict_far`** | f_c(S3) **4.10 → 11.50 ms**, 예산 잔여 **+4.34 → −3.06 ms**(소진 80/116초), S3 몫 **100 → 71.4 %**(이동) | §6 | `figures/data/prof/G3b_server_timeseries_strictfar.csv` | `runs/taskA-20260809/T2_strictfar_both_server`, 나머지 조건 동일 | ✓ |
+| **f_c 예산(서버 축, S3)** | **8.438 ms** = 45 − 5 − 25 − `d_acc`(search@6000 k) 6.562 | §4·§6 | 〃 (`fc_budget_s3_ms` 열) | **구속 코호트 = c1**(상시 밴드). 밴드 없는 c2 는 15.00 ms 로 더 넓다 | ✓ |
 
 ### 8.2 기존 그림·대장과의 정합 (`analysis/stage6/prof_verify.py`, 전 항목 통과)
 
@@ -255,3 +257,14 @@ search 몫 33.3 % × search 의 S1 비율 64.8 %(F1 캡션), (d) 예산 표(§3)
 - G5 ↔ `figures/data/f3_cumulative.csv`(=§4) — 95.034 / 74.597 / 28.063 / 6.499 **일치**.
 - G4b both 창 위반율(런_1) ↔ `runs/stage5-20260812/s5_results.json` 의 n=2 평균·sd 로
   역산한 두 런 값 — SORTS 0.336, bl_lr 7.490, bl_loc_pri 4.458 **전부 일치**.
+- G3·G3b 의 `budget_s3_ms = fc_budget_s3_ms − fc_s3_ms_dnet` 항등식과 예산 상수
+  8.438 ms — 720행 전수 **일치**.
+
+### 8.3 서버 축 두 런이 짝인 이유
+
+**서버가 나빠지면 무조건 옮기는 것이 아니라, 예산이 남으면 그대로 두고 소진되면
+옮긴다.** `far_tier`(T3)는 f_c 가 1.7 배 올라도 예산이 +1.9 ms 남아 배정을 안
+바꿨고, `strict_far`(T2)는 2.8 배 올라 예산이 −3.1 ms 로 소진되자 S3 를
+100 → 71 % 로 뺐다. 무선 축의 "S3 예산 −9.6 ms → search 한 건도 안 보냄"(§4)과
+**같은 논리의 뒷면**이므로 두 런을 함께 인용한다 — 하나만 쓰면 "왜 안 움직이나"
+또는 "왜 옮기나" 중 하나가 설명 없이 남는다.

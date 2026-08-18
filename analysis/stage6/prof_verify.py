@@ -69,6 +69,27 @@ f3 = rd(os.path.join(D, "f3_cumulative.csv"), "utf-8")
 for a, b in zip(g5, f3):
     allok &= chk(f"{a['layer']}", float(a["violation_pct"]), float(b["viol_pct"]), 0.0, " %")
 
+print("\n6b. G3/G3b 예산 열 항등식·짝 대조")
+import statistics as _st
+for f, lbl, arm in (("G3_server_timeseries.csv", "T3", "far_tier"),
+                    ("G3b_server_timeseries_strictfar.csv", "T2", "strict_far")):
+    rr = rd(os.path.join(P, f))
+    bud = 45.0 - 5.0 - 25.0 - 4474 * 8 / 6000 * 1.10          # c1(6000k) 기준
+    ok = all(abs(float(r["fc_budget_s3_ms"]) - bud) <= 0.005 for r in rr)
+    ident = all(abs((float(r["fc_budget_s3_ms"]) - float(r["fc_s3_ms_dnet"]))
+                    - float(r["budget_s3_ms"])) <= 0.011
+                for r in rr if r["budget_s3_ms"] and r["fc_s3_ms_dnet"])
+    med = lambda ph, c: round(_st.median([float(r[c]) for r in rr
+                                          if r["phase"] == ph and r[c]]), 2)
+    neg = sum(1 for r in rr if r["phase"] == "stress" and r["budget_s3_ms"]
+              and float(r["budget_s3_ms"]) < 0)
+    nst = sum(1 for r in rr if r["phase"] == "stress")
+    print(f"  [{'OK ' if ok and ident else 'FAIL'}] {lbl} {arm:<10} "
+          f"f_c(S3) {med('pre','fc_s3_ms_dnet')}->{med('stress','fc_s3_ms_dnet')} ms  "
+          f"예산잔여 {med('pre','budget_s3_ms')}->{med('stress','budget_s3_ms')} ms  "
+          f"소진 {neg}/{nst}초  S3몫 {med('pre','share_s3_pct')}->{med('stress','share_s3_pct')} %")
+    allok &= ok and ident
+
 print("\n7. G4b both 창 위반율 ↔ STAGE5_REPORT §(s5_results.json, n=2 평균·sd)")
 g4b = {(r["policy"], r["window"]): r for r in rd(os.path.join(P, "G4b_policy_violation.csv"))}
 s5 = json.load(open(os.path.join(EXP, "runs/stage5-20260812/s5_results.json")))["table"]

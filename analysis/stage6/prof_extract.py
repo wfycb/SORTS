@@ -46,7 +46,15 @@ IPTCP = 40
 
 F1_RUNS = os.path.join(EXP, "runs/stage5-20260812")
 F1_POLS = [("SORTS", "s5_sorts"), ("bl_lr", "s5_lr"), ("bl_loc_pri", "s5_loc")]
-G3_RUN = os.path.join(EXP, "runs/taskA-20260809/T3_fartier_both_server")
+G3_RUNS = [                        # 서버 축 — 짝을 이루는 두 arm (예산 잔여가 갈랐다)
+    ("G3_server_timeseries.csv", "T3_fartier_both_server", "far_tier"),
+    ("G3b_server_timeseries_strictfar.csv", "T2_strictfar_both_server", "strict_far"),
+]
+# 서버 축 런의 f_c 예산 = SLO(search) − GB − d_net(S3) − d_acc(밴드).
+# c1 에 상시 6000 kbit 가 걸려 있어 c1 쪽이 더 좁다 — **좁은 쪽(=구속하는 쪽)**을 쓴다.
+#   c1(6000 k): 45 − 5 − 25 − 6.562 = 8.438 ms      c2(무제한): 15.000 ms
+GB_MS = 5.0
+STANDING_KBIT = 6000
 
 
 # ── 공통 ────────────────────────────────────────────────────────────────────
@@ -318,8 +326,8 @@ def g2():
     return write_csv("G2_radio_timeseries.csv", list(out[0]), out), meta, rows, excl, seen
 
 
-def g3():
-    rd = G3_RUN
+def g3(fname, run_name, arm):
+    rd = os.path.join(EXP, "runs/taskA-20260809", run_name)
     meta = json.load(open(os.path.join(rd, "meta.json")))
     env = read_envoy(rd)
     rows, seen, excl = join_run(rd, meta, env)
@@ -327,6 +335,8 @@ def g3():
     t0, dur = meta["t_meas"], meta["duration"]
     bh = backhaul_meas(rows)
     lat, fc, share, phase = bucket_series(rows, ph, t0, dur, bh)
+    # 구속하는 코호트(c1, 상시 밴드) 기준 f_c 예산
+    fc_budget = SLO["search"] - GB_MS - D_NET["S3"] - d_acc("search", STANDING_KBIT)
     out = []
     for k in range(int(dur)):
         tot = sum(share[k].values())
@@ -335,6 +345,10 @@ def g3():
             v = pctl(fc[k][s], 0.95)          # f_c 정의 = p95
             row[f"fc_{s.lower()}_ms"] = r2(v)
             row[f"fc_{s.lower()}_ms_dnet"] = r2(v + bh.get(s, 0.0) - D_NET[s]) if v is not None else None
+        # 예산은 결정식과 같은 기준(d_net)으로 뺀다
+        v3 = row["fc_s3_ms_dnet"]
+        row["fc_budget_s3_ms"] = r2(fc_budget)
+        row["budget_s3_ms"] = r2(fc_budget - v3) if v3 is not None else None
         for cls in ("search", "reserve", "recommend"):
             row[f"lat_{cls}_ms"] = r2(pctl(lat[k][cls], 0.5))
         for cls in ("search", "reserve", "recommend"):
@@ -344,7 +358,7 @@ def g3():
         row["n_search"] = tot
         row["phase"] = phase.get(k, "")
         out.append(row)
-    return write_csv("G3_server_timeseries.csv", list(out[0]), out), meta, bh, excl, seen
+    return write_csv(fname, list(out[0]), out), meta, bh, excl, seen
 
 
 # ── G4 / G5 ─────────────────────────────────────────────────────────────────
@@ -427,9 +441,12 @@ def main():
     rep["G1b"], g1brows = g1b(series)
     print("G2 — 무선 축 시계열")
     rep["G2"], m2, _, e2, s2 = g2()
-    print("G3 — 서버 축 시계열")
-    rep["G3"], m3, bh3, e3, s3 = g3()
-    print(f"  T3 백홀 실측 {bh3}  유효 {s3-e3}/{s3} (제외 {e3}, {100*e3/s3:.3f}%)")
+    print("G3/G3b — 서버 축 시계열 (짝)")
+    for fname, run_name, arm in G3_RUNS:
+        key = fname.split("_")[0]
+        rep[key], m3, bh3, e3, s3 = g3(fname, run_name, arm)
+        print(f"  {run_name:<26} arm={arm:<10} 백홀 실측 {bh3}  "
+              f"유효 {s3-e3}/{s3} (제외 {e3}, {100*e3/s3:.3f}%)")
     print("G4/G4b/G5")
     rep["G4"] = g4(series)
     rep["G4b"], g4brows = g4b(series)

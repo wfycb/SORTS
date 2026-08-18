@@ -123,21 +123,46 @@ true` 로 보존)로 **조인율 100.000 %**(405,013 / 405,013). 네 구간이 �
 - `share_*_pct` : **search 클래스 기준** 사이트 몫.
 - `phase` : `pre / c1only / both / post`, 마크 ±2 s 는 **`transition`**.
 
-### `G3_server_timeseries.csv` (360행) — 서버 축
+### `G3_server_timeseries.csv` / `G3b_server_timeseries_strictfar.csv` (각 360행) — 서버 축
 
-- 출처 런: `runs/taskA-20260809/T3_fartier_both_server`. 정책이 F1 의
-  SORTS arm 과 동일(`far_tier` + 추정 both)이라 골랐다. L=800, 360 s.
-- 교란: `.40`(**S3**)에 `tb-stress.sh` (t=120.7 s on → 240.1 s off).
-  c1 에 **상시 밴드 6000 kbit** 가 측정 시작 전부터 걸려 있다(전 구간 상수).
+**두 파일은 짝이다. 하나만 보면 안 된다.** 같은 교란(S3 서버 열화)을 정책만
+바꿔 건 두 런이고, **갈린 것은 예산 잔여**다.
+
+| 파일 | 출처 런 | 정책(arm) | f_c(S3) pre → stress | 예산 잔여 | 예산 소진 초 | S3 몫 |
+|---|---|---|---|---|---|---|
+| `G3_…csv` | `runs/taskA-20260809/T3_fartier_both_server` | **`far_tier` + 추정 both** (F1 의 SORTS arm과 동일) | 3.77 → **6.55 ms** | +4.67 → **+1.89 ms** | 5 / 116 (4 %) | 41.2 → 41.7 % (**안 움직임**) |
+| `G3b_…csv` | `runs/taskA-20260809/T2_strictfar_both_server` | **`strict_far`** (가용한 가장 먼 사이트 하나) | 4.10 → **11.50 ms** | +4.34 → **−3.06 ms** | 80 / 116 (69 %) | 100 → **71.4 %** (**옮김**) |
+
+(값은 초당 p95 의 구간 중앙값. `G3b` 의 both-창 집계 기준 S3 몫은 66.4 % —
+초당 중앙값 71.4 % 와 통계량이 다르다.)
+
+**읽는 법**: 서버가 나빠지면 무조건 옮기는 것이 아니라, **예산이 남으면 그대로
+두고 소진되면 옮긴다.** T3 는 f_c 가 1.7 배로 올라도 예산이 +1.9 ms 남아 옮길
+이유가 없었고 실제로 안 옮겼다. T2 는 f_c 가 2.8 배로 올라 예산이 −3.1 ms 로
+소진되자 S3 를 100 % → 71 % 로 뺐다. 무선 축에서 "S3 예산이 −9.6 ms 라 search
+를 한 건도 안 보냈다"(대장 §4)와 **같은 논리의 뒷면**이다.
+
+공통 조건·열 정의:
+
+- L=800, 360 s. 교란 = `.40`(**S3**)에 `tb-stress.sh` (t≈120.7 s on →
+  240.1 s off). c1 에 **상시 밴드 6000 kbit** 가 측정 시작 전부터 걸려 있다
+  (전 구간 상수, 두 런 동일).
 - `phase` 가 **`pre / stress / post` 3 단**이다 — G2 의 4 단과 다르다.
 - `fc_*_ms` = **search 클래스의 초당 p95** (시스템의 `f_c` 정의가
   "service p95"이고 `docs/TASKA_REPORT.md` 도 "S3 search f_c p95"로 인용한다).
   `fc_*_ms` 는 백홀 실측 기준, `fc_*_ms_dnet` 는 `d_net` 상수 기준.
-- **`fc_s1_*` 는 전 구간 비어 있다** — `far_tier` 정책이 S1 을 원거리
-  전멸 시에만 쓰므로 이 런에서 S1 유입이 0 이다. 결측이 아니다.
-- 읽는 법: S3 서버 지연이 **3.94 → 6.95 ms** 로 오르는데 사이트 몫은
-  41.2 → 41.7 % 로 **거의 안 움직인다**. 예산(SLO 45 − GB 5 − d_net 25 =
-  15 ms)이 여전히 양수라 재배정할 이유가 없었다는 뜻이다.
+- **`fc_budget_s3_ms` = 8.44 ms (상수)** — `SLO(search) 45 − GB 5 −
+  d_net(S3) 25 − d_acc(search@6000k) 6.562`. **구속하는 코호트(c1, 상시 밴드)
+  기준**이다. 밴드가 없는 c2 의 예산은 15.00 ms 로 더 넓으므로, 예산이 먼저
+  터지는 쪽은 항상 c1 이다. 엑셀에서 **수평 참조선**으로 쓰면 된다.
+- **`budget_s3_ms` = `fc_budget_s3_ms` − `fc_s3_ms_dnet`** = 남은 예산.
+  결정식과 같은 기준으로 빼려고 `_dnet` 쪽을 쓴다. **음수 = 예산 소진.**
+- **`fc_s1_*` 는 두 런 모두 전 구간 비어 있다** — `far_tier` 는 원거리 전멸
+  시에만, `strict_far` 는 가장 먼 사이트 하나만 쓰므로 S1 유입이 0 이다.
+  결측이 아니라 정책의 결과다(§3 G1 의 같은 이야기).
+- T2 는 stress 구간에서 `lat_search_ms` 가 오히려 **33.1 → 29.7 ms 로 내려간다**
+  — S3(d_net 25)에서 S2(d_net 15)로 옮겨서 생긴 결과다. 서버가 나빠졌는데
+  체감 지연이 좋아지는 구간이라 캡션에 설명을 붙이는 편이 낫다.
 
 ### `G4_policy_share.csv` (903행) / `G4b_policy_violation.csv` (6행)
 
@@ -186,7 +211,7 @@ S1 에서는 10 KB 직렬화(~1.6 ms)가 통째로 과다 차감된다. 결과:
 | `G1_delay_breakdown.csv` | **누적 세로 막대** | 가로 = `class`+`band`+`site` 조합, 값 = `radio_ms` / `core_ms` / `backhaul_ms_meas` / `server_ms_meas` 4계열 누적. `slo_ms` 를 꺾은선으로 겹친다. `policy` 는 슬라이서(피벗)로. |
 | `G1b_model_vs_measured.csv` | 묶은 세로 막대 | `d_acc_model_ms` vs `radio_delta_meas_ms` vs `d_acc_model_hdr_ms`, 보조축에 `err_pct`. |
 | `G2_radio_timeseries.csv` | **3단 꺾은선 + 영역** | 1단 `band_kbit_c1/c2`(계단), 2단 `lat_*_ms` 3선 + `slo_*` 점선, 3단 `share_*_pct` 100 % 누적 영역. 가로축 `t_sec` 공유. |
-| `G3_server_timeseries.csv` | **3단 꺾은선 + 영역** | 1단 `fc_s2_ms`·`fc_s3_ms`, 2·3단은 G2 와 동일. G2 와 나란히 놓으면 무선 축 ↔ 서버 축 대조가 된다. |
+| `G3_server_timeseries.csv`<br>`G3b_server_timeseries_strictfar.csv` | **3단 꺾은선 + 영역, 2장 나란히** | 1단 `fc_s3_ms_dnet` + `budget_s3_ms`(0 기준선 강조) + `fc_budget_s3_ms`(수평 참조선), 2·3단은 G2 와 동일. **두 장을 같은 세로축으로 좌우 배치**해야 "예산 남음→안 움직임 / 소진→옮김"이 한눈에 보인다. G2 와 나란히 놓으면 무선 축 ↔ 서버 축 대조가 된다. |
 | `G4_policy_share.csv` | **100 % 누적 영역 3개** | `policy` 로 필터해 3장(SORTS / bl_lr / bl_loc_pri), 같은 세로축. `G4b` 는 옆에 표로. |
 | `G5_layer_cumulative.csv` | 세로 막대 | `violation_pct`, 오차막대 `stdev`(첫 행은 없음). |
 
