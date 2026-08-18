@@ -1,0 +1,5 @@
+﻿layer,violation_pct,stdev,n,runs,values,note
+strict_far,95.034,,1,v1_strictoff,95.034,strict_far  ★n=1 — 표준편차 없음(단일 런)
++ far_tier + capacity,74.597,1.425,3,v1s_off_1;v1s_off_2;v1s_off_3,74.452;76.089;73.250,far_tier + capacity
++ soft assignment,28.063,3.851,3,v1s_on_1;v1s_on_2;v1s_on_3,30.110;30.457;23.621,far_tier + capacity + soft
++ C_eff (band-aware),6.499,0.915,3,v1c_on_1;v1c_on_2;v1c_on_3,6.896;7.148;5.453,far_tier + capacity + soft + C_eff

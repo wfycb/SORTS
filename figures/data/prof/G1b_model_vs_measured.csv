@@ -1,0 +1,4 @@
+﻿class,bytes_body,bytes_total_est,h_http_fit_b,pkts_est,d_acc_model_ms,radio_delta_meas_ms,err_pct,d_acc_model_hdr_ms,err_pct_hdr,n
+search,4474,4844.1,210.1,4,24.61,24.82,-0.8,24.22,-2.4,128837
+reserve,36,286.1,210.1,1,0.2,1.43,-86.1,1.43,0.1,85888
+recommend,200,450.1,210.1,1,1.1,2.25,-51.2,2.25,-0.1,171766

@@ -209,3 +209,49 @@ search 몫 33.3 % × search 의 S1 비율 64.8 %(F1 캡션), (d) 예산 표(§3)
    않고 계열을 병기한다(§0).
 3. 누적표의 strict 95.03 — taskB(n=1)와 night(n=4, 95.03 ± 0.98) **두 출처가
    일치**한다. 논문에는 n=4 쪽을 쓰고 taskB n=1 을 각주로.
+
+---
+
+## 8. 지연 요소 분해 (지도교수 회신 대응, `graph-data-v1`, 2026-08-13)
+
+**런 0 — 기존 원자료 재추출만.** 요청 단위 조인 키는 `x-request-id`
+(부하생성기 생성 → front Envoy `preserve_external_request_id` 보존).
+조인율 **135,009 / 135,009 = 100.000 %**(L450 3정책 전수, 누락 0). 분해가
+전부 *같은 호스트에서 잰 구간 길이의 차분*이라 시계 보정이 들어가지 않는다.
+
+산출: `figures/data/prof/` (추출 `analysis/stage6/prof_extract.py`,
+검증 `analysis/stage6/prof_verify.py`, 정의·차트 안내 `figures/data/prof/README.md`).
+
+### 8.1 분해 정의와 산식
+
+| 구간 | 산식 | 출처 필드 |
+|---|---|---|
+| 전체(사용자 체감) | `load_c*.csv` 의 `service_ms` | 부하생성기 |
+| 무선 구간 지연(UE ↔ 코어, 왕복) | 전체 − Envoy 전체 | `service_ms` − 필드16 |
+| 코어 처리 지연(front Envoy) | Envoy 전체 − 업스트림 | 필드16 − 필드18 |
+| 백홀 지연(코어 ↔ 서버) | ① `d_net` 상수 / ② 필드17 사이트 중앙값 | 설정 / `COMMON_DURATION(US_CX_BEG:US_CX_END)` |
+| 서버 처리 지연 | 업스트림 − 백홀 | 필드18 − 위 |
+
+②는 커넥션 수립 왕복이라 **페이로드 무관**이다. 백홀+서버의 합은 두 기준이
+같으므로 전체·잔차는 하나뿐이다.
+
+| 수치 | 값 | 논문 위치 | 출처 | 조건 | 검증 |
+|---|---|---|---|---|---|
+| **조인율** | **100.000 %** (405,013 / 405,013, 3런) | §3 방법 | `figures/data/prof/_extract_report.json` | L450 3정책, 본측정 구간 | ✓ |
+| **코어(Envoy) 처리 지연** | p50 **0.050 ms**, p95 0.059~0.061 — 전체의 **0.16~0.31 %** | §3·§7 | `figures/data/prof/G1_delay_breakdown.csv` | 전 클래스·전 사이트·전 밴드 불변 | ✓ |
+| **백홀 실측 상수**(필드17 p50) | S1 **0.349** / S2 **14.850** / S3 **24.847** ms | §3 | 〃 | 설정 `d_net` 2/15/25 대비 S2·S3 는 ≤0.15 ms 일치, **S1 만 1.65 ms 어긋남**(I-1) | ✓ |
+| **분해 잔차**(Σ4구간 p50 − 실측 전체 p50) | 36칸 최대 **0.076 ms**, 중앙 0.007 (p95 판: 최대 0.171, 중앙 0.076) | §3 | `analysis/stage6/prof_verify.py` §2 | — | ✓ |
+| **무선 구간 실측**(1600 k 인가 증분, 3정책 풀링) | search **24.82** / recommend **2.25** / reserve **1.43** ms | §5 | `figures/data/prof/G1b_model_vs_measured.csv` | p50(degraded) − p50(normal) | ✓ |
+| **`d_acc` 모델 오차** | search **−0.8 %**, recommend −51.2 %, reserve −86.1 % | §7 한계 | 〃 | 원인 = 본문 바이트만 계상(I-20). 헤더 보정 시 −2.4 / −0.1 / +0.1 % | ✓ |
+| **서버 축 f_c(S3 search p95)** | pre **3.94** → stress **6.95** ms (초당 p95 의 구간 p50) | §6 | `figures/data/prof/G3_server_timeseries.csv` | `runs/taskA-20260809/T3_fartier_both_server`, S3 stress·c1 상시 6000 k | ✓ |
+
+### 8.2 기존 그림·대장과의 정합 (`analysis/stage6/prof_verify.py`, 전 항목 통과)
+
+- G1 `radio_ms_model` ↔ 예산 표 `analysis/stage6/budget_table.csv` 의 `d_acc`
+  (search 24.61 / reserve 0.20 / recommend 1.10) — **완전 일치**.
+- G2 search 사이트 몫 ↔ `figures/data/f1_L450_sites_by_class.csv` — 300 초 전수
+  최대 절대차 **0.00 %p**.
+- G4 ↔ `figures/data/f1_L450_sites.csv` — 값 재사용, 차 **0.00 %p**.
+- G5 ↔ `figures/data/f3_cumulative.csv`(=§4) — 95.034 / 74.597 / 28.063 / 6.499 **일치**.
+- G4b both 창 위반율(런_1) ↔ `runs/stage5-20260812/s5_results.json` 의 n=2 평균·sd 로
+  역산한 두 런 값 — SORTS 0.336, bl_lr 7.490, bl_loc_pri 4.458 **전부 일치**.

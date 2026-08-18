@@ -1,0 +1,7 @@
+﻿policy,window,n,viol_pct,viol_pct_search,viol_pct_reserve,viol_pct_recommend
+SORTS,c1only,24993,0.092,0.204,0.0,0.054
+SORTS,both,24986,0.336,0.936,0.018,0.045
+bl_lr,c1only,24970,3.748,11.195,0.072,0.0
+bl_lr,both,24886,7.49,22.447,0.036,0.0
+bl_loc_pri,c1only,24979,2.158,5.525,0.576,0.423
+bl_loc_pri,both,24898,4.458,11.806,0.633,0.858
